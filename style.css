@@ -1,0 +1,12 @@
+.carre{
+    border: 2px solid #000;
+    height: 60px;
+    width: 60px;
+    margin: 1%;
+    background-color: red;
+}
+
+
+#shop section{
+    position: relative;
+}
