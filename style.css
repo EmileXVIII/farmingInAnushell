@@ -1,12 +1,16 @@
-.carre{
+#shop {
+    width: 20%;
+}
+
+#shop .carre{
     border: 2px solid #000;
     height: 60px;
     width: 60px;
     margin: 1%;
     background-color: red;
+    float: left;
 }
 
-
-#shop section{
-    position: relative;
+.clear{
+    clear: both;
 }
