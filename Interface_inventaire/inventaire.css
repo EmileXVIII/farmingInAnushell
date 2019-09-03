@@ -1,0 +1,17 @@
+:root {
+    --height-emplacement-objet: 4cm;
+    --width-emplacement-objet: 4cm;
+}
+.emplacement_objet{
+    background-color: rgb(94, 177, 0);
+    height: var(--height-emplacement-objet);
+    width: var(--width-emplacement-objet);
+    margin: 3px;
+}
+.mesObjets{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 25vw;
+}
