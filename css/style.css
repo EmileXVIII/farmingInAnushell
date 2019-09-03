@@ -34,3 +34,34 @@
     top:32%;
     left: 52%;
 }
+
+.carre{
+    border: 2px solid #000;
+    height: 60px;
+    width: 60px;
+    background-color: red;
+}
+
+.groscarre{
+    border: 2px solid #000;
+    height: 80px;
+    width: 80px;
+    background-color: yellow;
+}
+
+.upgrade.case{
+    position: relative;
+
+}
+
+.btn.btn-outline-success{
+    position: absolute;
+    top:100%;
+    left: 13%;
+    width: 10%;
+}
+
+#content-forge{
+
+    width: 80%;
+}
