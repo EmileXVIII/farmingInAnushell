@@ -14,8 +14,7 @@
 
     .upgrade.case{
         position: relative;
-        padding-left: 5%;
-        padding-top: 5%;
+
     }
 
     .btn.btn-outline-success{
@@ -23,4 +22,9 @@
         top:100%;
         left: 13%;
         width: 10%;
+    }
+
+    #content-forge{
+
+        width: 80%;
     }
