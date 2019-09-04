@@ -1,0 +1,125 @@
+/* MAIN CONTENT */
+
+* {
+    font-family: 'Manjari', sans-serif;
+}
+
+.page {
+    background-color: #DDDCDC;
+}
+.flex-display {
+    display: flex;
+    justify-content: space-around;
+}
+
+.left-side {
+    width: 23%;
+}
+
+.borded-container {
+    border: 3px solid black;
+}
+
+
+
+/*--------------------------------*/
+
+/* SHOP */
+#shop .carre{
+    border: 2px solid #000;
+    height: 60px;
+    width: 60px;
+    margin: 1em;
+    padding: 0;
+    background-color: red;
+    float: left;
+}
+
+#shop {
+    background-color: white;
+}
+
+.clear{
+    clear: both;
+}
+
+/*-------------------------------*/
+
+/* FORGE AND CHARACTER CSS */
+
+.forge {
+    width: 200%;
+    border: 3px solid black;
+}
+
+.forge-button {
+    position: absolute;
+    left: 11.4%;
+    top: 52%
+}
+
+.helmet {
+    position: absolute;
+    top:20%;
+    right:10.5%;
+    
+}
+
+.breastplate {
+    position: absolute;
+    top: 29%;
+    right:9.5%;
+}
+
+.leggings {
+    position: absolute;
+    top: 46%;
+    right:10.5%;
+}
+
+.shoes {
+    position: absolute;
+    top: 59%;
+    right:10.5%;
+}
+
+.left-arm {
+    position: absolute;
+    top:42%;
+    right:4%;
+}
+
+.right-arm {
+    position: absolute;
+    top:42%;
+    right: 16.5%;
+}
+
+.carre{
+    border: 2px solid #000;
+    height: 60px;
+    width: 60px;
+    background-color: red;
+}
+
+.groscarre{
+    border: 2px solid #000;
+    height: 55px;
+    width: 55px;
+    background-image: url("../img/EmptySlote.jpg")
+    
+}
+
+#content-forge{
+    width: 50%;
+}
+
+
+
+/* FOOTER */
+.footer {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    background-color: #000;
+    color: white;
+}
