@@ -35,29 +35,24 @@
     left: 52%;
 }
 
-.carre{
-    border: 2px solid #000;
-    height: 60px;
-    width: 60px;
-    background-color: red;
-}
+
 
 .groscarre{
     border: 2px solid #000;
-    height: 80px;
-    width: 80px;
-    background-color: yellow;
+    height: 53px;
+    width: 53px;
+    background-image: url("../image/EmptySlote.jpg");
 }
 
-.upgrade.case{
-    position: relative;
-
+.upgrade.case img{
+    
+    height: 300px;
 }
 
 .btn.btn-outline-success{
     position: absolute;
-    top:100%;
-    left: 13%;
+    top:28%;
+    left: 9%;
     width: 10%;
 }
 
