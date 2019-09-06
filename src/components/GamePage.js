@@ -46,31 +46,31 @@ class GamePage extends Component {
     toggleElements() {
         if (this.state.gameplayElement === 0) {
             return (
-                <div>
+                <div name='inventory'>
                     <Inventory />
                 </div>
             )
         } else if (this.state.gameplayElement === 1) {
             return (
-                <div>
+                <div name='character'>
                     <Character />
                 </div>
             )
         } else if (this.state.gameplayElement === 2) {
             return (
-                <div>
+                <div name='wrought'>
                     <Wrought />
                 </div>
             )
         } else if (this.state.gameplayElement === 3) {
             return (
-                <div>
+                <div name='shop'>
                     <Shop />
                 </div>
             )
         } else if (this.state.gameplayElement === 4) {
             return (
-                <div>
+                <div name='room'>
                     <Room />
                 </div>
             )
@@ -79,8 +79,8 @@ class GamePage extends Component {
 
     render() {
         return (
-            <div>
-            <div className="d-flex justify-content-around">
+            <div name='page'>
+                <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/home">Logout</a>
                 </div>
@@ -88,7 +88,7 @@ class GamePage extends Component {
                 <div className= "mt-5 border py-3  mx-3">
                     <Grid className="d-flex text-white">
                         {/*Game scene*/}
-                        <div className="border col-6">
+                        <div name='espace_combat' className="border col-6">
                             <img width="700" src="/img/gamescene_1.png"/>
                             {/*<img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"/>*/}
                             <div class="gameplay-infos border py-3 px-3">
@@ -99,7 +99,7 @@ class GamePage extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div name='conteneut_interface' className="col-6">
                             <div className="d-flex justify-content-around mb-5">
                                 <Button onClick={this.displayInventory}>Inventory</Button>
                                 <Button onClick={this.displayCharacter}>Character</Button>

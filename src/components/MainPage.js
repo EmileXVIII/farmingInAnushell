@@ -32,13 +32,13 @@ class MainPage extends Component {
     toggleForm() {
         if(this.state.activeTab === 0) {
             return(
-            <div>
+            <div name='LoginForm'>
                 <LoginForm/>
             </div>
             )
         } else if(this.state.activeTab === 1) {
             return(
-            <div>
+            <div name='SinginForm'>
                 <SigninForm/>
             </div>
             )
@@ -47,11 +47,11 @@ class MainPage extends Component {
 
     render() {
         return(
-        <div>
+        <div name='logging_page'>
             <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
-            <div className="col-6 home mt-5 border py-3 px-3">
-            <Container>
-                <div className="form-header d-flex justify-content-around w-100 pb-3">
+            <div name='page' className="col-6 home mt-5 border py-3 px-3">
+            <Container name='block_connection'>
+                <div name='selector_situation' className="form-header d-flex justify-content-around w-100 pb-3">
                     <Button onClick={this.handleLoginState}>Log in</Button>
                     <Button onClick={this.handleSigninState}>Sign in</Button>
                 </div>
