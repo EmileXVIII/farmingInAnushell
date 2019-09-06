@@ -1,1 +1,0 @@
-import { createNElements, create1Element } from './functions_creer_element.js';
