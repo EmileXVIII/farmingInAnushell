@@ -169,6 +169,42 @@ body {
 }
 
 
+/* SHOP CSS START ----------------------------------------------------- */
+
+#Shop #Description {
+  margin-right: 1em;
+  padding: 1em;
+  background: url("./components/gameplay/Shop/img/Shop-Description-window.png");
+  background-size: 420px 630px;
+  background-repeat: no-repeat;
+  float: left;
+  width: 420px;
+  height: 630px;
+}
+
+#Shop #Description p{
+  padding: 1em;
+}
+
+#shop .clear {
+  clear: both;
+}
+
+#Shop .objet {
+  margin: 1em;
+  padding: 1em;
+  background-image: url("./components/gameplay/Shop/img/Shop-Background-item.png");
+  background-repeat: no-repeat;
+  height: 178px;
+  width: 190px;
+  float: left;
+}
+
+#Shop .objet:hover {
+  background-image: url("./components/gameplay/Shop/img/Shop-Background-item-hover.png");
+}
+
+/* SHOP CSS END --------------------------------------------------------*/
 
 /* FOOTER */
 .footer {

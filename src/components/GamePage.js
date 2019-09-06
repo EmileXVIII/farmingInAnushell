@@ -4,79 +4,78 @@ import { Col, Button } from 'reactstrap'
 import Inventory from "./gameplay/Inventory";
 import Character from "./gameplay/Character";
 import Wrought from "./gameplay/Wrought";
-import Shop from "./gameplay/Shop";
+import Shop from "./gameplay/Shop/Shop";
 
 class GamePage extends Component {
     constructor() {
         super()
-        this.state = { gameplayElement: 0}
+        this.state = { gameplayElement: 0 }
     }
 
     displayInventory = () => {
         this.setState({
-            gameplayElement : 0
+            gameplayElement: 0
         })
     }
 
     displayCharacter = () => {
         this.setState({
-            gameplayElement : 1
+            gameplayElement: 1
         })
     }
 
     displayWrought = () => {
         this.setState({
-            gameplayElement : 2
+            gameplayElement: 2
         })
     }
 
     displayShop = () => {
         this.setState({
-            gameplayElement : 3
+            gameplayElement: 3
         })
     }
 
-
     toggleElements() {
-        if(this.state.gameplayElement === 0) {
-            return(
-            <>
-                <Inventory/>
-            </>
+        if (this.state.gameplayElement === 0) {
+            return (
+                <>
+                    <Inventory />
+                </>
             )
-        } else if(this.state.gameplayElement === 1) {
-            return(
-            <>  
-                <Character/>
-            </>
+        } else if (this.state.gameplayElement === 1) {
+            return (
+                <>
+                    <Character />
+                </>
             )
-        } else if(this.state.gameplayElement === 2) {
-            return(
-            <>
-                <Wrought/>
-            </>
+        } else if (this.state.gameplayElement === 2) {
+            return (
+                <>
+                    <Wrought />
+                </>
             )
-        } else if(this.state.gameplayElement === 3) {
-            return(
-            <>
-                <Shop/>
-            </>
+        } else if (this.state.gameplayElement === 3) {
+            return (
+                <>
+                    <Shop />
+                </>
             )
         }
     }
 
     render() {
-        return(
+        return (
             <>
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/home">Logout</a>
                 </div>
-                
-                <div className= "mt-5 border py-3  mx-3">
+
+                <div className="mt-5 border py-3  mx-3">
                     <Grid className="d-flex text-white">
                         <Col className="border" col={6}>
-                            <img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"/>
+                            <img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg" />
                         </Col>
                         <Col col={5}>
                             <div className="d-flex justify-content-around mb-5">
@@ -86,7 +85,7 @@ class GamePage extends Component {
                                 <Button onClick={this.displayShop}>Shop</Button>
                             </div>
                             <Cell className="dynamic-content">
-                                { this.toggleElements() }
+                                {this.toggleElements()}
                             </Cell>
                         </Col>
                     </Grid>
