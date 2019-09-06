@@ -171,28 +171,27 @@ body {
 
 /* SHOP CSS START ----------------------------------------------------- */
 
+
+
 #Shop #Description {
-  margin-right: 1em;
-  padding: 1em;
+  padding: 2em;
   background: url("./components/gameplay/Shop/img/Shop-Description-window.png");
-  background-size: 420px 630px;
+  background-size: 420px 565px;
   background-repeat: no-repeat;
   float: left;
   width: 420px;
-  height: 630px;
-}
-
-#Shop #Description p{
-  padding: 1em;
+  height: 565px;
 }
 
 #shop .clear {
   clear: both;
 }
 
-#Shop .objet {
-  margin: 1em;
+#Shop .list-objet {
   padding: 1em;
+}
+
+#Shop .objet {
   background-image: url("./components/gameplay/Shop/img/Shop-Background-item.png");
   background-repeat: no-repeat;
   height: 178px;

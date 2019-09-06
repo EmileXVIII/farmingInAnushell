@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { directive } from "@babel/types";
 import { Button, Input, Label } from 'reactstrap'
 
-class StartRoom extends Component {
+class Room extends Component {
     // constructor() {
     //     super()
     // }
@@ -37,4 +37,4 @@ class StartRoom extends Component {
     }
 }
 
-export default StartRoom
+export default Room
