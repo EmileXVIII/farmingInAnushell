@@ -10,6 +10,10 @@ class Shop extends Component {
     render() {
         return (
             <div id="Shop">
+                <header>
+                    {/*<Button color="warning" onClick={this.refreshShop} ><Icon>refresh</Icon></Button>*/}
+                </header>
+                {/* <div class="clear"></div> */}
                 <div id="Description">
                     <h4 className="text-center">Nom Objet</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum finibus lectus quis convallis. Nunc eget imperdiet metus. Duis cursus semper blandit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum finibus lectus quis convallis. Nunc eget imperdiet metus. Duis cursus semper blandit.</p>

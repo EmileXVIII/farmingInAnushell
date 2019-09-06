@@ -7,7 +7,7 @@ import GamePage from './components/GamePage';
 
 function App() {
   return ( 
-    <div>
+    <div className="main-div">
         <Router>
           {/* Routing */}
           <Route exact path="/home" component={MainPage} />

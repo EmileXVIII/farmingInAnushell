@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { directive } from "@babel/types";
 import { Button, Input, Label } from 'reactstrap'
 
 class Room extends Component {
@@ -10,7 +9,8 @@ class Room extends Component {
     render() {
         return (
             <div id="StartRoom">
-                <header class="container">
+                <div className="box"></div>
+                <header className="container">
                     <Label for="exampleSelect">Selection du monde</Label>
                     <Input type="select" name="select" id="exampleSelect">
                         <option>Monde 1</option>

@@ -9,8 +9,8 @@ class Character extends Component {
         return(
             <div>
                 <h3 className="text-center">Character</h3>
-                <div class="character w-100 h-100 ml-5">
-                    <div class="element-character">
+                <div className="character w-100 h-100 ml-5">
+                    <div className="element-character">
                         <img src="/img/character_1.png" width=""/>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ class LoginForm extends Component {
                     </FormGroup>
                 </Col>
                 <Container className="text-center">
-                    <a class="btn btn-primary" href="/game">Play</a>
+                    <a className="btn btn-primary" href="/game">Play</a>
                 </Container>
                 </Form>
             </div>

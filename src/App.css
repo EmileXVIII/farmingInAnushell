@@ -44,12 +44,22 @@
 /* MAIN CONTENT */
 
 body {
+  margin: 0;
+  padding: 0;
+}
+.home-background {
   background-image: url('img/background.png');
 }
+
+.main-div {
+  background-color: #282530;
+}
+
 .home {
   max-width: 50%;
   margin: auto;
   color: white;
+  height: 40em;
 }
 
 
@@ -94,52 +104,17 @@ body {
 
 /*-------------------------------*/
 
-/* CHARACTER CSS */
-
-
-.helmet {
-  position: absolute;
-  top:20%;
-  right:10.5%;
-  
-}
-
-.breastplate {
-  position: absolute;
-  top: 29%;
-  right:9.5%;
-}
-
-.leggings {
-  position: absolute;
-  top: 46%;
-  right:10.5%;
-}
-
-.shoes {
-  position: absolute;
-  top: 59%;
-  right:10.5%;
-}
-
-.left-arm {
-  position: absolute;
-  top:42%;
-  right:4%;
-}
-
-.right-arm {
-  position: absolute;
-  top:42%;
-  right: 16.5%;
-}
 
 /* FORGE */
 
+.forge-button {
+  width: 50%;
+  margin: auto; 
+}
+
 .forge {
-  height: 100%;
-  width: 100%;
-  padding-left: 35%;
+  height: 70%;
+  width: 70%;
 }
 
 
@@ -149,8 +124,8 @@ body {
   width: 52px;
   position: absolute;
   background-image: url("/img/EmptySlote.jpg");
-  margin-left: 65%;
-  top:44%;
+  margin-left: 47%;
+  top:36%;
 }
 
 
@@ -165,38 +140,42 @@ body {
 
 /* SHOP CSS START ----------------------------------------------------- */
 
+#Shop {
+  padding: 0;
+}
 
+#Shop Button {
+  margin: 0;
+}
 
 #Shop #Description {
   padding: 2em;
   background: url("./components/gameplay/Shop/img/Shop-Description-window.png");
   background-size: 420px 565px;
   background-repeat: no-repeat;
-  float: left;
+  float: right;
   width: 420px;
   height: 565px;
 }
 
-#shop .clear {
-  clear: both;
-}
 
 #Shop .list-objet {
   padding: 1em;
+  width: 50%;
 }
 
 #Shop .objet {
   background-image: url("./components/gameplay/Shop/img/Shop-Background-item.png");
   background-repeat: no-repeat;
-  height: 178px;
-  width: 190px;
+  background-size: 130px 130px;
+  height: 130px;
+  width: 130px;
   float: left;
 }
 
 #Shop .objet:hover {
   background-image: url("./components/gameplay/Shop/img/Shop-Background-item-hover.png");
 }
-
 /* SHOP CSS END --------------------------------------------------------*/
 
 /* StartRoom START ------------------------------------------------------*/
@@ -206,6 +185,54 @@ body {
 }
 
 /* StartRoom END --------------------------------------------------------*/
+
+
+
+/* PIXEL STYLE */
+i {
+  color: #FFF;
+  font-size: 3.8em;
+  padding: 0 0 0 .1em;
+}
+.pixel {
+  position: relative;
+
+  height: 3em;
+  float: left;
+  margin: 0 0.6em;
+  outline: solid 0.5em #000;
+  box-shadow: inset .313em .313em 0 rgba(0,0,0,0.4), inset -.313em -.313em 0 rgba(255,255,255,0.4), 0 1em 0.625em -.4em rgba(0,0,0,0.8);
+  transition: linear .2s;
+}
+
+.pixel:hover {
+  box-shadow: inset .313em .313em 0 rgba(0,0,0,0.8), inset -.313em -.313em 0 rgba(255,255,255,0.6), 0 1em 0.625em -.4em rgba(255,255,255,0.8);
+}
+
+.pixel:before {
+   content: " ";
+   position: absolute;
+  top: -.25em;
+  left: -.25em;
+  width: .625em;
+  height: .625em;
+  background: #1b1b1b;
+  border-bottom: solid .25em #000;
+  border-right: solid .25em #000;
+}
+
+.pixel:after {
+   content: " ";
+   position: absolute;
+  bottom: -.25em;
+  right: -.25em;
+  width: .625em;
+  height: .625em;
+  background: #1b1b1b;
+  border-top: solid .25em #000;
+  border-left: solid .25em #000;
+}
+
 
 /* FOOTER */
 .footer {
