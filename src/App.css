@@ -106,18 +106,37 @@ body {
 
 /* CHARACTER CSS */
 
-#Character .list-objet {
+#Character .list-equip {
   padding: 1em;
-  max-width: 100px;
+  max-width: 80px;
   float: left;
 }
 
 #Character .objet {
-  background-image: url("/img/EmptySlot.png");
   background-repeat: no-repeat;
   background-size: 80px 80px;
+  float: left;
   height: 80px;
   width: 80px;
+}
+
+#Character .helmet {
+  background-image: url("/img/Helmet.png");
+}
+#Character .chest {
+  background-image: url("/img/Chest.png");
+}
+#Character .mainhand {
+  background-image: url("/img/MainHand.png");
+}
+#Character .legs {
+  background-image: url("/img/Legs.png");
+}
+#Character .boots {
+  background-image: url("/img/Boots.png");
+}
+#Character .offhand {
+  background-image: url("/img/OffHand.png");
 }
 
 #Character .element-character {
@@ -125,7 +144,22 @@ body {
   background-repeat: no-repeat;
   height: 320px;
   width: 234px;
-  margin-left: 100px;
+  margin-left: 20px;
+  float: left;
+}
+
+#Character #list-inventaire{
+  padding: 2em;
+  background: url("/img/Shop-Description-window.png");
+  background-size: 420px 565px;
+  background-repeat: no-repeat;
+  float: right;
+  width: 420px;
+  height: 565px;
+}
+
+#Character .clear{
+  clear: both;
 }
 
 /* FORGE */
