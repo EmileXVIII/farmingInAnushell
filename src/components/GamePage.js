@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
 import { Col, Button } from 'reactstrap'
 import Inventory from "./gameplay/Inventory";
-import Character from "./gameplay/Character";
+import CharacterStuff from "./gameplay/CharacterStuff";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
@@ -10,70 +10,42 @@ import Room from "./gameplay/Room/Room.js"
 class GamePage extends Component {
     constructor() {
         super()
-        this.state = { gameplayElement: 0 }
+        this.state = { gameplayElement: 'inventary' }
     }
 
-    displayInventory = () => {
-        this.setState({
-            gameplayElement: 0
-        })
-    }
-
-    displayCharacter = () => {
-        this.setState({
-            gameplayElement: 1
-        })
-    }
-
-    displayWrought = () => {
-        this.setState({
-            gameplayElement: 2
-        })
-    }
-
-    displayShop = () => {
-        this.setState({
-            gameplayElement: 3
-        })
-    }
-
-    displayRoom = () => {
-        this.setState({
-            gameplayElement: 4
-        })
-    }
 
     toggleElements() {
-        if (this.state.gameplayElement === 0) {
-            return (
-                <div>
-                    <Inventory />
-                </div>
-            )
-        } else if (this.state.gameplayElement === 1) {
-            return (
-                <div>
-                    <Character />
-                </div>
-            )
-        } else if (this.state.gameplayElement === 2) {
-            return (
-                <div>
-                    <Wrought />
-                </div>
-            )
-        } else if (this.state.gameplayElement === 3) {
-            return (
-                <div>
-                    <Shop />
-                </div>
-            )
-        } else if (this.state.gameplayElement === 4) {
-            return (
-                <div>
-                    <Room />
-                </div>
-            )
+        switch (this.state.gameplayElement) {
+            case 'inventary' :
+                return (
+                    <div>
+                        <Inventory />
+                    </div>
+                )
+            case 'characterStuff' :
+                return (
+                    <div>
+                        <CharacterStuff />
+                    </div>
+                )
+            case 'wrought' :
+                return (
+                    <div>
+                        <Wrought />
+                    </div>
+                )
+            case 'shop' :
+                return (
+                    <div>
+                        <Shop />
+                    </div>
+                )
+            case 'room' :
+                return (
+                    <div>
+                        <Room />
+                    </div>
+                )    
         }
     }
 
@@ -101,11 +73,11 @@ class GamePage extends Component {
                         </div>
                         <div className="col-6">
                             <div className="d-flex justify-content-around mb-5">
-                                <Button onClick={this.displayInventory}>Inventory</Button>
-                                <Button onClick={this.displayCharacter}>Character</Button>
-                                <Button onClick={this.displayWrought}>Wrought</Button>
-                                <Button onClick={this.displayShop}>Shop</Button>
-                                <Button onClick={this.displayRoom}>Room</Button>
+                                <Button onClick={() => this.setState({gameplayElement: 'inventary'})}>Inventory</Button>
+                                <Button onClick={() => this.setState({gameplayElement: 'characterStuff'})}>Character</Button>
+                                <Button onClick={() => this.setState({gameplayElement: 'wrought'})}>Wrought</Button>
+                                <Button onClick={() => this.setState({gameplayElement: 'shop'})}>Shop</Button>
+                                <Button onClick={() => this.setState({gameplayElement: 'room'})}>Room</Button>
                             </div>
                             <Cell className="dynamic-content">
                                 { this.toggleElements() }

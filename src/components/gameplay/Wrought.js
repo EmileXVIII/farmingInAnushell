@@ -14,10 +14,7 @@ class Wrought extends Component {
                 <div className="forge-buttton text-center pb-5">
                     <button type="button" class="btn btn-danger"> Améliorer </button>
                 </div>
-                
-
             </div>
-
         )
     }
 }
