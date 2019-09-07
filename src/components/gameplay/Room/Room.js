@@ -2,15 +2,27 @@ import React, { Component } from "react";
 import { Button, Input, Label } from 'reactstrap'
 
 class Room extends Component {
-    // constructor() {
-    //     super()
-    // }
+    state = {
+        rdyBtnColor: "warning"
+    }
+
+    onClickReady = () => {
+        if (this.state.rdyBtnColor === "warning") {
+            this.setState({
+                rdyBtnColor: "success"
+            })
+        }
+        else {
+            this.setState({
+                rdyBtnColor: "warning"
+            })
+        }
+    }
 
     render() {
         return (
-            <div id="StartRoom">
-                <div className="box"></div>
-                <header className="container">
+            <div id="Room">
+                <header class="container">
                     <Label for="exampleSelect">Selection du monde</Label>
                     <Input type="select" name="select" id="exampleSelect">
                         <option>Monde 1</option>
@@ -30,9 +42,9 @@ class Room extends Component {
                         <li>Yamine</li>
                         <li>L'Ombre</li>
                     </ul>
-                    <Button>Ready</Button>
+                    <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button>
                 </div>
-            </div>
+            </div >
         )
     }
 }

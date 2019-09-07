@@ -104,28 +104,48 @@ body {
 
 /*-------------------------------*/
 
+/* CHARACTER CSS */
+
+#Character .list-objet {
+  padding: 1em;
+  max-width: 100px;
+  float: left;
+}
+
+#Character .objet {
+  background-image: url("/img/EmptySlot.png");
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
+  height: 80px;
+  width: 80px;
+}
+
+#Character .element-character {
+  background-image: url("/img/Character.png");
+  background-repeat: no-repeat;
+  height: 320px;
+  width: 234px;
+  margin-left: 100px;
+}
 
 /* FORGE */
 
-.forge-button {
-  width: 50%;
-  margin: auto; 
-}
-
-.forge {
-  height: 70%;
-  width: 70%;
+.wrought-content .forge {
+  height: 100%;
+  width: 100%;
+  padding-left: 35%;
 }
 
 
-.carre {
-  border: 2px solid #000;
-  height: 52px;
-  width: 52px;
+.wrought-content .carre {
+  height: 80px;
+  width: 80px;
   position: absolute;
-  background-image: url("/img/EmptySlote.jpg");
-  margin-left: 47%;
-  top:36%;
+  background-image: url("/img/EmptySlot.png");
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
+  margin-left: 64%;
+  top: 38%;
 }
 
 
@@ -150,7 +170,7 @@ body {
 
 #Shop #Description {
   padding: 2em;
-  background: url("./components/gameplay/Shop/img/Shop-Description-window.png");
+  background: url("/img/Shop-Description-window.png");
   background-size: 420px 565px;
   background-repeat: no-repeat;
   float: right;
@@ -161,11 +181,11 @@ body {
 
 #Shop .list-objet {
   padding: 1em;
-  width: 50%;
+  max-width: 500px;
 }
 
 #Shop .objet {
-  background-image: url("./components/gameplay/Shop/img/Shop-Background-item.png");
+  background-image: url("/img/Shop-Background-item.png");
   background-repeat: no-repeat;
   background-size: 130px 130px;
   height: 130px;
@@ -174,14 +194,23 @@ body {
 }
 
 #Shop .objet:hover {
-  background-image: url("./components/gameplay/Shop/img/Shop-Background-item-hover.png");
+  background-image: url("/img/Shop-Background-item-hover.png");
 }
+
+
+
 /* SHOP CSS END --------------------------------------------------------*/
 
 /* StartRoom START ------------------------------------------------------*/
 
-#StartRoom .container{
+#Room .container{
   width: 50%;
+}
+
+#Room Button {
+  position: absolute;
+  left: 2%;
+  bottom: 0%;
 }
 
 /* StartRoom END --------------------------------------------------------*/
