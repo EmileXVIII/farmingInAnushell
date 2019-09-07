@@ -46,7 +46,7 @@ class GamePage extends Component {
     toggleElements() {
         if (this.state.gameplayElement === 0) {
             return (
-                <div name='inventory'>
+                <div name='inventory w-100 h-100'>
                     <Inventory />
                 </div>
             )

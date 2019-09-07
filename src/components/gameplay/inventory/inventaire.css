@@ -1,0 +1,23 @@
+:root{
+    --taille-slot-objet: 80px;
+    --taille-conteneur-slot: 640px;
+}
+
+.element_inventory{
+    height: 80vh;
+}
+.conteneur_inventaire,.conteneur_activables{
+    display: flex;
+    flex-wrap: wrap;
+    height:auto;
+    width: var(--taille-conteneur-slot);
+    margin: 20px 0px;
+}
+.conteneur_inventaire img,.conteneur_activables img{
+    width: var(--taille-slot-objet);
+    height: var(--taille-slot-objet);
+    background-image: url(/img/EmptySlote.jpg);
+    background-size: var(--taille-slot-objet);
+    background-repeat: no-repeat;
+    border: none !important;
+}
