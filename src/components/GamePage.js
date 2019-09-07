@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
 import { Col, Button } from 'reactstrap'
 import Inventory from "./gameplay/Inventory";
-import Character from "./gameplay/Character";
+import Character from "./gameplay/Character/Character";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
@@ -80,16 +80,16 @@ class GamePage extends Component {
     render() {
         return (
             <div>
-            <div className="d-flex justify-content-around">
+                <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/home">Logout</a>
                 </div>
-                
-                <div className= "mt-5 border py-3  mx-3">
+
+                <div className="mt-5 border py-3  mx-3">
                     <Grid className="d-flex text-white">
                         {/*Game scene*/}
                         <div className="border col-6">
-                            <img width="700" src="/img/gamescene_1.png"/>
+                            <img width="700" src="/img/gamescene_1.png" />
                             {/*<img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"/>*/}
                             <div class="gameplay-infos border py-3 px-3">
                                 <ul>
@@ -108,7 +108,7 @@ class GamePage extends Component {
                                 <Button onClick={this.displayRoom}>Room</Button>
                             </div>
                             <Cell className="dynamic-content">
-                                { this.toggleElements() }
+                                {this.toggleElements()}
                             </Cell>
                         </div>
                     </Grid>
