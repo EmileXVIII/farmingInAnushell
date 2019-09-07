@@ -249,53 +249,60 @@ body {
 
 /* StartRoom END --------------------------------------------------------*/
 
-
-
-/* PIXEL STYLE */
-i {
-  color: #FFF;
-  font-size: 3.8em;
-  padding: 0 0 0 .1em;
-}
-.pixel {
-  position: relative;
-
-  height: 3em;
-  float: left;
-  margin: 0 0.6em;
-  outline: solid 0.5em #000;
-  box-shadow: inset .313em .313em 0 rgba(0,0,0,0.4), inset -.313em -.313em 0 rgba(255,255,255,0.4), 0 1em 0.625em -.4em rgba(0,0,0,0.8);
-  transition: linear .2s;
+/*INVENTAIRE START*/
+:root{
+  --taille-slot-objet: 80px;
+  --taille-conteneur-slot: 640px;
 }
 
-.pixel:hover {
-  box-shadow: inset .313em .313em 0 rgba(0,0,0,0.8), inset -.313em -.313em 0 rgba(255,255,255,0.6), 0 1em 0.625em -.4em rgba(255,255,255,0.8);
+.element_inventory{
+  height: 80vh;
 }
-
-.pixel:before {
-   content: " ";
-   position: absolute;
-  top: -.25em;
-  left: -.25em;
-  width: .625em;
-  height: .625em;
-  background: #1b1b1b;
-  border-bottom: solid .25em #000;
-  border-right: solid .25em #000;
+.objet{
+  background-image: url(/img/EmptySlote.jpg);
+  background-size: var(--taille-slot-objet);
+  background-repeat: no-repeat;
+  width: var(--taille-slot-objet);
+  height: var(--taille-slot-objet);
 }
-
-.pixel:after {
-   content: " ";
-   position: absolute;
-  bottom: -.25em;
-  right: -.25em;
-  width: .625em;
-  height: .625em;
-  background: #1b1b1b;
-  border-top: solid .25em #000;
-  border-left: solid .25em #000;
+.objet div{
+  position: absolute;
+  width: var(--taille-slot-objet);
+  height: var(--taille-slot-objet);
 }
-
+.filter{
+  z-index: 1;
+}
+.filter_common{
+  background-color: rgba(86, 129, 16, 0.2);
+}
+.filter_rare{
+  background-color: rgba(223, 174, 16, 0.2);
+}
+.filter_epic{
+  background-color: rgba(147, 32, 255, 0.2);
+}
+.filter_legendary{
+  background-color: rgba(255,0,0,0.2);
+}
+.icon_objet{
+  z-index: 2;
+}
+.conteneur_inventaire,.conteneur_activables{
+  display: flex;
+  flex-wrap: wrap;
+  height:auto;
+  width: var(--taille-conteneur-slot);
+  margin: 20px 0px;
+}
+.conteneur_inventaire img,.conteneur_activables img{
+  width: var(--taille-slot-objet);
+  height: var(--taille-slot-objet);
+}
+.hide{
+  display: none;
+}
+/*INVENTAIRE ENDS*/
 
 /* FOOTER */
 .footer {

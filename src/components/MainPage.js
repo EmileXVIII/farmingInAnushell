@@ -32,13 +32,13 @@ class MainPage extends Component {
     toggleForm() {
         if(this.state.activeTab === 0) {
             return(
-            <div>
+            <div name='LoginForm'>
                 <LoginForm/>
             </div>
             )
         } else if(this.state.activeTab === 1) {
             return(
-            <div>
+            <div name='SinginForm'>
                 <SigninForm/>
             </div>
             )

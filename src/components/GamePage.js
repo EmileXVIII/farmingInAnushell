@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
 import { Col, Button } from 'reactstrap'
-import Inventory from "./gameplay/Inventory";
+import Inventory from "./gameplay/Inventory.js";
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
@@ -71,7 +71,7 @@ class GamePage extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div name='conteneut_interface' className="col-6">
                             <div className="d-flex justify-content-around mb-5">
                                 <Button onClick={() => this.setState({gameplayElement: 'inventary'})}>Inventory</Button>
                                 <Button onClick={() => this.setState({gameplayElement: 'characterStuff'})}>Character</Button>
