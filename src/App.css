@@ -259,7 +259,7 @@ body {
   height: 80vh;
 }
 .objet{
-  background-image: url(/img/EmptySlote.jpg);
+  background-image: url(/img/EmptySlot.png);
   background-size: var(--taille-slot-objet);
   background-repeat: no-repeat;
   width: var(--taille-slot-objet);
