@@ -12,12 +12,12 @@ class Inventory extends Component {
                 <h3 className="text-center mb-3">Inventory</h3>
                 <div className="inventory w-100 h-100">
                     <div className="element_inventory">
-                        <div className="conteneur_activables">
+                        <div name='conteneur_activables' className="conteneur_activables">
                             {createNElements('div', 8, { className: 'objet activable' }, [
                                 <div className='icon_objet' />,
                                 <div className='filter'></div>])}
                         </div>
-                        <div class="conteneur_inventaire">
+                        <div name="conteneur_inventaire" class="conteneur_inventaire">
                             {createNElements('div', 3 * 8, { className: 'objet equipement case' }, [
                                 <div className='icon_objet' />,
                                 <Filter />])}
