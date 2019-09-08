@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import { Col, Button } from 'reactstrap'
-import Inventory from "./gameplay/Inventory.js";
+import { Col, Button } from 'reactstrap';
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
+import InventoryModule from "./gameplay/InventoryModule";
 
 class GamePage extends Component {
     constructor() {
@@ -19,7 +19,7 @@ class GamePage extends Component {
             case 'inventary' :
                 return (
                     <div>
-                        <Inventory />
+                        <InventoryModule />
                     </div>
                 )
             case 'characterStuff' :

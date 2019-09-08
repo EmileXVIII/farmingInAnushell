@@ -1,21 +1,3 @@
-class Usable{
-    constructor(name,iconAdresse){
-        this.name=name;
-        this.effect={};
-        this.iconAdresse=iconAdresse;
-        this.location;
-        this.numChild;
-        this.doEffect=this.doEffect.bind(this);
-        this.changeLocation=this.changeLocation.bind(this)
-    }
-    doEffect(target){
-        for (let effect of this.effect){effect(target)}
-    }
-    changeLocation(location,numChild){
-        this.location=location;
-        this.numChild=numChild
-    }
-}
 class Equipement{
     constructor(name,iconAdresse,rarity,att=0,def=0,esq=0,pv=0){
         this.name=name;
@@ -35,3 +17,4 @@ class Equipement{
         this.numChild=numChild
     }
 }
+export default Equipement;

@@ -1,4 +1,4 @@
-class MyEventEmitter {
+class MyEventListener {
   constructor() {
     this.listeners = {}
   }
@@ -24,4 +24,4 @@ class MyEventEmitter {
   }
 }
 
-export default MyEventEmitter;
+export default MyEventListener;

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import createNElements from "./inventory/creerNelement";
-import Filter from "./inventory/filter"
-class Inventory extends Component {
+import Filter from "./inventory/Filter";
+  
+
+class InventoryModule extends Component {
     constructor() {
         super()
     }
@@ -20,7 +22,7 @@ class Inventory extends Component {
                         <div name="conteneur_inventaire" class="conteneur_inventaire">
                             {createNElements('div', 3 * 8, { className: 'objet equipement case' }, [
                                 <div className='icon_objet' />,
-                                <Filter />])}
+                                <Filter bame='toto'/>])}
                         </div>
                     </div>
                 </div>
@@ -29,4 +31,4 @@ class Inventory extends Component {
     }
 }
 
-export default Inventory
+export default InventoryModule

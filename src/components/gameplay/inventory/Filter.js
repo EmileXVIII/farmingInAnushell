@@ -1,13 +1,14 @@
-import gestionnaireEvents from '/../src/components/gameplay/inventoryEvents.js';
+
 import React, { Component } from "react";
+import { gestionnaireEvents } from "./inventoryEvents";
 class Filter extends Component {
-    constructor() {
+    constructor(args) {
         super()
         this.state={
             rarity:'filter_empty'
         };
         this.changeRarity=this.changeRarity.bind(this)
-        gestionnaireEvents.on(`Inventory${this.parentNode.parentNode.name}Key${this.parentNode.numkey}`)
+        //gestionnaireEvents.on(`Inventory${this.parentNode.parentNode.name}Key${this.parentNode.numkey}`)
     }
     changeRarity(newRarity){
         let filterRarity;
