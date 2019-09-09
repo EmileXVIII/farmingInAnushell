@@ -4,29 +4,26 @@ import Inventaire from "./list-inventaire";
 class CharacterStuff extends Component {
     constructor() {
         super()
-// class Character extends Component {
-//     // constructor() {
-//     //     super()
-//     // }
+    }
 
-//     handleClickHelmet = () => {
-//         const div = document.getElementById("list-inventaire")
-//         div.appendChild(<Inventaire />)
-//     }
-//     handleClickChest = () => {
+    //     handleClickHelmet = () => {
+    //         const div = document.getElementById("list-inventaire")
+    //         div.appendChild(<Inventaire />)
+    //     }
+    //     handleClickChest = () => {
 
-//     }
-//     handleClickMainHand = () => {
+    //     }
+    //     handleClickMainHand = () => {
 
-//     }
-//     handleClickLegs = () => {
+    //     }
+    //     handleClickLegs = () => {
 
-//     }
-//     handleClickBoots = () => {
+    //     }
+    //     handleClickBoots = () => {
 
-//     }
-//     handleClickOffHand = () => {
-   }
+    //     }
+    //     handleClickOffHand = () => {
+    //     }
 
     render() {
         return (
