@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from 'reactstrap'
 import Item from "../../items/Item";
 
 
@@ -12,9 +11,19 @@ for(let i = 0; i < 18; i++) {
     items.push(newItem)
 }
 
+
+
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
+
+
 class Inventory extends Component {
     constructor() {
         super()
+        this.state = {
+            item : {}
+        }
     }
 
     render() {
@@ -27,7 +36,7 @@ class Inventory extends Component {
                             <div className="ml-4 mt-3">
                                 {items.map((item)=>
                                     <img 
-                                        onClick={() => console.log(item.stats.Name)}
+                                        onClick={() => this.setState({ item : item})}
                                         title={item.stats.Name} 
                                         data-toggle="tooltip" 
                                         data-placement="top" 
@@ -38,8 +47,31 @@ class Inventory extends Component {
                                     />
                                 )}
                             </div>
-                            <div className="focus-item mt-3">
-                                {/* Item to display : Name, Description ...*/}
+                            <div className="focus-item mt-3 text-center">
+                                <div className="container text-center">
+                                   {(() => {
+                                        if(isEmpty(this.state.item)) {
+                                            return(
+                                                <p>
+                                                    Please select an item
+                                                </p>
+                                            )
+                                        } else {
+                                            let item = this.state.item.stats
+                                            return(
+                                                <div className="row">        
+                                                    <div className="col-4">
+                                                        <img className="rounded" width="150" src={item.Image}/>
+                                                    </div>
+                                                    <div className="col-8">
+                                                        <b>{item.Name}</b>
+                                                        <p className="mt-3">{item.Description}</p>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                    })()}
+                                </div>
                             </div>
                         </div>
                     </div>

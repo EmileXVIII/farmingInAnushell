@@ -17,7 +17,8 @@ class Item {
             Description: null,
             Rarity: this.rarity[0],
             Type: null,
-            Image: 'https://p7.hiclipart.com/preview/714/559/621/sword-weapon-pixel-art-pixelation-pixel.jpg'
+            Image: 'https://p7.hiclipart.com/preview/714/559/621/sword-weapon-pixel-art-pixelation-pixel.jpg',
+            Description: 'Simple helmet for people lacking personality'
         }
     }
 
