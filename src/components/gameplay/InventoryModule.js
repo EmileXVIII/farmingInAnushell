@@ -15,7 +15,7 @@ class InventoryModule extends Component {
                 <div className="inventory w-100 h-100">
                     <div className="element_inventory">
                         <div name='conteneur_activables' className="conteneur_activables">
-                            {createNElements(InventoryObject, 8, { className: 'objet activable', conteneurName:'conteneur_activables' })}
+                            {createNElements(InventoryObject, 8, { className: 'objet activable_case', conteneurName:'conteneur_activables' })}
                         </div>
                         <div name="conteneur_inventaire" class="conteneur_inventaire">
                             {createNElements(InventoryObject, 3 * 8, { className: 'objet equipement_case', conteneurName:'conteneur_inventaire' })}

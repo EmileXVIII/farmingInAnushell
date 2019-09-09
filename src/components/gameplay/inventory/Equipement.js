@@ -1,7 +1,7 @@
 class Equipement{
-    constructor(name,iconAdresse,rarity,att=0,def=0,esq=0,pv=0){
+    constructor(name,iconAdresse,rarity='Common',att=0,def=0,esq=0,pv=0,critical=0){
         this.name=name;
-        this.stats={att,def,esq,pv};
+        this.stats={att,def,esq,pv,critical};
         this.rarity=rarity;
         this.iconAdresse=iconAdresse;
         this.location;
