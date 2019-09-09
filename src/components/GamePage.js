@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
 import { Col, Button } from 'reactstrap'
-import Inventory from "./gameplay/Inventory.js";
+import Inventory from "./gameplay/inventory/Inventory.js";
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";

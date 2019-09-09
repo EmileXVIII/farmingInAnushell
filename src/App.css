@@ -43,12 +43,25 @@
 
 /* MAIN CONTENT */
 
+.divToHide {
+  display: none;
+}
+
+.onHover:hover .divToHide {
+  display: block;
+}
+
+
 body {
   margin: 0;
   padding: 0;
 }
 .home-background {
   background-image: url('img/background.png');
+}
+
+.nowrap {
+  flex-wrap: nowrap;
 }
 
 .main-div {
@@ -301,6 +314,17 @@ body {
 }
 .hide{
   display: none;
+}
+
+
+.focus-item {
+  padding: 2em;
+  background: url("/img/Shop-Description-window.png");
+  background-size: 720px 200px;
+  background-repeat: no-repeat;
+  float: right;
+  width: 720px;
+  height: 200px;
 }
 /*INVENTAIRE ENDS*/
 
