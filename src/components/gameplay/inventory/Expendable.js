@@ -4,6 +4,7 @@ class Expendable{ //consommable exemple Potion
         this.effect={};
         this.iconAdresse=iconAdresse;
         this.location;
+        this.rarity;
         this.numChild;
         this.doEffect=this.doEffect.bind(this);
         this.changeLocation=this.changeLocation.bind(this)

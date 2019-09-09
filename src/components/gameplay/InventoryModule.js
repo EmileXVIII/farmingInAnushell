@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import createNElements from "./inventory/creerNelement";
-import Filter from "./inventory/Filter";
+import InventoryObject from "./inventory/InventoryObject";
   
 
 class InventoryModule extends Component {
@@ -15,14 +15,10 @@ class InventoryModule extends Component {
                 <div className="inventory w-100 h-100">
                     <div className="element_inventory">
                         <div name='conteneur_activables' className="conteneur_activables">
-                            {createNElements('div', 8, { className: 'objet activable' }, [
-                                <div className='icon_objet' />,
-                                <div className='filter'></div>])}
+                            {createNElements(InventoryObject, 8, { className: 'objet activable', conteneurName:'conteneur_activables' })}
                         </div>
                         <div name="conteneur_inventaire" class="conteneur_inventaire">
-                            {createNElements('div', 3 * 8, { className: 'objet equipement case' }, [
-                                <div className='icon_objet' />,
-                                <Filter bame='toto'/>])}
+                            {createNElements(InventoryObject, 3 * 8, { className: 'objet equipement_case', conteneurName:'conteneur_inventaire' })}
                         </div>
                     </div>
                 </div>

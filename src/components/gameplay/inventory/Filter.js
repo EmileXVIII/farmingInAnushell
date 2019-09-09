@@ -2,17 +2,19 @@
 import React, { Component } from "react";
 import { gestionnaireEvents } from "./inventoryEvents";
 class Filter extends Component {
-    constructor(args) {
+    constructor(props) {
         super()
         this.state={
-            rarity:'filter_empty'
+            filter_rarity:'filter_empty'
         };
+        this.props=props;
         this.changeRarity=this.changeRarity.bind(this)
-        //gestionnaireEvents.on(`Inventory${this.parentNode.parentNode.name}Key${this.parentNode.numkey}`)
+        gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-changeObject`,(newObject)=>{this.changeObject(newObject.rarity)});
+        gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-deleateObject`,(newObject)=>{this.changeObject(undefined)});
     }
     changeRarity(newRarity){
         let filterRarity;
-        newRarity=newRarity.toLowerCase()
+        if (newRarity){newRarity=newRarity.toLowerCase()}
         switch(newRarity){
             case "common":
                 filterRarity='filter_common';
@@ -30,13 +32,13 @@ class Filter extends Component {
                 filterRarity='filter_empty';
                 break};
         this.setState((prevState)=>({
-            rarity:filterRarity
+            filter_rarity:filterRarity
         }))
         }
 
     render() {
         return (
-            <div className={`filter ${this.state.rarity}`}></div>
+            <div className={`filter ${this.state.filter_rarity}`}></div>
         )
     }
 }
