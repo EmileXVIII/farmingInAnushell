@@ -92,6 +92,9 @@ body {
   border: 3px solid black;
 }
 
+.small-text {
+  font-size: 16px;
+}
 
 
 /*--------------------------------*/
@@ -158,7 +161,6 @@ body {
   height: 320px;
   width: 234px;
   margin-left: 20px;
-  float: left;
 }
 
 #Character #list-inventaire{
@@ -326,6 +328,23 @@ body {
   width: 720px;
   height: 200px;
 }
+
+
+
+.focus-item-character {
+  padding: 2em;
+  background: url("/img/Shop-Description-window.png");
+  background-size: 420px 350px;
+  background-repeat: no-repeat;
+  width: 420px;
+  height: 350px;
+}
+
+.onHover:hover {
+  color:red;
+  border: 5px solid green;
+}
+
 /*INVENTAIRE ENDS*/
 
 /* FOOTER */

@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import createNElements from "./inventory/creerNelement";
-import Filter from "./inventory/filter"
 class Inventory extends Component {
-    constructor() {
-        super()
-    }
+    // constructor() {
+    //     super()
+    // }
 
     render() {
         return (

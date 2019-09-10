@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-
 class Item {
     constructor() {
         this.rarity = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
@@ -14,14 +12,16 @@ class Item {
             Cost: 0,
             SpecialAttribute: null,
             Name: '',
-            Description: null,
             Rarity: this.rarity[0],
             Type: null,
-            Image: 'https://p7.hiclipart.com/preview/714/559/621/sword-weapon-pixel-art-pixelation-pixel.jpg',
+            Image: '',
             Description: 'Simple helmet for people lacking personality'
         }
     }
 
+    getRarityArray() {
+        return this.rarity
+    }
 
     setName(name) {
         this.stats.Name = name
@@ -29,6 +29,14 @@ class Item {
 
     setId(id) {
         this.stats.Id = id
+    }
+
+    setImage(image) {
+        this.stats.Image = image
+    }
+
+    setRarity(rarity){
+        this.stats.Rarity = rarity
     }
 }
 

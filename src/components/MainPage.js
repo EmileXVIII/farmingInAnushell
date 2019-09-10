@@ -1,8 +1,7 @@
 import React, { Component } from "react"
-import { Tab, Tabs, Cell, Grid, Card, CardTitle, CardText, CardActions, CardMenu, IconButton, Link } from 'react-mdl'
+import { Cell, Grid } from 'react-mdl'
 import {
-    Container, Col, Form,
-    FormGroup, Label, Input,
+    Container,
     Button,
   } from 'reactstrap'
 import LoginForm from "./forms/LoginForm"
