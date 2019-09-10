@@ -4,8 +4,8 @@ class Equipement{
         this.stats={att,def,esq,pv,critical};
         this.rarity=rarity;
         this.iconAdresse=iconAdresse;
-        this.location;
-        this.numChild;
+        this.location=undefined;
+        this.numChild=undefined;
         this.modifyStat=this.modifyStat.bind(this);
         this.changeLocation=this.changeLocation.bind(this)
     }

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import createNElements from "./inventory/creerNelement";
 import InventoryObject from "./inventory/InventoryObject";
+import './inventory/test'
   
 
 class InventoryModule extends Component {
     constructor() {
         super()
     }
-
     render() {
         return (
             <div className='w-100 h-100'>

@@ -4,9 +4,11 @@ class MyEventListener {
   }
 
   emit(eventName, ...args) {
+      let derRetour;
       for (let listener in this.listeners[eventName]){
-        this.listeners[eventName][listener](...args)
+        derRetour=this.listeners[eventName][listener](...args)
       }
+      return derRetour
   }
 
   on(eventName, listener) {
