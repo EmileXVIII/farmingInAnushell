@@ -9,10 +9,11 @@ class Filter extends Component {
         };
         this.props=props;
         this.changeRarity=this.changeRarity.bind(this)
-        gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-changeObject`,(newObject)=>{this.changeRarity(newObject.rarity)});
+        gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-changeObject`,(newObject)=>{this.changeRarity(newObject)});
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-deleateObject`,(newObject)=>{this.changeRarity(undefined)});
     }
-    changeRarity(newRarity){
+    changeRarity(newObject){
+         let newRarity=  newObject ? newObject.rarity : undefined; 
         let filterRarity;
         if (newRarity){newRarity=newRarity.toLowerCase()}
         switch(newRarity){

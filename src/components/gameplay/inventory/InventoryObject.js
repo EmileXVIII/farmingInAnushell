@@ -22,7 +22,7 @@ class InventoryObject extends Component {
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-addClass`, () => this.addClass);
         //gestionnaireEvents.on(`setBackground`,this.setBackground);
     }
-    setBackground(cheminFichier='https://miro.medium.com/max/4000/1*pLv5AsM5VSBMHwPQK6RuEA.jpeg',numKey) {
+    setBackground(cheminFichier='',numKey) {
        //this.setState((prevState) => {
         setTimeout(()=>{
         let equipementDivSlot = document.getElementsByClassName(`${this.props.conteneurName}`)[0].children[numKey].getElementsByClassName('icon_objet')[0];//.getElementsByClassName('icon_objet')[0];
@@ -38,7 +38,13 @@ class InventoryObject extends Component {
       //  this.setBackground('https://miro.medium.com/max/4000/1*pLv5AsM5VSBMHwPQK6RuEA.jpeg',1);
     //}
     changeObject(newObject) {
+        if (newObject){
         this.setState((prevState) => ({ object: newObject, rarity: newObject.rarity, urlIcon: newObject.iconAdresse, classAditionnelle: '' }))
+        return newObject}
+        else{
+            this.setState((prevState) => ({ object: undefined, rarity: undefined, urlIcon: undefined, classAditionnelle: '' }))
+            return newObject
+        }
     }
     deleateObject() {
         this.setState((prevState) => ({ object: undefined, rarity: undefined, urlIcon: undefined, classAditionnelle: '' }))

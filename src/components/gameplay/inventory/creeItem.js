@@ -27,4 +27,5 @@ function createExpendable(name, iconAdresse) {
     return  new Expendable(name, iconAdresse)
 }
 let objetTest=createEquipement('objetTest','/img/epee1.jpeg')
+
 export {createEquipement,createExpendable,objetTest}
