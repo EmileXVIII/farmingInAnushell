@@ -21,19 +21,22 @@ class InventoryObject extends Component {
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-addClass`, () => this.addClass);
         //gestionnaireEvents.on(`setBackground`,this.setBackground);
     }
-    setBackground() {
-       // this.setState((prevState) => {
-        let equipementDivSlot = document.getElementsByClassName(`conteneur_inventaire`)[0].firstChild;
-        equipementDivSlot.style.background = "url('https://miro.medium.com/max/4000/1*pLv5AsM5VSBMHwPQK6RuEA.jpeg')";
+    setBackground(cheminFichier='https://miro.medium.com/max/4000/1*pLv5AsM5VSBMHwPQK6RuEA.jpeg',numKey) {
+       //this.setState((prevState) => {
+        setTimeout(()=>{
+        let equipementDivSlot = document.getElementsByClassName(`${this.props.conteneurName}`)[0].children[numKey].getElementsByClassName('icon_objet')[0];//.getElementsByClassName('icon_objet')[0];
+        debugger;
+        equipementDivSlot.style.background = `url(${cheminFichier})`;
         equipementDivSlot.style.backgroundSize = "80px";
         equipementDivSlot.style.backgroundRepeat = "no-repeat"
-         //   ;return{}})
+        },0)
+        //;return{}})
         
 
     }
-    componentDidMount(){//appeler afterRender
-        this.setBackground()
-    }
+    //componentDidMount(){//appeler afterRender/
+      //  this.setBackground('https://miro.medium.com/max/4000/1*pLv5AsM5VSBMHwPQK6RuEA.jpeg',1);
+    //}
     changeObject(newObject) {
         this.setState((prevState) => ({ object: newObject, rarity: newObject.rarity, urlIcon: newObject.iconAdresse, classAditionnelle: '' }))
     }
@@ -46,7 +49,7 @@ class InventoryObject extends Component {
     render() {
         return (
             <div className={this.props.className} numKey={this.props.numKey}>
-                <div className={`icon_objet${this.state.classAditionnelle}`} urlIcon={this.state.urlIcon} />
+                <div className={(()=>{this.setBackground(this.state.urlIcon,this.props.numKey); return `icon_objet${this.state.classAditionnelle}`})()} urlIcon={this.state.urlIcon} />
                 <Filter rarity={this.state.rarity} numKey={this.props.numKey} conteneurName={this.props.conteneurName} />
             </div>
         )
