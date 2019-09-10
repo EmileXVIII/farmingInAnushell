@@ -51,10 +51,10 @@ class SelectObject {
         noeud.getElementsByClassName('filter')[0].classList.remove('filter_selected');
     }
     changePlace() {
-        let oldParentName = this.oldSelected.conteneurName,
-            oldKey = this.oldSelected.numKey,
-            newParentName = this.selected.conteneurName,
-            newKey = this.selected.numKey,
+        let oldParentName = this.oldSelected.parentNode.attributes.name.nodeValue,
+            oldKey = this.oldSelected.attributes.numKey.nodeValue,
+            newParentName = this.selected.parentNode.attributes.name.nodeValue,
+            newKey = this.selected.attributes.numKey.nodeValue,
             oldObject = gestionnaireEvents.emit(`${oldParentName}-${oldKey}-getObject`),
             newObject = gestionnaireEvents.emit(`${newParentName}-${newKey}-getObject`);
         gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`, newObject);

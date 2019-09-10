@@ -2,13 +2,14 @@
 import React, { Component } from "react";
 import { gestionnaireEvents } from "./inventoryEvents";
 import Filter from "./Filter";
+import './test';
 class InventoryObject extends Component {
     constructor(props) {
         super()
         this.state = {
             rarity: undefined,
             object: undefined,
-            urlIcon: undefined,
+            urlIcon: 'none',
             classAditionnelle: '',
         };
         this.props = props
@@ -25,7 +26,6 @@ class InventoryObject extends Component {
        //this.setState((prevState) => {
         setTimeout(()=>{
         let equipementDivSlot = document.getElementsByClassName(`${this.props.conteneurName}`)[0].children[numKey].getElementsByClassName('icon_objet')[0];//.getElementsByClassName('icon_objet')[0];
-        debugger;
         equipementDivSlot.style.background = `url(${cheminFichier})`;
         equipementDivSlot.style.backgroundSize = "80px";
         equipementDivSlot.style.backgroundRepeat = "no-repeat"

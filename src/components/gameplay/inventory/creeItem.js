@@ -1,8 +1,7 @@
 import Equipement from "./Equipement";
 import Expendable from "./Expendable";
-import fs from 'fs';
 
-function createEquipement(name, iconAdresse, classObj, rarity = 'Common', att = 0, def = 0, esq = 0, pv = 0, critical = 0) {
+function createEquipement(name, iconAdresse, rarity = 'Common', att = 0, def = 0, esq = 0, pv = 0, critical = 0) {
     /*let fileSystem = fs.createWriteStream("./inventoryItems.css", {'flags': 'a'}),//fs.writeFileSync("file.txt", 'Text', "UTF-8",{'flags': 'a'});
         //monfichier = fileSystem.OpenTextFile("./inventoryItems.css", 8, false),
         classObj = `object${name}`;
@@ -12,10 +11,10 @@ function createEquipement(name, iconAdresse, classObj, rarity = 'Common', att = 
     fileSystem.WriteLine(`\tbackground-size: var(--taille-slot-objet);`);
     fileSystem.WriteLine(`/*css de ${name} END/`);
     fileSystem.Close();**/
-    return ({ objet: new Equipement(name, iconAdresse, rarity, att, def, esq, pv, critical), classObj })
+    return ( new Equipement(name, iconAdresse, rarity, att, def, esq, pv, critical))
 }
 
-function createExpendable(name, iconAdresse,classObj) {
+function createExpendable(name, iconAdresse) {
     /*let fileSystem = fs.createWriteStream("./inventoryItems.css", {'flags': 'a'}]),//fs.writeFileSync("file.txt", 'Text', "UTF-8",{'flags': 'a'});
         //monfichier = fileSystem.OpenTextFile("./inventoryItems.css", 8, false),
         classObj = `object${name}`;
@@ -25,6 +24,7 @@ function createExpendable(name, iconAdresse,classObj) {
     fileSystem.WriteLine(`\tbackground-size: var(--taille-slot-objet);`);
     fileSystem.WriteLine(`/*css de ${name} END`);
     fileSystem.Close();*/
-    return { objet: new Expendable(name, iconAdresse), classObj }
+    return  new Expendable(name, iconAdresse)
 }
-export {createEquipement,createExpendable}
+let objetTest=createEquipement('objetTest','/img/epee1.jpeg')
+export {createEquipement,createExpendable,objetTest}
