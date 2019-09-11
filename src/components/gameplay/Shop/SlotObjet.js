@@ -12,6 +12,8 @@ class SlotObjet extends Component {
         }
     }
 
+
+
     toggleHover = () => {
         const div = document.getElementById("Shop-Description")
         div.innerHTML = ""
@@ -24,10 +26,9 @@ class SlotObjet extends Component {
     }
 
     render() {
-        this.createItem()
         return (
             <div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="objet">
-                <Helmet helmet={this.state.helmet} />
+
             </div>
         )
     }
