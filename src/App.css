@@ -120,22 +120,22 @@ body {
   width: 80px;
 }
 
-#Character .helmet {
+#Character .Helmet {
   background-image: url("/img/Helmet.png");
 }
-#Character .chest {
+#Character .Chest {
   background-image: url("/img/Chest.png");
 }
-#Character .mainhand {
+#Character .Main {
   background-image: url("/img/MainHand.png");
 }
-#Character .legs {
+#Character .Legs {
   background-image: url("/img/Legs.png");
 }
-#Character .boots {
+#Character .Boots {
   background-image: url("/img/Boots.png");
 }
-#Character .offhand {
+#Character .Off {
   background-image: url("/img/OffHand.png");
 }
 
@@ -202,7 +202,7 @@ body {
   margin: 0;
 }
 
-#Shop #Description {
+#Shop #Shop-Description {
   padding: 2em;
   background: url("/img/Shop-Description-window.png");
   background-size: 420px 565px;

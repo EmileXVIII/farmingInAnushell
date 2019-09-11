@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class Item {
-    constructor() {
+    constructor(name) {
         this.rarity = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
 
         this.stats = {
@@ -12,8 +12,8 @@ class Item {
             Critical: 0,
             Cost: 0,
             SpecialAttribute: null,
-            Name: null,
-            Description: null,
+            Name: name,
+            Description: "tu pu",
             Rarity: this.rarity[0],
             Type: null,
         }
