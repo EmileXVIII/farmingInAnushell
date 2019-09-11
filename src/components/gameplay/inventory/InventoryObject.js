@@ -3,16 +3,19 @@ import React, { Component } from "react";
 import { gestionnaireEvents } from "./inventoryEvents";
 import Filter from "./Filter";
 import './test';
+import { inventoryExpendableSaver, inventoryEquipementSaver } from "../../../App";
 class InventoryObject extends Component {
     constructor(props) {
-        super()
+        super();
+        this.props = props;
+        //console.log('totale',inventoryExpendableSaver,inventoryEquipementSaver);
+        let tempObj=this.chargerObjets();
         this.state = {
-            rarity: undefined,
-            object: undefined,
-            urlIcon: 'none',
+            object: tempObj ? tempObj : undefined ,
+            rarity: tempObj ? tempObj.rarity : undefined ,
+            urlIcon: tempObj ? tempObj.iconAdresse : 'none',
             classAditionnelle: '',
         };
-        this.props = props
         this.changeObject = this.changeObject.bind(this);
         this.deleateObject = this.deleateObject.bind(this);
         this.setBackground=this.setBackground.bind(this);
@@ -21,6 +24,17 @@ class InventoryObject extends Component {
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-getObject`, () => this.state.object);
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-addClass`, () => this.addClass);
         //gestionnaireEvents.on(`setBackground`,this.setBackground);
+    }
+    chargerObjets(){
+        switch (this.props.className){
+            case "objet activable_case":
+                return inventoryExpendableSaver.objects[this.props.numKey]
+            case 'objet equipement_case':
+                //console.log('equipement',this.props.numKey,inventoryEquipementSaver.objects[this.props.numKey])
+                return inventoryEquipementSaver.objects[this.props.numKey]
+            default :return undefined;
+        }
+
     }
     setBackground(cheminFichier='',numKey) {
        //this.setState((prevState) => {
@@ -33,6 +47,12 @@ class InventoryObject extends Component {
         //;return{}})
         
 
+    }
+    componentWillUnmount(){
+        gestionnaireEvents.off(`${this.props.conteneurName}-${this.props.numKey}-changeObject`, this.changeObject);
+        gestionnaireEvents.off(`${this.props.conteneurName}-${this.props.numKey}-deleateObject`, this.deleateObject);
+        gestionnaireEvents.off(`${this.props.conteneurName}-${this.props.numKey}-getObject`, () => this.state.object);
+        gestionnaireEvents.off(`${this.props.conteneurName}-${this.props.numKey}-addClass`, () => this.addClass);
     }
     //componentDidMount(){//appeler afterRender/
       //  this.setBackground('https://miro.medium.com/max/4000/1*pLv5AsM5VSBMHwPQK6RuEA.jpeg',1);
