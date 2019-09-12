@@ -54,7 +54,7 @@ class GamePage extends Component {
             <div>
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
-                    <a className="btn btn-logout btn-warning mt-3" href="/home">Logout</a>
+                    <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
                 </div>
 
                 <div className="mt-5 border py-3  mx-3">

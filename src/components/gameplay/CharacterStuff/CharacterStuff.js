@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import Item from "../../items/Item";
-import { Button } from "@material-ui/core";
 
 let maxItems = 6
 let style = {
     backgroundColor : ''
 }
 
+// Get rarety/color association
 let RARITY = {
     'Common' : 'white', 
-    'Uncommon' : 'blue',
-    'Rare' : 'orange', 
+    'Uncommon' : 'green',
+    'Rare' : 'blue', 
     'Epic' : 'purple', 
-    'Legendary' : 'pink'
+    'Legendary' : 'goldenrod'
 }
 
 
 /* TODO : items should be a result from database */
 let items = []
+/*
 for(let i = 0; i < maxItems; i++) {
     let newItem = new Item();
     newItem.setId(i)
@@ -27,9 +28,73 @@ for(let i = 0; i < maxItems; i++) {
     let randomRarity = Math.floor(Math.random() * 5)
     newItem.setRarity(rarityArray[randomRarity])
     items.push(newItem)
-    console.log(randomRarity)
-    console.log(newItem)
 }
+*/
+
+
+// TEST (TO DELETE)
+let newItem = new Item();
+newItem.setId(1)
+newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/16363.png')
+newItem.setName('Tank Helmet')
+newItem.setDescription('16$ on amazon for cringy medieval cosplay.')
+let rarityArray = newItem.getRarityArray()
+let randomRarity = Math.floor(Math.random() * 5)
+newItem.setRarity(rarityArray[randomRarity])
+items.push(newItem)
+
+newItem = new Item();
+newItem.setId(2)
+newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/11029.png')
+newItem.setName('Nurse Shoes')
+newItem.setDescription('Smell good.')
+ rarityArray = newItem.getRarityArray()
+ randomRarity = Math.floor(Math.random() * 5)
+newItem.setRarity(rarityArray[randomRarity])
+items.push(newItem)
+
+newItem = new Item();
+newItem.setId(3)
+newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/19065.png')
+newItem.setName('Deter Weapon')
+newItem.setDescription('Arms in your back make you run faster')
+ rarityArray = newItem.getRarityArray()
+ randomRarity = Math.floor(Math.random() * 5)
+newItem.setRarity(rarityArray[randomRarity])
+items.push(newItem)
+
+newItem = new Item();
+newItem.setId(4)
+newItem.setImage('https://gamepedia.cursecdn.com/arksurvivalevolved_gamepedia/c/c7/Birthday_Suit_Pants_Skin.png')
+newItem.setName('Ninja Leggings')
+newItem.setDescription('You\'re not exhausted anymore while running.')
+ rarityArray = newItem.getRarityArray()
+ randomRarity = Math.floor(Math.random() * 5)
+newItem.setRarity(rarityArray[randomRarity])
+items.push(newItem)
+
+newItem = new Item();
+newItem.setId(5)
+newItem.setImage('https://lh3.googleusercontent.com/uoP9b8UNQWy5uOWNhQ03tyW-slNvpYMa-2vbrYhFB1nod8KkzsEUV4rn8K83QItZOdr_Qij8cN1R7ONlpMRjbZQ=s400')
+newItem.setName('Leto\'s Breastplate')
+newItem.setDescription('Allow you to feed a baby.')
+ rarityArray = newItem.getRarityArray()
+ randomRarity = Math.floor(Math.random() * 5)
+newItem.setRarity(rarityArray[randomRarity])
+items.push(newItem)
+
+newItem = new Item();
+newItem.setId(6)
+newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/82182.png')
+newItem.setName('Shield')
+newItem.setDescription('My dream everynight.')
+ rarityArray = newItem.getRarityArray()
+ randomRarity = Math.floor(Math.random() * 5)
+newItem.setRarity(rarityArray[randomRarity])
+items.push(newItem)
+
+
+
 
 function isEmpty(obj) {
     return Object.keys(obj).length === 0;
@@ -42,24 +107,6 @@ class CharacterStuff extends Component {
         this.state = {
             item : {}
         }
-
-//     handleClickHelmet = () => {
-//         const div = document.getElementById("list-inventaire")
-//         div.appendChild(<Inventaire />)
-//     }
-//     handleClickChest = () => {
-
-//     }
-//     handleClickMainHand = () => {
-
-//     }
-//     handleClickLegs = () => {
-
-//     }
-//     handleClickBoots = () => {
-
-//     }
-//     handleClickOffHand = () => {
    }
 
     render() {
@@ -70,12 +117,8 @@ class CharacterStuff extends Component {
                     <div className="row">
                         {items.map((item)=>
                             <img 
-                                onClick={() => this.setState({ item : item}),
-                                style = {
-                                    backgroundColor : RARITY[item.stats.Rarity]
-                                }
-                                }   
-                                style={style}
+                                onClick={() => this.setState({ item : item})}   
+                                //style={style}
                                 title={item.stats.Name} 
                                 data-toggle="tooltip" 
                                 data-placement="top" 
@@ -99,16 +142,22 @@ class CharacterStuff extends Component {
                                         )
                                     } else {
                                         let item = this.state.item.stats
+                                        style = {
+                                            backgroundColor : RARITY[item.Rarity]
+                                        }
                                         return(
-                                            <div className="row">        
-                                                <div className="col-4">
-                                                    <img className="rounded" width="150" src={item.Image}/>
+                                            <>
+                                                <div className="row">        
+                                                    <div className="col-4">
+                                                        <img style={style} className="rounded border" width="120" src={item.Image}/>
+                                                    </div>
+                                                    <div className="col-8">
+                                                        <b>{item.Name}</b>
+                                                        <p>({item.Rarity})</p>
+                                                    </div>
                                                 </div>
-                                                <div className="col-8">
-                                                    <b>{item.Name}</b>
-                                                    <p className="mt-3">{item.Description}</p>
-                                                </div>
-                                            </div>
+                                                <p className="mt-5">{item.Description}</p>
+                                            </>
                                         )
                                     }
                                 })()}
@@ -117,9 +166,6 @@ class CharacterStuff extends Component {
                         <div className="element-character border">
                             {/* Image */}
                         </div>
-                        <Button onClick={() => console.log(this.state.item)}>
-                                    Test
-                                </Button>
                     </div>
                     
                 </div>
@@ -130,19 +176,3 @@ class CharacterStuff extends Component {
 
 export default CharacterStuff
 
-
-
-
-// <div className="character">
-//     <div className="list-equip">
-//         <div className="objet helmet"></div>
-//         <div className="objet chest"></div>
-//         <div className="objet mainhand"></div>
-//     </div>
-//     <div class="element-character"></div>
-//     <div className="list-equip">
-//         <div className="objet legs"></div>
-//         <div className="objet boots"></div>
-//         <div className="objet offhand"></div>
-//     </div>
-// </div>

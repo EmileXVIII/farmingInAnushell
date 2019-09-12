@@ -1,8 +1,24 @@
 import React, { Component } from "react";
 import Item from "../../items/Item";
-import { Button } from "@material-ui/core";
 
 let maxItems = 18
+
+let style = {
+    backgroundColor : ''
+}
+
+let colorStyle = {
+    color: ''
+}
+
+// Get rarety/color association
+let RARITY = {
+    'Common' : 'white', 
+    'Uncommon' : 'green',
+    'Rare' : 'blue', 
+    'Epic' : 'purple', 
+    'Legendary' : 'goldenrod'
+}
 
 /* TODO : items should be a result from database */
 let items = []
@@ -10,7 +26,10 @@ for(let i = 1; i < 19; i++) {
     let newItem = new Item();
     newItem.setId(i)
     newItem.setName('item numéro ' + i)
-    newItem.setImage('https://cdn1.iconfinder.com/data/icons/arms-and-armor/100/20-512.png')
+    newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/16363.png')
+    let rarityArray = newItem.getRarityArray()
+    let randomRarity = Math.floor(Math.random() * 5)
+    newItem.setRarity(rarityArray[randomRarity])
     items.push(newItem)
 }
 
@@ -27,6 +46,10 @@ class Inventory extends Component {
         }
     }
     
+    deleteItem(item) {
+        console.log(item)
+        //TODO: Remove item from user inventory
+    }
 
     render() {
         return (
@@ -64,16 +87,36 @@ class Inventory extends Component {
                                             )
                                         } else {
                                             let item = this.state.item.stats
+                                            style = {
+                                                backgroundColor : RARITY[item.Rarity]
+                                            }
+                                            colorStyle = {
+                                                color : RARITY[item.Rarity]
+                                            }
                                             return(
+                                                <>
                                                 <div className="row">        
                                                     <div className="col-4">
-                                                        <img className="rounded" width="150" src={item.Image}/>
+                                                        <img style={style} className="rounded" width="150" src={item.Image}/>
                                                     </div>
                                                     <div className="col-8">
                                                         <b>{item.Name}</b>
                                                         <p className="mt-3">{item.Description}</p>
+                                                        <p><span style={colorStyle}>{item.Rarity}</span> item</p>
                                                     </div>
+        
                                                 </div>
+                                                <div className="row mt-3 justify-content-around">
+                                                        <div className="col">
+                                                        <button className="btn btn-outline-primary">Equip</button>
+                                                        </div>
+                                                        <div className="col">
+                                                        <button onClick={() => this.deleteItem(item)} className="btn btn-outline-secondary">Sell</button>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                </>
                                             )
                                         }
                                     })()}

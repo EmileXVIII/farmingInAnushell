@@ -38,6 +38,10 @@ class Item {
     setRarity(rarity){
         this.stats.Rarity = rarity
     }
+
+    setDescription(description) {
+        this.stats.Description = description
+    }
 }
 
 export default Item
