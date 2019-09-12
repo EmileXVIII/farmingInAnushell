@@ -3,6 +3,7 @@ import createNElements from "./inventory/creerNelement";
 import InventoryObject from "./inventory/InventoryObject";
 import './inventory/test'
 import { inventoryEquipementSaver, inventoryExpendableSaver, lenInvExpendable, lenInvEquipement } from "../../App";
+import InfoItems from "./inventory/InfoItems";
 
 class InventoryModule extends Component {
     constructor() {
@@ -24,6 +25,7 @@ class InventoryModule extends Component {
                         <div name="conteneur_inventaire" class="conteneur_inventaire">
                             {createNElements(InventoryObject, lenInvEquipement, { className: 'objet equipement_case', conteneurName:'conteneur_inventaire' })}
                         </div>
+                        <InfoItems/>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ class Expendable{ //consommable exemple Potion
     constructor(name,iconAdresse){
         this.name=name;
         this.effect={};
+        this.descriptionEffect='';
         this.iconAdresse=iconAdresse;
         this.location=undefined;
         this.rarity=undefined;
