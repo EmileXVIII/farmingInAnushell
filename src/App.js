@@ -3,10 +3,7 @@ import './App.css';
 import MainPage from './components/MainPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import GamePage from './components/GamePage';
-import Room from './components/gameplay/Room/Room'
 import testCombat from './components/characters/testCombat'
-import Player from './components/characters/Player'
-import Monster from './components/characters/Monster'
 import { resolve } from 'path';
 
 

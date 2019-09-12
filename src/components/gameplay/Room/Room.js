@@ -35,14 +35,14 @@ class Room extends Component {
                 <div id="list-pseudo">
                     <h4>Joueur</h4>
                     <ul>
-                        <li>Coco</li>
-                        <li>Caca mdr</li>
-                        <li>True</li>
-                        <li>BouBooo</li>
-                        <li>Yamine</li>
-                        <li>L'Ombre</li>
+                        <li>Joueur 1</li>
+                        <li>Joueur 2</li>
+                        <li>Joueur 3</li>
+                        <li>Joueur 4</li>
                     </ul>
                     <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br/><br/><br/>
+                    <Button onClick={this.props.startGame}>Begin</Button> <br/><br/><br/>
+                    <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
                 </div>
             </div >
         )

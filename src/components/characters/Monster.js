@@ -6,7 +6,7 @@ class Monster extends Character {
         super(username)
         this.stats.Life = 80
         this.stats.Atk = 10
-        this.stats.Def = 10 
+        this.stats.Def = 10
     }
     
 }

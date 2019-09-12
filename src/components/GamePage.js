@@ -54,10 +54,15 @@ class GamePage extends Component {
             case 'room' :
                 return (
                     <div>
-                        <Room />
+                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} selfHealing={() => this.healMySelf(this.state.playerTest)}/>
                     </div>
                 )    
         }
+    }
+
+    healMySelf = (character) => {
+        character.stats.Life += 100
+        this.setState({playerHP: character.stats.Life})
     }
 
     createCombat = (player, monster, callback) => {
@@ -108,26 +113,35 @@ class GamePage extends Component {
         
         
       }
+
+      checkPlayerAlive = (player, monster) => {
+          if (player.stats.Alive) {
+            setTimeout(() => this.testCombat2(player, monster, messageInfo => {this.setState({combatInfo: messageInfo}) }), 500)
+          }
+          else {
+              this.setState({combatInfo: 'You should rest...'})
+          }
+      }
     
       testCombat2 = (player, monster, callback) => {
-        
-        this.createCombat(player, monster, message => {
-          this.setState({combatInfo: message})
+
+            this.createCombat(player, monster, message => {
+                this.setState({combatInfo: message})
+                
+                this.playerAlive(player, monster, message2 => {
+                  this.setState({combatInfo: message2})
           
-          this.playerAlive(player, monster, message2 => {
-            this.setState({combatInfo: message2})
-    
-            this.bothAlive(player, monster, message3 => {
-              this.setState({combatInfo: message3})
-    
-              this.monsterAlive(player, monster, message4 => {
-                this.setState({combatInfo: message4})
-    
-                this.testCombat2(player, monster)
-              })
-            })
-          })
-        })
+                  this.bothAlive(player, monster, message3 => {
+                    this.setState({combatInfo: message3})
+          
+                    this.monsterAlive(player, monster, message4 => {
+                      this.setState({combatInfo: message4})
+          
+                      this.testCombat2(player, monster)
+                    })
+                  })
+                })
+              })    
       }
 
     render() {
@@ -136,9 +150,7 @@ class GamePage extends Component {
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     
-                    <Button onClick={() => this.testCombat2(this.state.playerTest, this.state.monsterTest, messageInfo => {
-                    this.setState({combatInfo: messageInfo}) 
-                    })}>Begin</Button>
+                    
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
                 </div>
 
@@ -147,7 +159,6 @@ class GamePage extends Component {
                         {/*Game scene*/}
                         <div className="border col-6">
                             <img width="700" src="/img/gamescene_1.png" />
-                            {/*<img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"/>*/}
                             <div class="gameplay-infos border py-3 px-3">
                                 <a>{this.state.combatInfo}</a> 
                             </div>
@@ -163,6 +174,7 @@ class GamePage extends Component {
                             <div class="gameplay-infos border py-3 px-3">
                                 <a>Gold : {this.state.gold}</a> 
                             </div>
+                            <br/>
                         </div>
                         <div name='conteneut_interface' className="col-6">
                             <div className="d-flex justify-content-around mb-5">
