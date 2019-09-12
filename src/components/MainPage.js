@@ -10,38 +10,23 @@ import SigninForm from "./forms/SigninForm"
 
 
 class MainPage extends Component {
-    constructor() {
-        super()
-        this.state = { activeTab: 0}
-    }
+        state = { activeTab: 'Login'}
+    
 
-    handleLoginState = () => {
-        this.setState({
-            activeTab : 0
-        })
-        console.log(this.state.activeTab)
-    }
-
-    handleSigninState = () => {
-        this.setState({
-            activeTab : 1
-        })
-        console.log(this.state.activeTab)
-    }
-
-    toggleForm() {
-        if(this.state.activeTab === 0) {
-            return(
-            <div name='LoginForm'>
-                <LoginForm/>
-            </div>
-            )
-        } else if(this.state.activeTab === 1) {
-            return(
-            <div name='SinginForm'>
-                <SigninForm/>
-            </div>
-            )
+    toggleForm = () => {
+        if (this.state.activeTab == 'Signin') {
+            return (
+                    <div name='SinginForm'>
+                        <SigninForm/>
+                    </div>
+                )
+        }
+        else {
+            return (
+                    <div name='LoginForm'>
+                        <LoginForm/>
+                    </div>
+                )
         }
     }
 
@@ -52,8 +37,8 @@ class MainPage extends Component {
             <div className="col-6 home mt-5 py-3 px-3">
             <Container>
                 <div className="form-header d-flex justify-content-around w-100 pb-3">
-                    <Button onClick={this.handleLoginState}>Log in</Button>
-                    <Button onClick={this.handleSigninState}>Sign in</Button>
+                    <Button onClick={() => this.setState({activeTab: 'Login'})}>Log in</Button>
+                    <Button onClick={() => this.setState({activeTab: 'Signin'})}>Sign in</Button>
                 </div>
                 <Grid>
                     <Cell col={12}>

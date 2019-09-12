@@ -42,7 +42,7 @@ class Room extends Component {
                         <li>Yamine</li>
                         <li>L'Ombre</li>
                     </ul>
-                    <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button>
+                    <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br/><br/><br/>
                 </div>
             </div >
         )

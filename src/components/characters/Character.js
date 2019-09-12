@@ -8,21 +8,37 @@ class Character {
             Def: 0,
             Dodge: 0,
             Critical: 0,
+            Gold: 0,
             Username: username,
-        }
-
-        this.skills = {
-            Uppercut: {
-                Description: null,
-                Power: this.atk * 0.6,
-                Roll: 0,
+            get Alive() {
+                return this.Life > 0
             },
-            Kick: {
-                Description: null,
-                Power: this.atk * 0.8,
-                Roll: 0
+        };
+
+        
+
+        this.skills = [
+            {
+                Name: 'Uppercut',
+                Power: 3,
+            },
+            {
+                Name: 'Kick',
+                Power: 2.5,
             }
-        }
+        ]
+    }
+
+    Attack(Character) {
+        const skillUsed = this.skills[this.randomInt(this.skills.length)]
+        const dmgInflicted = skillUsed.Power * this.stats.Atk
+        Character.stats.Life -= dmgInflicted
+        return this.stats.Username + ': ' + skillUsed.Name + ' used ! ' + dmgInflicted + ' damage inflicted ! '     
+    }
+    
+    randomInt(Max) {
+        return Math.floor(Math.random() * Max)
+
     }
 }
 

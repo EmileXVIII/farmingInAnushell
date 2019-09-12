@@ -6,6 +6,7 @@ import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class GamePage extends Component {
     constructor() {
@@ -54,7 +55,9 @@ class GamePage extends Component {
             <div>
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
-                    <a className="btn btn-logout btn-warning mt-3" href="/home">Logout</a>
+                    
+                    <Button onClick={this.props.startCombat}>Begin</Button>
+                    <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
                 </div>
 
                 <div className="mt-5 border py-3  mx-3">
@@ -64,11 +67,19 @@ class GamePage extends Component {
                             <img width="700" src="/img/gamescene_1.png" />
                             {/*<img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"/>*/}
                             <div class="gameplay-infos border py-3 px-3">
-                                <ul>
-                                    <li>Lorem ipsum dolor sit amet, consectetur. </li>
-                                    <li>Pellentesque eget iaculis nibh. </li>
-                                    <li>Interdum et malesuada fames ac ante ipsum. </li>
-                                </ul>
+                                <a>{this.props.displayCombat}</a> 
+                            </div>
+                            <br/>
+                            <div class="gameplay-infos border py-3 px-3">
+                                <a>Player HP : {this.props.displayPlayerHP}</a> 
+                            </div>
+                            <br/>
+                            <div class="gameplay-infos border py-3 px-3">
+                                <a>Monster HP : {this.props.displayMonsterHP}</a> 
+                            </div>
+                            <br/>
+                            <div class="gameplay-infos border py-3 px-3">
+                                <a>Gold : {this.props.displayGold}</a> 
                             </div>
                         </div>
                         <div name='conteneut_interface' className="col-6">
