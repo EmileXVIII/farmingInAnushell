@@ -4,12 +4,11 @@ import { gestionnaireEvents } from "./inventoryEvents";
 class Filter extends Component {
     constructor(props) {
         super()
-        this.state={
-            filter_rarity:'filter_empty'
-        };
         this.props=props;
+        this.state={
+            filter_rarity:this.changeRarity(undefined)
+        };
         this.changeRarity=this.changeRarity.bind(this)
-        this.changeRarity(undefined);
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-changeObject`,(newObject)=>{this.changeRarity(newObject)});
         gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-deleateObject`,(newObject)=>{this.changeRarity(undefined)});
     }
@@ -40,6 +39,7 @@ class Filter extends Component {
         this.setState((prevState)=>({
             filter_rarity:filterRarity
         }))
+        return filterRarity
         }
 
     render() {
