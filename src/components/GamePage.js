@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import { Col, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import Inventory from "./gameplay/Inventory.js";
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
@@ -16,36 +16,36 @@ class GamePage extends Component {
 
     toggleElements() {
         switch (this.state.gameplayElement) {
-            case 'inventary' :
+            default: case 'inventary':
                 return (
                     <div>
                         <Inventory />
                     </div>
                 )
-            case 'characterStuff' :
+            case 'characterStuff':
                 return (
                     <div>
                         <CharacterStuff />
                     </div>
                 )
-            case 'wrought' :
+            case 'wrought':
                 return (
                     <div>
                         <Wrought />
                     </div>
                 )
-            case 'shop' :
+            case 'shop':
                 return (
                     <div>
                         <Shop />
                     </div>
                 )
-            case 'room' :
+            case 'room':
                 return (
                     <div>
                         <Room />
                     </div>
-                )    
+                )
         }
     }
 
@@ -63,7 +63,7 @@ class GamePage extends Component {
                         <div className="border col-6">
                             <img width="700" src="/img/gamescene_1.png" />
                             {/*<img src="https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"/>*/}
-                            <div class="gameplay-infos border py-3 px-3">
+                            <div className="gameplay-infos border py-3 px-3">
                                 <ul>
                                     <li>Lorem ipsum dolor sit amet, consectetur. </li>
                                     <li>Pellentesque eget iaculis nibh. </li>
@@ -73,11 +73,11 @@ class GamePage extends Component {
                         </div>
                         <div name='conteneut_interface' className="col-6">
                             <div className="d-flex justify-content-around mb-5">
-                                <Button onClick={() => this.setState({gameplayElement: 'inventary'})}>Inventory</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'characterStuff'})}>Character</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'wrought'})}>Wrought</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'shop'})}>Shop</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'room'})}>Room</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'inventary' })}>Inventory</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'characterStuff' })}>Character</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'wrought' })}>Wrought</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'shop' })}>Shop</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'room' })}>Room</Button>
                             </div>
                             <Cell className="dynamic-content">
                                 {this.toggleElements()}

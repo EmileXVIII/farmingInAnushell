@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ListInventaire from "./ListInventaire";
 
 class CharacterStuff extends Component {
     constructor() {

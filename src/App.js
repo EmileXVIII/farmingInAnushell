@@ -6,12 +6,12 @@ import GamePage from './components/GamePage';
 
 
 function App() {
-  return ( 
+  return (
     <div className="main-div">
-        <Router>
-          {/* Routing */}
-          <Route exact path="/home" component={MainPage} />
-          <Route path="/game" component={GamePage} />
+      <Router>
+        {/* Routing */}
+        <Route exact path="/home" component={MainPage} />
+        <Route path="/game" component={GamePage} />
       </Router>
     </div>
   );

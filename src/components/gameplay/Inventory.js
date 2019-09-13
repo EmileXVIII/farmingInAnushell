@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import createNElements from "./inventory/creerNelement";
-import Filter from "./inventory/filter"
+
 class Inventory extends Component {
-    constructor() {
-        super()
-    }
+    // constructor() {
+    //     super()
+    // }
 
     render() {
         return (
-            <div class='w-100 h-100'>
+            <div className='w-100 h-100'>
                 <h3 className="text-center mb-3">Inventory</h3>
                 <div className="inventory w-100 h-100">
                     <div className="element-inventory">
                         <div className="wrapper d-flex justify-content-around">
-                        <img src='/img/inventory_2.png' width='700'/>
-                {/* <div class="inventory w-100 h-100">
+                            <img src='/img/inventory_2.png' width='700' />
+                            {/* <div class="inventory w-100 h-100">
                     <div class="element_inventory">
                         <div class="conteneur_activables">
                             {createNElements('div', 8, { className: 'objet activable' }, [

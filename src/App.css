@@ -200,6 +200,7 @@ body {
 
 #Shop Button {
   margin: 0;
+  height: 70px;
 }
 
 #Shop #Shop-Description {
@@ -231,6 +232,25 @@ body {
   background-image: url("/img/Shop-Background-item-hover.png");
 }
 
+#Shop #list-objet .objet {
+  color: #000;
+  position: relative;
+}
+
+#Shop #list-objet .objet h6 {
+  padding-top: 8px;
+  text-align: center;
+}
+
+#Shop #list-objet .objet img {
+  margin: 0;
+}
+
+#Shop #list-objet .objet .cost {
+  position: absolute;
+  bottom: 0;
+  right: 8px;
+}
 
 
 /* SHOP CSS END --------------------------------------------------------*/

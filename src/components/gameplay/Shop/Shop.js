@@ -1,38 +1,39 @@
 import React, { Component } from "react";
-import { directive } from "@babel/types";
 import { Button } from 'reactstrap';
 import Icon from '@material-ui/core/Icon';
-import SlotObjet from './SlotObjet';
-import Item from '../../items/Item';
+import ListSlot from "./ListSlot";
 
 class Shop extends Component {
     constructor() {
         super()
+        this.refreshShop = this.refreshShop.bind(this);
+        this.id = 0
         this.state = {
-            items: {},
+            list: [this.id],
         }
     }
 
-    refresh = () => {
-        // generate 6 randoms items to put in the shop
+    refreshShop = () => {
+        this.id += 1
+        const newlist = [this.id]
+
+        this.setState({
+            list: newlist
+        })
     }
 
     render() {
+
+        let listobjet = this.state.list.map((idtab) => (<ListSlot key={idtab} />))
+
         return (
             <div id="Shop">
                 <header>
-                    <Button color="warning" onClick={this.refreshShop} ><Icon>refresh</Icon></Button>
+                    <Button color="warning" onClick={this.refreshShop} ><Icon>refresh</Icon><p className="cost" >1<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p></Button>
                 </header>
                 <div id="Shop-Description">
                 </div>
-                <div className="list-objet">
-                    <SlotObjet />
-                    <SlotObjet />
-                    <SlotObjet />
-                    <SlotObjet />
-                    <SlotObjet />
-                    <SlotObjet />
-                </div>
+                {listobjet}
                 <div className="clear"></div>
             </div>
         )
