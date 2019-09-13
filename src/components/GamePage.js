@@ -175,6 +175,9 @@ class GamePage extends Component {
                                 <a>Gold : {this.state.gold}</a> 
                             </div>
                             <br/>
+                            <div class="gameplay-infos border py-3 px-3">
+                                <a>Monster killed : {this.state.counter}</a> 
+                            </div>
                         </div>
                         <div name='conteneut_interface' className="col-6">
                             <div className="d-flex justify-content-around mb-5">
