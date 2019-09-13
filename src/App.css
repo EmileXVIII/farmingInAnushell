@@ -43,12 +43,25 @@
 
 /* MAIN CONTENT */
 
+.divToHide {
+  display: none;
+}
+
+.onHover:hover .divToHide {
+  display: block;
+}
+
+
 body {
   margin: 0;
   padding: 0;
 }
 .home-background {
   background-image: url('img/background.png');
+}
+
+.nowrap {
+  flex-wrap: nowrap;
 }
 
 .main-div {
@@ -79,6 +92,9 @@ body {
   border: 3px solid black;
 }
 
+.small-text {
+  font-size: 16px;
+}
 
 
 /*--------------------------------*/
@@ -145,7 +161,6 @@ body {
   height: 320px;
   width: 234px;
   margin-left: 20px;
-  float: left;
 }
 
 #Character #list-inventaire{
@@ -164,22 +179,26 @@ body {
 
 /* FORGE */
 
-.wrought-content .forge {
-  height: 100%;
-  width: 100%;
-  padding-left: 35%;
+.div-center {
+  width: 15%;
+  margin:auto;
+}
+
+.medium-div-center {
+  width: 60%;
+  margin:auto;
 }
 
 
 .wrought-content .carre {
-  height: 80px;
-  width: 80px;
-  position: absolute;
+  height: 100px;
+  width: 100px;
   background-image: url("/img/EmptySlot.png");
   background-repeat: no-repeat;
-  background-size: 80px 80px;
-  margin-left: 64%;
-  top: 38%;
+
+  background-size: 100px 100px;
+  left:50%;
+  top: 20%;
 }
 
 
@@ -304,6 +323,43 @@ body {
 .hide{
   display: none;
 }
+
+
+.focus-item {
+  padding: 2em;
+  background: url("/img/Shop-Description-window.png");
+  background-size: 720px 250px;
+  background-repeat: no-repeat;
+  float: right;
+  width: 720px;
+  height: 250px;
+}
+
+
+.small-size {
+  font-size: 14px;
+}
+
+.center-div {
+  width: 50%;
+  margin:auto;
+}
+
+
+.focus-item-character {
+  padding: 2em;
+  background: url("/img/Shop-Description-window.png");
+  background-size: 420px 350px;
+  background-repeat: no-repeat;
+  width: 420px;
+  height: 350px;
+}
+
+.onHover:hover {
+  color:red;
+  border: 5px solid green;
+}
+
 /*INVENTAIRE ENDS*/
 
 /* FOOTER */

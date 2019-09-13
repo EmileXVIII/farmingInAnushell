@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import { Col, Button } from 'reactstrap'
-import Inventory from "./gameplay/Inventory.js";
+import { Button } from 'reactstrap'
+import Inventory from "./gameplay/inventory/Inventory.js";
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
@@ -149,8 +149,6 @@ class GamePage extends Component {
             <div>
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
-                    
-                    
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
                 </div>
 
@@ -179,7 +177,7 @@ class GamePage extends Component {
                                 <a>Monster killed : {this.state.counter}</a> 
                             </div>
                         </div>
-                        <div name='conteneut_interface' className="col-6">
+                        <div className="col-6">
                             <div className="d-flex justify-content-around mb-5">
                                 <Button onClick={() => this.setState({gameplayElement: 'inventary'})}>Inventory</Button>
                                 <Button onClick={() => this.setState({gameplayElement: 'characterStuff'})}>Character</Button>
