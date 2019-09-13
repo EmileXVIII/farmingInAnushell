@@ -35,7 +35,7 @@ class Filter extends Component {
             default:
                 filterRarity='filter_empty';
                 break};
-        if (this.props.numKey===0){console.log('filterRarity0:',filterRarity)}
+        //if (this.props.numKey===0){console.log('filterRarity0:',filterRarity)}
         this.setState((prevState)=>({
             filter_rarity:filterRarity
         }))
@@ -43,7 +43,7 @@ class Filter extends Component {
         }
 
     render() {
-        if (this.props.numKey===0){console.log('Renderfilter_rarity0:',this.state.filter_rarity)}
+        //if (this.props.numKey===0){console.log('Renderfilter_rarity0:',this.state.filter_rarity)}
         return (
             <div className={`filter ${this.state.filter_rarity}`}></div>
         )

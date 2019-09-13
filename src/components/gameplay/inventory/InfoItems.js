@@ -21,16 +21,16 @@ class InfoItems extends Component {
     }
     treatObject(slot) {
         if (slot.nodeName==='#document'){return}
-        console.log(slot);
+        //console.log(slot);
         let i=0;
         while (i<2 && slot.className.split(" ").indexOf('objet') === -1){
             i++;
             slot=slot.parentNode
             if (slot.nodeName==='#document'){return}
-            console.log('inWhile',slot);
+            //console.log('inWhile',slot);
         }
         if (i<2) {
-            console.log(true);
+            //console.log(true);
             let object = gestionnaireEvents.emit(`${slot.parentNode.attributes.name.nodeValue}-${slot.attributes.numKey.nodeValue}-getObject`)
             this.setState((prevState) => ({ objetSurvole: object }
                 ))
@@ -38,21 +38,21 @@ class InfoItems extends Component {
     }
     clear(slot) {
         if (slot.nodeName==='#document'){return}
-        console.log(slot.className.split(" "));
+        //console.log(slot.className.split(" "));
         let i=0;
         while (i<2 && slot.className.split(" ").indexOf('objet') === -1){
             i++;
             slot=slot.parentNode;
             if (slot.nodeName==='#document'){return}
-            console.log('inWhile',slot);
+            //console.log('inWhile',slot);
         }
         if (i<2) {
-            console.log("I'm in");
+            //console.log("I'm in");
             this.setState((prevState) => ({ objetSurvole: undefined, clear: true }))
         }
     }
     render() {
-        console.log('monObjet',this.state.objetSurvole)
+        //console.log('monObjet',this.state.objetSurvole)
         if (this.state.clear === true || !this.state.objetSurvole) {
             this.state.clear = false;
             return (
