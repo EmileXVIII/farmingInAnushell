@@ -9,8 +9,8 @@ class Filter extends Component {
             filter_rarity:this.changeRarity(undefined)
         };
         this.changeRarity=this.changeRarity.bind(this)
-        gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-changeObject`,(newObject)=>{this.changeRarity(newObject)});
-        gestionnaireEvents.on(`${this.props.conteneurName}-${this.props.numKey}-deleateObject`,(newObject)=>{this.changeRarity(undefined)});
+        gestionnaireEvents.on(`${this.props.conteneurname}-${this.props.numkey}-changeObject`,(newObject)=>{this.changeRarity(newObject)});
+        gestionnaireEvents.on(`${this.props.conteneurname}-${this.props.numkey}-deleateObject`,(newObject)=>{this.changeRarity(undefined)});
     }
     changeRarity(newObject){
         let newRarity
@@ -35,7 +35,7 @@ class Filter extends Component {
             default:
                 filterRarity='filter_empty';
                 break};
-        //if (this.props.numKey===0){console.log('filterRarity0:',filterRarity)}
+        //if (this.props.numkey===0){console.log('filterRarity0:',filterRarity)}
         this.setState((prevState)=>({
             filter_rarity:filterRarity
         }))
@@ -43,7 +43,7 @@ class Filter extends Component {
         }
 
     render() {
-        //if (this.props.numKey===0){console.log('Renderfilter_rarity0:',this.state.filter_rarity)}
+        //if (this.props.numkey===0){console.log('Renderfilter_rarity0:',this.state.filter_rarity)}
         return (
             <div className={`filter ${this.state.filter_rarity}`}></div>
         )

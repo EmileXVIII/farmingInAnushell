@@ -31,7 +31,7 @@ class InfoItems extends Component {
         }
         if (i<2) {
             //console.log(true);
-            let object = gestionnaireEvents.emit(`${slot.parentNode.attributes.name.nodeValue}-${slot.attributes.numKey.nodeValue}-getObject`)
+            let object = gestionnaireEvents.emit(`${slot.parentNode.attributes.name.nodeValue}-${slot.attributes.numkey.nodeValue}-getObject`)
             this.setState((prevState) => ({ objetSurvole: object }
                 ))
         }

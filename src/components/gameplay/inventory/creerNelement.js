@@ -4,13 +4,13 @@ function createNElement(type, howMany, attributs, childrensAcreer) {
     childrensAcreer = [].concat(childrensAcreer);
     if (childrensAcreer) {
         for (let i = 0; i < howMany; i++) {
-            let newElement = React.createElement(type, { ...attributs, key: i, numKey: i }, childrensAcreer);
+            let newElement = React.createElement(type, { ...attributs, key: i, numkey: i }, childrensAcreer);
             listElements.push(newElement)
         }
     }
     else{
         for (let i = 0; i < howMany; i++) {
-            let newElement = React.createElement(type, { ...attributs, key: i, numKey: i });
+            let newElement = React.createElement(type, { ...attributs, key: i, numkey: i });
             listElements.push(newElement)
         }
     }
