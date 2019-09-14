@@ -32,73 +32,51 @@ for(let i = 0; i < maxItems; i++) {
 */
 
 
-// TEST (TO DELETE)
-let newItem = new Item();
-newItem.setId(1)
-newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/16363.png')
-newItem.setName('Tank Helmet')
-newItem.setDescription('16$ on amazon for cringy medieval cosplay.')
-let rarityArray = newItem.getRarityArray()
-let randomRarity = Math.floor(Math.random() * 5)
-newItem.setRarity(rarityArray[randomRarity])
-items.push(newItem)
+const arrayImg = [
+    'https://art.pixilart.com/4cace868c94ee16.png',
+    'http://pixelartmaker.com/art/63862e153250ee3.png',
+    'https://art.pixilart.com/661f9bda0e9b95e.png',
+    'https://gamepedia.cursecdn.com/arksurvivalevolved_gamepedia/c/c7/Birthday_Suit_Pants_Skin.png',
+    'https://cdn2.iconfinder.com/data/icons/retro-game-items-revamp-border/100/defense_protect_armor_plate_hero-512.png',
+    'https://cdn2.iconfinder.com/data/icons/retro-game-items-revamp-border/100/shield_protect_weapon_defense_gold_hero-512.png'
+]
 
-newItem = new Item();
-newItem.setId(2)
-newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/11029.png')
-newItem.setName('Nurse Shoes')
-newItem.setDescription('Smell good.')
- rarityArray = newItem.getRarityArray()
- randomRarity = Math.floor(Math.random() * 5)
-newItem.setRarity(rarityArray[randomRarity])
-items.push(newItem)
+const arrayName = [
+    'Tank Helmet',
+    'Nurse Shoes',
+    'Deter Weapon',
+    'Ninja Leggings',
+    'Leto\'s Breastplate',
+    'Shield'
+]
 
-newItem = new Item();
-newItem.setId(3)
-newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/19065.png')
-newItem.setName('Deter Weapon')
-newItem.setDescription('Arms in your back make you run faster')
- rarityArray = newItem.getRarityArray()
- randomRarity = Math.floor(Math.random() * 5)
-newItem.setRarity(rarityArray[randomRarity])
-items.push(newItem)
+const arrayDescription = [
+    '16$ on amazon for cringy medieval cosplay.',
+    'Smell good.',
+    'Arms in your back make you run faster',
+    'You\'re not exhausted anymore while running.',
+    'Allow you to feed a baby.',
+    'My dream everynight.'   
+]
 
-newItem = new Item();
-newItem.setId(4)
-newItem.setImage('https://gamepedia.cursecdn.com/arksurvivalevolved_gamepedia/c/c7/Birthday_Suit_Pants_Skin.png')
-newItem.setName('Ninja Leggings')
-newItem.setDescription('You\'re not exhausted anymore while running.')
- rarityArray = newItem.getRarityArray()
- randomRarity = Math.floor(Math.random() * 5)
-newItem.setRarity(rarityArray[randomRarity])
-items.push(newItem)
-
-newItem = new Item();
-newItem.setId(5)
-newItem.setImage('https://lh3.googleusercontent.com/uoP9b8UNQWy5uOWNhQ03tyW-slNvpYMa-2vbrYhFB1nod8KkzsEUV4rn8K83QItZOdr_Qij8cN1R7ONlpMRjbZQ=s400')
-newItem.setName('Leto\'s Breastplate')
-newItem.setDescription('Allow you to feed a baby.')
- rarityArray = newItem.getRarityArray()
- randomRarity = Math.floor(Math.random() * 5)
-newItem.setRarity(rarityArray[randomRarity])
-items.push(newItem)
-
-newItem = new Item();
-newItem.setId(6)
-newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/82182.png')
-newItem.setName('Shield')
-newItem.setDescription('My dream everynight.')
- rarityArray = newItem.getRarityArray()
- randomRarity = Math.floor(Math.random() * 5)
-newItem.setRarity(rarityArray[randomRarity])
-items.push(newItem)
-
-
+function addItem () {
+    for (let i = 0; i < 6; i++) {
+        let newItem = new Item()
+        newItem.setImage(arrayImg[i])
+        newItem.setName(arrayName[i])
+        newItem.setDescription(arrayDescription[i])
+        newItem.setRarity(newItem.getRarityArray()[Math.floor(Math.random() * 5)])
+        items.push(newItem)
+    }   
+}
 
 
 function isEmpty(obj) {
     return Object.keys(obj).length === 0;
 }
+
+
+addItem()
 
 
 class CharacterStuff extends Component {

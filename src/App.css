@@ -280,7 +280,7 @@ body {
   height: 80vh;
 }
 .objet{
-  background-image: url(/img/EmptySlote.jpg);
+  background-image: url(/img/EmptySlot.png);
   background-size: var(--taille-slot-objet);
   background-repeat: no-repeat;
   width: var(--taille-slot-objet);
@@ -305,6 +305,9 @@ body {
 }
 .filter_legendary{
   background-color: rgba(255,0,0,0.2);
+}
+.filter_selected{
+  background-color: rgba(0, 238, 255, 0.767);
 }
 .icon_objet{
   z-index: 2;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import { Button } from 'reactstrap'
 import Inventory from "./gameplay/inventory/Inventory.js";
+import { Col, Button } from 'reactstrap';
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
@@ -9,6 +9,7 @@ import Room from "./gameplay/Room/Room.js"
 import Player from "./characters/Player"
 import Monster from "./characters/Monster"
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import InventoryModule from "./gameplay/InventoryModule";
 
 class GamePage extends Component {
     constructor() {
@@ -30,7 +31,7 @@ class GamePage extends Component {
             case 'inventary' :
                 return (
                     <div>
-                        <Inventory />
+                        <InventoryModule />
                     </div>
                 )
             case 'characterStuff' :
