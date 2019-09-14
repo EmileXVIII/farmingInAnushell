@@ -1,21 +1,25 @@
 class Item {
-    constructor() {
+    constructor(
+        name = null,
+        iconAdresse = '',
+        rarity = 'Common',
+        id = 0,
+        cost = Math.floor(Math.random() * 100),
+        specialAttribute = null,
+        description = "Pas de Description",
+        type = null,
+         ) {
         this.rarity = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
 
-        this.stats = {
-            Id: 0,
-            Life: 0,
-            Atk: 0,
-            Def: 0,
-            Dodge: 0,
-            Critical: 0,
-            Cost: this.randomInt(100),
-            SpecialAttribute: null,
-            Name: null,
-            Description: "Pas de Description",
-            Rarity: this.rarity[0],
-            Type: null,
-            Image: '',
+        this.infos = {
+            id,
+            cost,
+            specialAttribute,
+            name,
+            description,
+            rarity,
+            type,
+            iconAdresse,
         }
     }
 
@@ -24,23 +28,23 @@ class Item {
     }
 
     setName(name) {
-        this.stats.Name = name
+        this.infos.name = name
     }
 
     setId(id) {
-        this.stats.Id = id
+        this.infos.id = id
     }
 
     setImage(image) {
-        this.stats.Image = image
+        this.infos.iconAdresse = image
     }
 
-    setRarity(rarity){
-        this.stats.Rarity = rarity
+    setRarity(rarity) {
+        this.infos.rarity = rarity
     }
 
     setDescription(description) {
-        this.stats.Description = description
+        this.infos.description = description
     }
 
     randomInt(Max) {

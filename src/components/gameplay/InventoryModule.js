@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import createNElements from "./inventory/creerNelement";
-import InventoryObject from "./inventory/InventoryObject";
-import './inventory/test'
+import createNElements from "./inventory.dir/creerNelement";
+import InventoryObject from "./inventory.dir/InventoryObject";
+import './inventory.dir/test'
 import { inventoryEquipementSaver, inventoryExpendableSaver, lenInvExpendable, lenInvEquipement } from "../../App";
-import InfoItems from "./inventory/InfoItems";
+import InfoItems from "./inventory.dir/InfoItems";
 
 class InventoryModule extends Component {
     constructor() {

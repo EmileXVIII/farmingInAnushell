@@ -59,7 +59,7 @@ class Wrought extends Component {
     }
 
     getNextRarity(item) {
-        const currentRarity = item.getRarityArray().indexOf(item.stats.Rarity)
+        const currentRarity = item.getRarityArray().indexOf(item.infos.rarity)
         const nextRarity = currentRarity + 1
         return nextRarity
     }
@@ -85,7 +85,7 @@ class Wrought extends Component {
                                 </>
                             )
                         } else {
-                            let item = this.state.item.stats
+                            let item = this.state.item.infos
                             let futurRarity = this.getNextRarity(this.state.item)
                             futurCost = cost*(futurRarity + 2)
 
@@ -100,10 +100,10 @@ class Wrought extends Component {
                             }
 
                             style = {
-                                backgroundColor : RARITY[item.Rarity]
+                                backgroundColor : RARITY[item.rarity]
                             }
                             colorStyle = {
-                                color : RARITY[item.Rarity]
+                                color : RARITY[item.rarity]
                             }
                             nextColorStyle = {
                                 color : RARITY[futurRarity] 
@@ -112,10 +112,10 @@ class Wrought extends Component {
                             return(
                                 <>        
                                     <div className="forge">
-                                        <img style={style} className="rounded" width="100" src={item.Image}/>
+                                        <img style={style} className="rounded" width="100" src={item.iconAdresse}/>
                                     </div>
                                     <div class="medium-div-center mt-3  border">
-                                        <p>Current rarity : <span style={colorStyle}>{item.Rarity}</span></p>
+                                        <p>Current rarity : <span style={colorStyle}>{item.rarity}</span></p>
                                         <p>Next level : <span style={nextColorStyle}>{futurRarity}</span></p>
                                         <p>Cost <span>{futurCost}</span> 
                                             <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40"/>
@@ -132,14 +132,14 @@ class Wrought extends Component {
                             {items.map((item) => 
                                 <img 
                                 onClick={() => this.setState({ item : item})} 
-                                title={item.stats.Name} 
+                                title={item.infos.name} 
                                 data-toggle="tooltip" 
                                 data-placement="top" 
                                 className="onHover mx-3 my-3 border" 
                                 width="75" 
                                 alt="item-icon"
-                                src={item.stats.Image} 
-                                key={item.stats.Id}
+                                src={item.infos.iconAdresse} 
+                                key={item.infos.id}
                             />
                             )}
                     </div>

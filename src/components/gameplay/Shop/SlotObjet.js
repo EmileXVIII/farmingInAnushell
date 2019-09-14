@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
-import Helmet from '../../items/Helmet'
-import Leggins from '../../items/Leggings'
-import Breastplate from '../../items/Breastplate'
-import Shield from '../../items/Shield'
-import Shoes from '../../items/Shoes'
-import Weapon from '../../items/Weapon'
+import Helmet from '../../items/equipement.dir/Helmet'
+import Leggins from '../../items/equipement.dir/Leggings'
+import Breastplate from '../../items/equipement.dir/Breastplate'
+import Shield from '../../items/equipement.dir/Shield'
+import Shoes from '../../items/equipement.dir/Shoes'
+import Weapon from '../../items/equipement.dir/Weapon'
 
 
 function getRandomIntInclusive(min, max) {
@@ -52,13 +52,13 @@ class SlotObjet extends Component {
         const div = document.getElementById("Shop-Description")
         this.element = (
             <div>
-                <h4>{this.state.item.stats.Name}</h4>
-                <p>{this.state.item.stats.Description}</p>
-                <p>Atk :{this.state.item.stats.Atk}</p>
-                <p>Def :{this.state.item.stats.Def}</p>
-                <p>Crit :{this.state.item.stats.Critical}</p>
-                <p>Dodge :{this.state.item.stats.Dodge}</p>
-                <p>Life :{this.state.item.stats.Life}</p>
+                <h4>{this.state.item.infos.name}</h4>
+                <p>{this.state.item.infos.description}</p>
+                <p>Atk :{this.state.item.stats.att}</p>
+                <p>Def :{this.state.item.stats.def}</p>
+                <p>Crit :{this.state.item.stats.critical}</p>
+                <p>Dodge :{this.state.item.stats.dodge}</p>
+                <p>Life :{this.state.item.stats.life}</p>
             </div>
         )
         ReactDOM.render(this.element, div)
@@ -82,8 +82,8 @@ class SlotObjet extends Component {
     render() {
         return (
             <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
-                <h6>{this.state.item.stats.Name}</h6>
-                <p className="cost" >{this.state.item.stats.Cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
+                <h6>{this.state.item.infos.name}</h6>
+                <p className="cost" >{this.state.item.infos.cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
             </div>
         )
     }

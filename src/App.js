@@ -4,7 +4,7 @@ import MainPage from './components/MainPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import GamePage from './components/GamePage';
 import { resolve } from 'path';
-import Saver from './components/gameplay/inventory/Saver';
+import Saver from './components/gameplay/inventory.dir/Saver'
 
 let lenInvExpendable=8,
 lenInvEquipement=3*8, 

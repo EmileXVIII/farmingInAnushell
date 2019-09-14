@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import Inventory from "./gameplay/inventory/Inventory.js";
 import { Col, Button } from 'reactstrap';
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";

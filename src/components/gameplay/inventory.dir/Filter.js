@@ -15,7 +15,7 @@ class Filter extends Component {
     changeRarity(newObject){
         let newRarity
         if (newObject)
-         {newRarity=  newObject ? newObject.rarity : undefined; }
+         {newRarity=  newObject ? newObject.infos.rarity : undefined; }
         else {newRarity=this.props.rarity}
         let filterRarity;
         if (newRarity){newRarity=newRarity.toLowerCase()}

@@ -1,5 +1,5 @@
 import { gestionnaireEvents } from "./inventoryEvents";
-import Equipement from "./Equipement";
+import Equipement from "../../items/Equipement";
 
 let equip1 = new Equipement('equip1', '/img/epee1.png','arm');
 let equip2 = new Equipement('equip2', '/img/epee1.png','arm','uncommon');

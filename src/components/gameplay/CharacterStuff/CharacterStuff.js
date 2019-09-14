@@ -97,14 +97,14 @@ class CharacterStuff extends Component {
                             <img 
                                 onClick={() => this.setState({ item : item})}   
                                 //style={style}
-                                title={item.stats.Name} 
+                                title={item.infos.name} 
                                 data-toggle="tooltip" 
                                 data-placement="top" 
                                 className="onHover mx-3 my-3 border" 
                                 width="75" 
                                 alt="item-icon"
-                                src={item.stats.Image} 
-                                key={item.stats.Id}
+                                src={item.infos.iconAdresse} 
+                                key={item.infos.id}
                             />
                         )}
                     </div>
@@ -119,9 +119,9 @@ class CharacterStuff extends Component {
                                             </p>
                                         )
                                     } else {
-                                        let item = this.state.item.stats
+                                        let item = this.state.item.infos
                                         style = {
-                                            backgroundColor : RARITY[item.Rarity]
+                                            backgroundColor : RARITY[item.rarity]
                                         }
                                         return(
                                             <>
@@ -130,11 +130,11 @@ class CharacterStuff extends Component {
                                                         <img style={style} className="rounded border" width="120" src={item.Image}/>
                                                     </div>
                                                     <div className="col-8">
-                                                        <b>{item.Name}</b>
-                                                        <p>({item.Rarity})</p>
+                                                        <b>{item.name}</b>
+                                                        <p>({item.rarity})</p>
                                                     </div>
                                                 </div>
-                                                <p className="mt-5">{item.Description}</p>
+                                                <p className="mt-5">{item.description}</p>
                                             </>
                                         )
                                     }
