@@ -80,6 +80,8 @@ class SlotObjet extends Component {
             return (
                 <Button onClick={() => this.props.buyItem(this.state.item.stats.Cost, this.state.item.stats.Name)} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.stats.Name}</h6>
+                    <img width='45px' src={this.state.item.stats.Image}/>
+                    <br/><br/><br/>
                     <p className="cost" >{this.state.item.stats.Cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
                 </Button>
             )
@@ -87,22 +89,25 @@ class SlotObjet extends Component {
     }
 
     buyItem = () => {
-        const item = this.state.item
-        let inventoryTab = ""
-        setTimeout(() => {
-            inventoryTab = inventoryEquipementSaver.objects
-        }, 0);
-        for (let i = 0; i < inventoryTab.length; i++) {
-            if (inventoryTab[i] === undefined) {
-                inventoryTab[i] = item
-            }
-        };
-        this.setState({
-            item: "",
-        })
-        const div = document.getElementById("Shop-Description")
-        this.element = ""
-        ReactDOM.render(this.element, div)
+        if (this.props.checkIfBuyable(this.state.item.stats.Cost)) {
+            const item = this.state.item
+            let inventoryTab = ""
+            setTimeout(() => {
+                inventoryTab = inventoryEquipementSaver.objects
+            }, 0);
+            for (let i = 0; i < inventoryTab.length; i++) {
+                if (inventoryTab[i] === undefined) {
+                    inventoryTab[i] = item
+                }
+            };
+            this.setState({
+                item: "",
+            })
+            const div = document.getElementById("Shop-Description")
+            this.element = ""
+            ReactDOM.render(this.element, div)
+        }
+        
     }
 
     render() {

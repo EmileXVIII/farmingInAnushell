@@ -76,10 +76,10 @@ class Wrought extends Component {
     }
 
     upgradeItem(item, futurCost) {
-        let nextItem = this.getNextRarity(item)
-        item.setRarity(item.rarity[nextItem])
-        this.setState({ item : item })
         if (this.props.lostGold(futurCost)) {
+            let nextItem = this.getNextRarity(item)
+            item.setRarity(item.rarity[nextItem])
+            this.setState({ item : item })
             this.props.upgradeItem(item.stats.Name)
         }       
     }
@@ -157,7 +157,7 @@ class Wrought extends Component {
                     </div>
                     </form>
                 <div className="forge-buttton text-center mt-3 pb-5 d-flex justify-content-around">
-                    <button onClick={() => this.upgradeItem(this.state.item, futurCost, userCoins)} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
+                    <button onClick={() => this.upgradeItem(this.state.item, futurCost)} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
                 </div>
             </div>
         )

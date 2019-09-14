@@ -9,8 +9,8 @@ import Player from "./characters/Player"
 import Monster from "./characters/Monster"
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import InventoryModule from "./gameplay/InventoryModule";
-// import soundfile from ""
-// import Sound from "react-sound"
+import soundfile from "../music/backgroundtheme.mp3"
+import Sound from "react-sound"
 
 class GamePage extends Component {
     constructor() {
@@ -23,7 +23,7 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 500
+            gold: 50
         }
     }
 
@@ -50,7 +50,7 @@ class GamePage extends Component {
             case 'shop':
                 return (
                     <div>
-                        <Shop lostGold={(cost) => this.lostGold(cost)} displayBuying={(name) => this.setState({combatInfo: 'You just bought ' + name})}/>
+                        <Shop lostGold={(cost) => this.lostGold(cost)} displayBuying={(name) => this.setState({combatInfo: 'You just bought ' + name})} />
                     </div>
                 )
             case 'room':
@@ -158,13 +158,13 @@ class GamePage extends Component {
     render() {
         return (
             <div>
-                {/* <Sound
+                <Sound
                     url={soundfile}
                     playStatus={Sound.status.PLAYING}
                     onLoading={this.handleSongLoading}
                     onPlaying={this.handleSongPlaying}
                     onFinishedPlaying={this.handleSongFinishedPlaying}
-                /> */}
+                />
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
