@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { Button } from 'reactstrap';
 import Icon from '@material-ui/core/Icon';
 import ListSlot from "./ListSlot";
+import { inventoryEquipementSaver, shopSaver } from "../../../App.js"
 
 class Shop extends Component {
     constructor() {
         super()
         this.refreshShop = this.refreshShop.bind(this);
         this.id = 0
+        this.gen = false;
+        this.listobjet = ""
         this.state = {
             list: [this.id],
             costRefresh: 15
@@ -17,6 +20,7 @@ class Shop extends Component {
 
     refreshShop = () => {     
         if (this.props.lostGold(this.state.costRefresh)) {
+            this.gen = true
             this.id += 1
             const newlist = [this.id]
 
@@ -32,10 +36,24 @@ class Shop extends Component {
         }     
     }
 
+    affichageList() {
+        if (shopSaver.list === "" || this.gen === true) {
+            this.listobjet = this.state.list.map((idtab) => (<ListSlot buyItem={(cost, name) => this.buyItem(cost, name)} key={idtab} />))
+            this.gen = false
+        } else {
+            this.gen = false
+            this.listobjet = shopSaver.list
+        }
+    }
+
+        
+    componentWillUnmount() {
+        shopSaver.list = this.listobjet
+    }
+
     render() {
-
-        let listobjet = this.state.list.map((idtab) => (<ListSlot buyItem={(cost, name) => this.buyItem(cost, name)} key={idtab} />))
-
+        this.affichageList()
+        
         return (
             <div id="Shop">
                 <header>
@@ -43,7 +61,7 @@ class Shop extends Component {
                 </header>
                 <div id="Shop-Description">
                 </div>
-                {listobjet}
+                {this.listobjet}
                 <div className="clear"></div>
             </div>
         )
