@@ -8,7 +8,7 @@ class ListSlot extends Component {
 
     render() {
         return (
-            <div id="list-objet" className="list-objet">
+            <div id="list-object" className="list-object">
                 <SlotObjet />
                 <SlotObjet />
                 <SlotObjet />

@@ -81,7 +81,7 @@ class SlotObjet extends Component {
 
     render() {
         return (
-            <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="objet">
+            <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                 <h6>{this.state.item.stats.Name}</h6>
                 <p className="cost" >{this.state.item.stats.Cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
             </div>

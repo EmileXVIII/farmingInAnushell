@@ -214,12 +214,12 @@ body {
 }
 
 
-#Shop .list-objet {
+#Shop .list-object {
   padding: 1em;
   max-width: 500px;
 }
 
-#Shop .objet {
+#Shop .object {
   background-image: url("/img/Shop-Background-item.png");
   background-repeat: no-repeat;
   background-size: 130px 130px;
@@ -228,25 +228,25 @@ body {
   float: left;
 }
 
-#Shop .objet:hover {
+#Shop .object:hover {
   background-image: url("/img/Shop-Background-item-hover.png");
 }
 
-#Shop #list-objet .objet {
+#Shop #list-object .object {
   color: #000;
   position: relative;
 }
 
-#Shop #list-objet .objet h6 {
+#Shop #list-object .object h6 {
   padding-top: 8px;
   text-align: center;
 }
 
-#Shop #list-objet .objet img {
+#Shop #list-object .object img {
   margin: 0;
 }
 
-#Shop #list-objet .objet .cost {
+#Shop #list-object .object .cost {
   position: absolute;
   bottom: 0;
   right: 8px;

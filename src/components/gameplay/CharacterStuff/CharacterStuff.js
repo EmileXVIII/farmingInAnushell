@@ -15,7 +15,7 @@ class CharacterStuff extends Component {
         div.appendChild(titre)
         for (let i = 0; i < 9; i++) {
             const objet = document.createElement('div')
-            objet.className = `objet ${type}`
+            objet.className = `object ${type}`
             div.appendChild(objet)
         }
     }
@@ -52,15 +52,15 @@ class CharacterStuff extends Component {
                 <h3 className="text-center">Character</h3>
                 <div class="character">
                     <div className="list-equip">
-                        <div onClick={this.handleClickHelmet} className="objet Helmet"></div>
-                        <div onClick={this.handleClickChest} className="objet Chest"></div>
-                        <div onClick={this.handleClickMainHand} className="objet Main Hand"></div>
+                        <div onClick={this.handleClickHelmet} className="object Helmet"></div>
+                        <div onClick={this.handleClickChest} className="object Chest"></div>
+                        <div onClick={this.handleClickMainHand} className="object Main Hand"></div>
                     </div>
                     <div class="element-character"></div>
                     <div className="list-equip">
-                        <div onClick={this.handleClickLegs} className="objet Legs"></div>
-                        <div onClick={this.handleClickBoots} className="objet Boots"></div>
-                        <div onClick={this.handleClickOffHand} className="objet Off Hand"></div>
+                        <div onClick={this.handleClickLegs} className="object Legs"></div>
+                        <div onClick={this.handleClickBoots} className="object Boots"></div>
+                        <div onClick={this.handleClickOffHand} className="object Off Hand"></div>
                     </div>
                 </div>
                 <div id="list-inventaire">
