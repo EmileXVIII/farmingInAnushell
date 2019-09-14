@@ -10,8 +10,8 @@ import Player from "./characters/Player"
 import Monster from "./characters/Monster"
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import InventoryModule from "./gameplay/InventoryModule";
-import soundfile from ""
-import Sound from "react-sound"
+// import soundfile from ""
+// import Sound from "react-sound"
 
 class GamePage extends Component {
     constructor() {
@@ -113,8 +113,6 @@ class GamePage extends Component {
             this.setState({ counter: this.state.counter + 1, gold: player.stats.Gold, })
             setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold'), 500)
         }
-
-
     }
 
     checkPlayerAlive = (player, monster) => {
@@ -150,13 +148,13 @@ class GamePage extends Component {
     render() {
         return (
             <div>
-                <Sound
+                {/* <Sound
                     url={soundfile}
                     playStatus={Sound.status.PLAYING}
                     onLoading={this.handleSongLoading}
                     onPlaying={this.handleSongPlaying}
                     onFinishedPlaying={this.handleSongFinishedPlaying}
-                />
+                /> */}
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
@@ -167,23 +165,23 @@ class GamePage extends Component {
                         {/*Game scene*/}
                         <div className="border col-6">
                             <img width="700" src="/img/gamescene_1.png" />
-                            <div class="gameplay-infos border py-3 px-3">
+                            <div className="gameplay-infos border py-3 px-3">
                                 <a>{this.state.combatInfo}</a>
                             </div>
                             <br />
-                            <div class="gameplay-infos border py-3 px-3">
+                            <div className="gameplay-infos border py-3 px-3">
                                 <a>Player HP : {this.state.playerHP}</a>
                             </div>
                             <br />
-                            <div class="gameplay-infos border py-3 px-3">
+                            <div className="gameplay-infos border py-3 px-3">
                                 <a>Monster HP : {this.state.monsterHP}</a>
                             </div>
                             <br />
-                            <div class="gameplay-infos border py-3 px-3">
+                            <div className="gameplay-infos border py-3 px-3">
                                 <a>Gold : {this.state.gold}</a>
                             </div>
                             <br />
-                            <div class="gameplay-infos border py-3 px-3">
+                            <div className="gameplay-infos border py-3 px-3">
                                 <a>Monster killed : {this.state.counter}</a>
                             </div>
                         </div>

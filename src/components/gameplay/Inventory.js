@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/shop-interactif
 class Inventory extends Component {
     // constructor() {
     //     super()

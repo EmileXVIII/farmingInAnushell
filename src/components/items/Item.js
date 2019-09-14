@@ -35,7 +35,7 @@ class Item {
         this.stats.Image = image
     }
 
-    setRarity(rarity){
+    setRarity(rarity) {
         this.stats.Rarity = rarity
     }
 

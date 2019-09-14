@@ -5,26 +5,28 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import GamePage from './components/GamePage';
 import { resolve } from 'path';
 import Saver from './components/gameplay/inventory/Saver';
+import ShopSaver from "./components/gameplay/Shop/ShopSaver"
 
-let lenInvExpendable=8,
-lenInvEquipement=3*8, 
-inventoryEquipementSaver=new Saver('conteneur_inventaire',lenInvEquipement),
-inventoryExpendableSaver=new Saver('conteneur_activables',lenInvExpendable);
+let lenInvExpendable = 8,
+  lenInvEquipement = 3 * 8,
+  inventoryEquipementSaver = new Saver('conteneur_inventaire', lenInvEquipement),
+  inventoryExpendableSaver = new Saver('conteneur_activables', lenInvExpendable),
+  shopSaver = new ShopSaver();
 
 class App extends Component {
 
   render() {
-    return ( 
+    return (
       <div className="main-div">
-          <Router>
-            {/* Routing */}
-            <Route exact path="/" component={MainPage} />
-            <Route path="/game" render={(props) => <GamePage {...props} />}/>
+        <Router>
+          {/* Routing */}
+          <Route exact path="/" component={MainPage} />
+          <Route path="/game" render={(props) => <GamePage {...props} />} />
         </Router>
       </div>
     );
-  }  
+  }
 }
 
 export default App;
-export {lenInvEquipement,lenInvExpendable,inventoryEquipementSaver,inventoryExpendableSaver};
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver };

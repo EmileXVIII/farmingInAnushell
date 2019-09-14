@@ -6,7 +6,7 @@ import Breastplate from '../../items/Breastplate'
 import Shield from '../../items/Shield'
 import Shoes from '../../items/Shoes'
 import Weapon from '../../items/Weapon'
-
+import { inventoryEquipementSaver } from "../../../App.js"
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -15,15 +15,13 @@ function getRandomIntInclusive(min, max) {
 }
 
 
-
 class SlotObjet extends Component {
     constructor(props) {
         super(props)
+        this.element = ""
         this.state = {
             item: this.generate(),
-            element: "",
         }
-
     }
 
     generate() {
@@ -65,7 +63,9 @@ class SlotObjet extends Component {
     }
 
     toggleHover = () => {
-        this.Desc()
+        if (this.state.item !== "") {
+            this.Desc()
+        }
     }
 
     toggleClear = () => {
@@ -74,16 +74,40 @@ class SlotObjet extends Component {
         ReactDOM.render(this.element, div)
     }
 
+    affichage = () => {
+        if (this.state.item !== "") {
+            return (
+                <div>
+                    <h6>{this.state.item.stats.Name}</h6>
+                    <p className="cost" >{this.state.item.stats.Cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
+                </div>
+            )
+        }
+    }
+
     buyItem = () => {
         const item = this.state.item
-        // put item in inventory
+        let inventoryTab = ""
+        setTimeout(() => {
+            inventoryTab = inventoryEquipementSaver.objects
+        }, 0);
+        for (let i = 0; i < inventoryTab.length; i++) {
+            if (inventoryTab[i] === undefined) {
+                inventoryTab[i] = item
+            }
+        };
+        this.setState({
+            item: "",
+        })
+        const div = document.getElementById("Shop-Description")
+        this.element = ""
+        ReactDOM.render(this.element, div)
     }
 
     render() {
         return (
             <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
-                <h6>{this.state.item.stats.Name}</h6>
-                <p className="cost" >{this.state.item.stats.Cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
+                {this.affichage()}
             </div>
         )
     }

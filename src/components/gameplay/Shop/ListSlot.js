@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import SlotObjet from './SlotObjet';
 
 class ListSlot extends Component {
-    // constructor() {
-    //     super()
-    // }
+    constructor() {
+        super()
+        this.list = ""
+    }
 
     render() {
         return (
