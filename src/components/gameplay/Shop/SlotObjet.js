@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import ReactDOM from 'react-dom'
 import Helmet from '../../items/Helmet'
 import Leggins from '../../items/Leggings'
+import Breastplate from '../../items/Breastplate'
+import Shield from '../../items/Shield'
+import Shoes from '../../items/Shoes'
+import Weapon from '../../items/Weapon'
 
 
 function getRandomIntInclusive(min, max) {
@@ -23,11 +27,24 @@ class SlotObjet extends Component {
     }
 
     generate() {
-        const rand = getRandomIntInclusive(1, 20)
-        if (rand > 10) {
-            return new Helmet("Casque")
-        } else {
-            return new Leggins("Jambes")
+        const rand = getRandomIntInclusive(1, 6)
+        if (rand === 1) {
+            return new Helmet("Helmet")
+        }
+        else if (rand === 2) {
+            return new Leggins("Legs")
+        }
+        else if (rand === 3) {
+            return new Shield("Shield")
+        }
+        else if (rand === 4) {
+            return new Shoes("Boots")
+        }
+        else if (rand === 5) {
+            return new Weapon("Sword")
+        }
+        else if (rand === 6) {
+            return new Breastplate("Breast")
         }
     }
 
@@ -57,9 +74,14 @@ class SlotObjet extends Component {
         ReactDOM.render(this.element, div)
     }
 
+    buyItem = () => {
+        const item = this.state.item
+        // put item in inventory
+    }
+
     render() {
         return (
-            <div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="objet">
+            <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="objet">
                 <h6>{this.state.item.stats.Name}</h6>
                 <p className="cost" >{this.state.item.stats.Cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
             </div>
