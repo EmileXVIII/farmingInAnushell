@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import SlotObjet from './SlotObjet';
 
 class ListSlot extends Component {
-    // constructor() {
-    //     super()
-    // }
+   state = {
+       slotObject: <SlotObjet buyItem={(cost, name) => this.props.buyItem(cost, name)}/>
+   }
 
     render() {
         return (
             <div id="list-object" className="list-object">
-                <SlotObjet />
-                <SlotObjet />
-                <SlotObjet />
-                <SlotObjet />
-                <SlotObjet />
-                <SlotObjet />
+                {this.state.slotObject}
+                {this.state.slotObject}
+                {this.state.slotObject}
+                {this.state.slotObject}
+                {this.state.slotObject}
+                {this.state.slotObject}
             </div>
         )
     }

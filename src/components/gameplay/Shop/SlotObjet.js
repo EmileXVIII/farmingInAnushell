@@ -6,6 +6,7 @@ import Breastplate from '../../items/Breastplate'
 import Shield from '../../items/Shield'
 import Shoes from '../../items/Shoes'
 import Weapon from '../../items/Weapon'
+import { Button } from 'reactstrap';
 
 
 function getRandomIntInclusive(min, max) {
@@ -74,17 +75,12 @@ class SlotObjet extends Component {
         ReactDOM.render(this.element, div)
     }
 
-    buyItem = () => {
-        const item = this.state.item
-        // put item in inventory
-    }
-
     render() {
         return (
-            <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
+            <Button onClick={() => this.props.buyItem(this.state.item.stats.Cost, this.state.item.stats.Name)} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                 <h6>{this.state.item.stats.Name}</h6>
-                <p className="cost" >{this.state.item.stats.Cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
-            </div>
+                <p className="cost" >{this.state.item.stats.Cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
+            </Button>
         )
     }
 }

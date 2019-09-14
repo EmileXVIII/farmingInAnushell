@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import Inventory from "./gameplay/inventory/Inventory.js";
 import { Col, Button } from 'reactstrap';
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
@@ -43,13 +42,13 @@ class GamePage extends Component {
             case 'wrought':
                 return (
                     <div>
-                        <Wrought />
+                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })}/>
                     </div>
                 )
             case 'shop':
                 return (
                     <div>
-                        <Shop />
+                        <Shop lostGold={(cost) => this.lostGold(cost)} displayBuying={(name) => this.setState({combatInfo: 'You just bought ' + name})}/>
                     </div>
                 )
             case 'room':
@@ -60,6 +59,17 @@ class GamePage extends Component {
                 )
         }
     }
+
+    lostGold = (gold) => {
+        if (gold > this.state.gold) {
+            this.setState({combatInfo: 'Too broke...'})
+            return false
+        } else {
+            this.setState({gold: this.state.gold - gold})
+            return true
+        }
+    }
+
 
     healMySelf = (character) => {
         character.stats.Life += 100
