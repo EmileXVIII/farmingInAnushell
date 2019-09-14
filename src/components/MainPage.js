@@ -1,17 +1,13 @@
 import React, { Component } from "react"
 import { Cell, Grid } from 'react-mdl'
-import {
-    Container,
-    Button,
-  } from 'reactstrap'
+import { Container, Button} from 'reactstrap'
 import LoginForm from "./forms/LoginForm"
 import SigninForm from "./forms/SigninForm"
 
 
 class MainPage extends Component {
-        state = { activeTab: 'Login'}
+    state = { activeTab: 'Login'}
     
-
     toggleForm = () => {
         if (this.state.activeTab == 'Signin') {
             return (
@@ -30,7 +26,8 @@ class MainPage extends Component {
     }
 
     render() {
-        return(
+
+        return (
         <div className="home-background">
             <h1 className="pt-5 text-white text-center">Farming in a Nutshell</h1>
             <div className="col-6 home mt-5 py-3 px-3">
@@ -44,6 +41,13 @@ class MainPage extends Component {
                         <div className="content">
                             { this.toggleForm() }
                         </div>
+                        <Grid>
+                            <Cell col={12}>
+                                <div className="content">
+                                    {this.toggleForm()}
+                                </div>
+                            </Cell>
+                        </Grid>
                     </Cell>
                 </Grid>
             </Container>

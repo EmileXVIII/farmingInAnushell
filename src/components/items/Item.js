@@ -9,9 +9,14 @@ class Item {
             Def: 0,
             Dodge: 0,
             Critical: 0,
-            Cost: 0,
+            Cost: 1,
             SpecialAttribute: null,
+<<<<<<< HEAD
             Name: '',
+=======
+            Name: null,
+            Description: "Pas de Description",
+>>>>>>> origin/shop-interactif
             Rarity: this.rarity[0],
             Type: null,
             Image: '',

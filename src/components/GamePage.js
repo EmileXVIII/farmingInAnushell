@@ -28,36 +28,36 @@ class GamePage extends Component {
     
     toggleElements() {
         switch (this.state.gameplayElement) {
-            case 'inventary' :
+            default: case 'inventary':
                 return (
                     <div>
                         <InventoryModule />
                     </div>
                 )
-            case 'characterStuff' :
+            case 'characterStuff':
                 return (
                     <div>
                         <CharacterStuff />
                     </div>
                 )
-            case 'wrought' :
+            case 'wrought':
                 return (
                     <div>
                         <Wrought />
                     </div>
                 )
-            case 'shop' :
+            case 'shop':
                 return (
                     <div>
                         <Shop />
                     </div>
                 )
-            case 'room' :
+            case 'room':
                 return (
                     <div>
                         <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} selfHealing={() => this.healMySelf(this.state.playerTest)}/>
                     </div>
-                )    
+                )
         }
     }
 
@@ -180,11 +180,11 @@ class GamePage extends Component {
                         </div>
                         <div className="col-6">
                             <div className="d-flex justify-content-around mb-5">
-                                <Button onClick={() => this.setState({gameplayElement: 'inventary'})}>Inventory</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'characterStuff'})}>Character</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'wrought'})}>Wrought</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'shop'})}>Shop</Button>
-                                <Button onClick={() => this.setState({gameplayElement: 'room'})}>Room</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'inventary' })}>Inventory</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'characterStuff' })}>Character</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'wrought' })}>Wrought</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'shop' })}>Shop</Button>
+                                <Button onClick={() => this.setState({ gameplayElement: 'room' })}>Room</Button>
                             </div>
                             <Cell className="dynamic-content">
                                 {this.toggleElements()}
