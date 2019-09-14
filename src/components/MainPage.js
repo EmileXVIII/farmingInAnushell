@@ -41,13 +41,6 @@ class MainPage extends Component {
                         <div className="content">
                             { this.toggleForm() }
                         </div>
-                        <Grid>
-                            <Cell col={12}>
-                                <div className="content">
-                                    {this.toggleForm()}
-                                </div>
-                            </Cell>
-                        </Grid>
                     </Cell>
                 </Grid>
             </Container>

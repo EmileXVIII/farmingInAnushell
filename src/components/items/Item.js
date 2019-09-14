@@ -9,18 +9,13 @@ class Item {
             Def: 0,
             Dodge: 0,
             Critical: 0,
-            Cost: 1,
+            Cost: this.randomInt(100),
             SpecialAttribute: null,
-<<<<<<< HEAD
-            Name: '',
-=======
             Name: null,
             Description: "Pas de Description",
->>>>>>> origin/shop-interactif
             Rarity: this.rarity[0],
             Type: null,
             Image: '',
-            Description: 'Simple helmet for people lacking personality'
         }
     }
 
@@ -46,6 +41,11 @@ class Item {
 
     setDescription(description) {
         this.stats.Description = description
+    }
+
+    randomInt(Max) {
+        return Math.floor(Math.random() * Max)
+
     }
 }
 
