@@ -23,6 +23,9 @@ class Filter extends Component {
             case "common":
                 filterRarity='filter_common';
                 break
+            case "uncommon":
+                filterRarity='filter_uncommon';
+                break
             case "rare":
                 filterRarity='filter_rare';
                 break
