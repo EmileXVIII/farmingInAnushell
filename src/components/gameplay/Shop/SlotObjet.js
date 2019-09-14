@@ -6,7 +6,8 @@ import Breastplate from '../../items/equipement.dir/Breastplate'
 import Shield from '../../items/equipement.dir/Shield'
 import Shoes from '../../items/equipement.dir/Shoes'
 import Weapon from '../../items/equipement.dir/Weapon'
-
+import { Button } from 'reactstrap';
+import { inventoryEquipementSaver } from "../../../App.js"
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -15,15 +16,13 @@ function getRandomIntInclusive(min, max) {
 }
 
 
-
 class SlotObjet extends Component {
     constructor(props) {
         super(props)
+        this.element = ""
         this.state = {
             item: this.generate(),
-            element: "",
         }
-
     }
 
     generate() {
@@ -65,7 +64,9 @@ class SlotObjet extends Component {
     }
 
     toggleHover = () => {
-        this.Desc()
+        if (this.state.item !== "") {
+            this.Desc()
+        }
     }
 
     toggleClear = () => {
@@ -74,16 +75,40 @@ class SlotObjet extends Component {
         ReactDOM.render(this.element, div)
     }
 
+    affichage = () => {
+        if (this.state.item !== "") {
+            return (
+                <Button onClick={() => this.props.buyItem(this.state.item.infos.cost, this.state.item.infos.name)} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
+                    <h6>{this.state.item.infos.name}</h6>
+                    <p className="cost" >{this.state.item.infos.cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
+                </Button>
+            )
+        }
+    }
+
     buyItem = () => {
         const item = this.state.item
-        // put item in inventory
+        let inventoryTab = ""
+        setTimeout(() => {
+            inventoryTab = inventoryEquipementSaver.objects
+        }, 0);
+        for (let i = 0; i < inventoryTab.length; i++) {
+            if (inventoryTab[i] === undefined) {
+                inventoryTab[i] = item
+            }
+        };
+        this.setState({
+            item: "",
+        })
+        const div = document.getElementById("Shop-Description")
+        this.element = ""
+        ReactDOM.render(this.element, div)
     }
 
     render() {
         return (
             <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
-                <h6>{this.state.item.infos.name}</h6>
-                <p className="cost" >{this.state.item.infos.cost}<img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
+                {this.affichage()}
             </div>
         )
     }

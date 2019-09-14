@@ -9,10 +9,12 @@ class InventoryModule extends Component {
     constructor() {
         super()
     }
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         inventoryEquipementSaver.saveAll();
         inventoryExpendableSaver.saveAll()
     }
+
     render() {
         return (
             <div className='w-100 h-100'>
@@ -20,12 +22,12 @@ class InventoryModule extends Component {
                 <div className="inventory w-100 h-100">
                     <div className="element_inventory">
                         <div name='conteneur_activables' className="conteneur_activables">
-                            {createNElements(InventoryObject, lenInvExpendable, { className: 'objet activable_case', conteneurname:'conteneur_activables' })}
+                            {createNElements(InventoryObject, lenInvExpendable, { className: 'objet activable_case', conteneurname: 'conteneur_activables' })}
                         </div>
-                        <div name="conteneur_inventaire" class="conteneur_inventaire">
-                            {createNElements(InventoryObject, lenInvEquipement, { className: 'objet equipement_case', conteneurname:'conteneur_inventaire' })}
+                        <div name="conteneur_inventaire" className="conteneur_inventaire">
+                            {createNElements(InventoryObject, lenInvEquipement, { className: 'objet equipement_case', conteneurname: 'conteneur_inventaire' })}
                         </div>
-                        <InfoItems/>
+                        <InfoItems />
                     </div>
                 </div>
             </div>

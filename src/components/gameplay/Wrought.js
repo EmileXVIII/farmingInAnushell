@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import Item from "../items/Item";
+import Leggings from "../items/equipement.dir/Leggings";
+import Helmet from "../items/equipement.dir/Helmet";
+import Breastplate from "../items/equipement.dir/Breastplate";
+import Shield from "../items/equipement.dir/Shield";
+import Shoes from "../items/equipement.dir/Shoes";
+import Weapon from "../items/equipement.dir/Weapon";
 
 
 let style = {
@@ -33,15 +39,20 @@ let RARITY = {
 /* TODO : items should be a result from database */
 let items = []
 for(let i = 1; i < 7; i++) {
-    let newItem = new Item();
+    const random = randomInt(6)
+    const arrayItem = [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')]
+    let newItem = arrayItem[random]
     newItem.setId(i)
-    newItem.setName('item numéro ' + i)
-    newItem.setImage('https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/16363.png')
     let rarityArray = newItem.getRarityArray()
     let randomRarity = Math.floor(Math.random() * 5)
     newItem.setRarity(rarityArray[randomRarity])
     items.push(newItem)
 }
+
+function randomInt(Max) {
+        return Math.floor(Math.random() * Max)
+
+    }
 
 
 function isEmpty(obj) {
@@ -64,12 +75,13 @@ class Wrought extends Component {
         return nextRarity
     }
 
-    upgradeItem(item, futurCost, userCoins) {
+    upgradeItem(item, futurCost) {
         let nextItem = this.getNextRarity(item)
         item.setRarity(item.rarity[nextItem])
         this.setState({ item : item })
-        userCoins -= futurCost
-        console.log(userCoins)
+        if (this.props.lostGold(futurCost)) {
+            this.props.upgradeItem(item.infos.name)
+        }       
     }
 
     render() {
@@ -80,9 +92,9 @@ class Wrought extends Component {
                     {(() => {
                         if(isEmpty(this.state.item)) {
                             return(
-                                <>
+                                <div>
                                     <div className="mb-3 div-center carre border"></div>
-                                </>
+                                </div>
                             )
                         } else {
                             let item = this.state.item.infos
@@ -110,7 +122,7 @@ class Wrought extends Component {
                             }
 
                             return(
-                                <>        
+                                <div>        
                                     <div className="forge">
                                         <img style={style} className="rounded" width="100" src={item.iconAdresse}/>
                                     </div>
@@ -121,7 +133,7 @@ class Wrought extends Component {
                                             <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40"/>
                                         </p>
                                     </div>
-                                </>
+                                </div>
                             )
                         }
                     })()}
@@ -146,10 +158,6 @@ class Wrought extends Component {
                     </form>
                 <div className="forge-buttton text-center mt-3 pb-5 d-flex justify-content-around">
                     <button onClick={() => this.upgradeItem(this.state.item, futurCost, userCoins)} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
-                </div>
-                <div class="d-flex small-size text-center ml-5">
-                    <p>Gold available : {userCoins}</p> 
-                    <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40"/>
                 </div>
             </div>
         )
