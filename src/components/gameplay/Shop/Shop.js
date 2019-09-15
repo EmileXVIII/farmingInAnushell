@@ -38,7 +38,7 @@ class Shop extends Component {
 
     affichageList() {
         if (shopSaver.list === "" || this.gen === true) {
-            this.listobjet = this.state.list.map((idtab) => (<ListSlot buyItem={(cost, name) => this.buyItem(cost, name)} key={idtab} />))
+            this.listobjet = this.state.list.map((idtab) => (<ListSlot /*buyItem={(cost, name) => {console.log('listSlotBuyItem'); return this.buyItem(cost, name)}}*/ key={idtab} checkIfBuyable={(cost) =>{ console.log('checkIfBuyable');return this.props.lostGold(cost)}}/>))
             this.gen = false
         } else {
             this.gen = false

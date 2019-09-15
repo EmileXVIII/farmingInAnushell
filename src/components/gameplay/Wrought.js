@@ -76,10 +76,10 @@ class Wrought extends Component {
     }
 
     upgradeItem(item, futurCost) {
-        let nextItem = this.getNextRarity(item)
-        item.setRarity(item.rarity[nextItem])
-        this.setState({ item : item })
         if (this.props.lostGold(futurCost)) {
+            let nextItem = this.getNextRarity(item)
+            item.setRarity(item.rarity[nextItem])
+            this.setState({ item : item })
             this.props.upgradeItem(item.infos.name)
         }       
     }
@@ -97,7 +97,7 @@ class Wrought extends Component {
                                 </div>
                             )
                         } else {
-                            let item = this.state.item.infos
+                            let item = this.state.item
                             let futurRarity = this.getNextRarity(this.state.item)
                             futurCost = cost*(futurRarity + 2)
 
@@ -112,10 +112,10 @@ class Wrought extends Component {
                             }
 
                             style = {
-                                backgroundColor : RARITY[item.rarity]
+                                backgroundColor : RARITY[item.infos.rarity]
                             }
                             colorStyle = {
-                                color : RARITY[item.rarity]
+                                color : RARITY[item.infos.rarity]
                             }
                             nextColorStyle = {
                                 color : RARITY[futurRarity] 
@@ -124,10 +124,10 @@ class Wrought extends Component {
                             return(
                                 <div>        
                                     <div className="forge">
-                                        <img style={style} className="rounded" width="100" src={item.iconAdresse}/>
+                                        <img style={style} className="rounded" width="100" src={item.infos.iconAdresse}/>
                                     </div>
                                     <div class="medium-div-center mt-3  border">
-                                        <p>Current rarity : <span style={colorStyle}>{item.rarity}</span></p>
+                                        <p>Current rarity : <span style={colorStyle}>{item.infos.rarity}</span></p>
                                         <p>Next level : <span style={nextColorStyle}>{futurRarity}</span></p>
                                         <p>Cost <span>{futurCost}</span> 
                                             <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40"/>
@@ -157,7 +157,7 @@ class Wrought extends Component {
                     </div>
                     </form>
                 <div className="forge-buttton text-center mt-3 pb-5 d-flex justify-content-around">
-                    <button onClick={() => this.upgradeItem(this.state.item, futurCost, userCoins)} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
+                    <button onClick={() => this.upgradeItem(this.state.item, futurCost)} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
                 </div>
             </div>
         )

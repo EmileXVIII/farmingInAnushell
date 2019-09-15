@@ -78,8 +78,10 @@ class SlotObjet extends Component {
     affichage = () => {
         if (this.state.item !== "") {
             return (
-                <Button onClick={() => this.props.buyItem(this.state.item.infos.cost, this.state.item.infos.name)} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
+                <Button onClick={() => {console.log('Onclick');return this.buyItem(this.state.item.infos.cost, this.state.item.infos.name)}} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.infos.name}</h6>
+                    <img width='45px' src={this.state.item.infos.iconAdresse}/>
+                    <br/><br/><br/>
                     <p className="cost" >{this.state.item.infos.cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
                 </Button>
             )
@@ -87,27 +89,31 @@ class SlotObjet extends Component {
     }
 
     buyItem = () => {
-        const item = this.state.item
-        let inventoryTab = ""
-        setTimeout(() => {
-            inventoryTab = inventoryEquipementSaver.objects
-        }, 0);
-        for (let i = 0; i < inventoryTab.length; i++) {
-            if (inventoryTab[i] === undefined) {
-                inventoryTab[i] = item
-            }
-        };
-        this.setState({
-            item: "",
-        })
-        const div = document.getElementById("Shop-Description")
-        this.element = ""
-        ReactDOM.render(this.element, div)
+        console.log('SlotObjet.buyItem')
+        if (this.props.checkIfBuyable(this.state.item.infos.cost)) {
+            const item = this.state.item
+            let inventoryTab = ""
+            setTimeout(() => {
+                inventoryTab = inventoryEquipementSaver.objects
+            }, 0);
+            for (let i = 0; i < inventoryTab.length; i++) {
+                if (inventoryTab[i] === undefined) {
+                    inventoryTab[i] = item
+                }
+            };
+            this.setState({
+                item: "",
+            })
+            const div = document.getElementById("Shop-Description")
+            this.element = ""
+            ReactDOM.render(this.element, div)
+        }
+        
     }
 
     render() {
         return (
-            <div onClick={this.buyItem} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
+            <div /*onClick={this.buyItem}*/ onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                 {this.affichage()}
             </div>
         )

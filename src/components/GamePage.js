@@ -7,10 +7,9 @@ import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
 import Player from "./characters/Player"
 import Monster from "./characters/Monster"
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import InventoryModule from "./gameplay/InventoryModule";
-// import soundfile from ""
-// import Sound from "react-sound"
+import soundfile from "../music/backgroundtheme.mp3"
+import Sound from "react-sound"
 
 class GamePage extends Component {
     constructor() {
@@ -23,8 +22,9 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 500
+            gold: 50
         }
+        this.lostGold = this.lostGold.bind(this)
     }
 
     toggleElements() {
@@ -44,13 +44,13 @@ class GamePage extends Component {
             case 'wrought':
                 return (
                     <div>
-                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })}/>
+                        <Wrought lostGold={(cost) => { console.log('wrought'); return this.lostGold(cost) }} upgradeItem={(name) => this.setState({ combatInfo: 'You upgraded ' + name })} />
                     </div>
                 )
             case 'shop':
                 return (
                     <div>
-                        <Shop lostGold={(cost) => this.lostGold(cost)} displayBuying={(name) => this.setState({combatInfo: 'You just bought ' + name})}/>
+                        <Shop lostGold={(cost) => { console.log('shop'); return this.lostGold(cost) }} displayBuying={(name) => this.setState({ combatInfo: 'You just bought ' + name })} />
                     </div>
                 )
             case 'room':
@@ -63,15 +63,16 @@ class GamePage extends Component {
     }
 
     lostGold = (gold) => {
+        let aReturn;
         if (gold > this.state.gold) {
-            this.setState({combatInfo: 'Too broke...'})
-            return false
+            aReturn = false;
+            this.setState({ combatInfo: 'Too broke...' })
         } else {
-            this.setState({gold: this.state.gold - gold})
-            return true
+            aReturn = true;
+            this.setState ((prevState)=>({ gold: prevState.gold - gold }))
         }
+        return aReturn;
     }
-
 
     healMySelf = (character) => {
         character.stats.Life += 100
@@ -158,13 +159,13 @@ class GamePage extends Component {
     render() {
         return (
             <div>
-                {/* <Sound
+                <Sound
                     url={soundfile}
                     playStatus={Sound.status.PLAYING}
                     onLoading={this.handleSongLoading}
                     onPlaying={this.handleSongPlaying}
                     onFinishedPlaying={this.handleSongFinishedPlaying}
-                /> */}
+                />
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
