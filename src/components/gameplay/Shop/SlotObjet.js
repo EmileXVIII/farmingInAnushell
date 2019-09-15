@@ -89,24 +89,27 @@ class SlotObjet extends Component {
     }
 
     buyItem = () => {
-        if (this.props.checkIfBuyable(this.state.item.stats.Cost)) {
-            const item = this.state.item
-            let inventoryTab = ""
-            setTimeout(() => {
-                inventoryTab = inventoryEquipementSaver.objects
-            }, 0);
-            for (let i = 0; i < inventoryTab.length; i++) {
-                if (inventoryTab[i] === undefined) {
-                    inventoryTab[i] = item
-                }
-            };
-            this.setState({
-                item: "",
-            })
-            const div = document.getElementById("Shop-Description")
-            this.element = ""
-            ReactDOM.render(this.element, div)
+        if (this.state.item !== "") {
+            if (this.props.checkIfBuyable(this.state.item.stats.Cost)) {
+                const item = this.state.item
+                let inventoryTab = ""
+                setTimeout(() => {
+                    inventoryTab = inventoryEquipementSaver.objects
+                }, 0);
+                for (let i = 0; i < inventoryTab.length; i++) {
+                    if (inventoryTab[i] === undefined) {
+                        inventoryTab[i] = item
+                    }
+                };
+                this.setState({
+                    item: "",
+                })
+                const div = document.getElementById("Shop-Description")
+                this.element = ""
+                ReactDOM.render(this.element, div)
+            }
         }
+        
         
     }
 

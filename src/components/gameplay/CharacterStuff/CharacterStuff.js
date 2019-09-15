@@ -76,8 +76,6 @@ function isEmpty(obj) {
 }
 
 
-addItem()
-
 
 class CharacterStuff extends Component {
     constructor() {
@@ -93,7 +91,7 @@ class CharacterStuff extends Component {
                 <h3 className="text-center">Character</h3>
                 <div class="character">
                     <div className="row">
-                        {items.map((item)=>
+                        {this.props.items.map((item)=>
                             <img 
                                 onClick={() => this.setState({ item : item})}   
                                 //style={style}
@@ -124,7 +122,7 @@ class CharacterStuff extends Component {
                                             backgroundColor : RARITY[item.Rarity]
                                         }
                                         return(
-                                            <>
+                                            <div>
                                                 <div className="row">        
                                                     <div className="col-4">
                                                         <img style={style} className="rounded border" width="120" src={item.Image}/>
@@ -135,7 +133,7 @@ class CharacterStuff extends Component {
                                                     </div>
                                                 </div>
                                                 <p className="mt-5">{item.Description}</p>
-                                            </>
+                                            </div>
                                         )
                                     }
                                 })()}

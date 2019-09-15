@@ -11,6 +11,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import InventoryModule from "./gameplay/InventoryModule";
 import soundfile from "../music/backgroundtheme.mp3"
 import Sound from "react-sound"
+import Helmet from "./items/Helmet";
+import Leggings from "./items/Leggings"
+import Breastplate from "./items/Breastplate";
+import Shield from "./items/Shield"
+import Shoes from "./items/Shoes";
+import Weapon from "./items/Weapon"
+
+
 
 class GamePage extends Component {
     constructor() {
@@ -18,14 +26,16 @@ class GamePage extends Component {
         this.state = {
             gameplayElement: 'inventary',
             combatInfo: 'Waiting...',
-            playerTest: new Player('Clement'),
-            monsterTest: new Monster('Florent'),
+            playerTest: new Player('Player'),
+            monsterTest: new Monster('Monster'),
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 50
+            gold: 150,
+            arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')]
         }
     }
+    
 
     toggleElements() {
         switch (this.state.gameplayElement) {
@@ -38,13 +48,13 @@ class GamePage extends Component {
             case 'characterStuff':
                 return (
                     <div>
-                        <CharacterStuff />
+                        <CharacterStuff items={this.state.arrayItem}/>
                     </div>
                 )
             case 'wrought':
                 return (
                     <div>
-                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })}/>
+                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem}/>
                     </div>
                 )
             case 'shop':
@@ -72,6 +82,10 @@ class GamePage extends Component {
         }
     }
 
+     float2int = (value) => {
+        return value | 0;
+    }
+
 
     healMySelf = (character) => {
         character.stats.Life += 100
@@ -89,7 +103,7 @@ class GamePage extends Component {
                 setTimeout(() => callback('...but the farming is never ending !'), 500)
             }
         } else {
-            const goldLost = player.stats.Gold / 10
+            const goldLost = Math.round(player.stats.Gold / 10)
             player.stats.Gold -= goldLost
             this.setState({ gold: player.stats.Gold, })
             this.setState({ combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
@@ -158,13 +172,13 @@ class GamePage extends Component {
     render() {
         return (
             <div>
-                <Sound
+                {/* <Sound
                     url={soundfile}
                     playStatus={Sound.status.PLAYING}
                     onLoading={this.handleSongLoading}
                     onPlaying={this.handleSongPlaying}
                     onFinishedPlaying={this.handleSongFinishedPlaying}
-                />
+                /> */}
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
@@ -188,7 +202,7 @@ class GamePage extends Component {
                             </div>
                             <br />
                             <div className="gameplay-infos border py-3 px-3">
-                                <a>Gold : {this.state.gold}</a>
+                                <a>Gold : {Math.round(this.state.gold)}</a>
                             </div>
                             <br />
                             <div className="gameplay-infos border py-3 px-3">

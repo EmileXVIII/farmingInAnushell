@@ -141,7 +141,7 @@ class Wrought extends Component {
             
                 <form>
                     <div className="text-center border center-div">
-                            {items.map((item) => 
+                            {this.props.items.map((item) => 
                                 <img 
                                 onClick={() => this.setState({ item : item})} 
                                 title={item.stats.Name} 
