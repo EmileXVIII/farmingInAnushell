@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
 import Helmet from '../../items/Helmet'
-import Leggins from '../../items/Leggings'
+import Leggings from '../../items/Leggings'
 import Breastplate from '../../items/Breastplate'
 import Shield from '../../items/Shield'
 import Shoes from '../../items/Shoes'
@@ -26,25 +26,9 @@ class SlotObjet extends Component {
     }
 
     generate() {
-        const rand = getRandomIntInclusive(1, 6)
-        if (rand === 1) {
-            return new Helmet("Helmet")
-        }
-        else if (rand === 2) {
-            return new Leggins("Legs")
-        }
-        else if (rand === 3) {
-            return new Shield("Shield")
-        }
-        else if (rand === 4) {
-            return new Shoes("Boots")
-        }
-        else if (rand === 5) {
-            return new Weapon("Sword")
-        }
-        else if (rand === 6) {
-            return new Breastplate("Breast")
-        }
+        const arrayItem = [new Leggings('Legs'), new Helmet('Helmet'), new Breastplate('Breast'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')]
+        const rand = getRandomIntInclusive(0, 5)
+        return arrayItem[rand]
     }
 
     Desc = () => {
@@ -58,6 +42,7 @@ class SlotObjet extends Component {
                 <p>Crit :{this.state.item.stats.Critical}</p>
                 <p>Dodge :{this.state.item.stats.Dodge}</p>
                 <p>Life :{this.state.item.stats.Life}</p>
+                <p>Rarity :{this.state.item.stats.Rarity}</p>
             </div>
         )
         ReactDOM.render(this.element, div)

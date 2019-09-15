@@ -31,11 +31,11 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 150,
-            arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')]
+            gold: 2500,
+            arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')],
         }
+        this.updateStats(this.state.playerTest)
     }
-    
 
     toggleElements() {
         switch (this.state.gameplayElement) {
@@ -48,13 +48,13 @@ class GamePage extends Component {
             case 'characterStuff':
                 return (
                     <div>
-                        <CharacterStuff items={this.state.arrayItem}/>
+                        <CharacterStuff items={this.state.arrayItem} player={this.state.playerTest}/>
                     </div>
                 )
             case 'wrought':
                 return (
                     <div>
-                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem}/>
+                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem} updateStats={() => this.updateStats(this.state.playerTest)}/>
                     </div>
                 )
             case 'shop':
@@ -70,6 +70,11 @@ class GamePage extends Component {
                     </div>
                 )
         }
+    }
+
+    updateStats = (player) => {
+        this.getAtk(player)
+        this.getDef(player)
     }
 
     lostGold = (gold) => {
@@ -147,6 +152,22 @@ class GamePage extends Component {
             this.setState({ combatInfo: 'You should rest...' })
         }
     }
+
+    getAtk(player) {
+        var resultAtk = player.stats.BaseAtk
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+         resultAtk += this.state.arrayItem[i].Atk
+        }
+        player.stats.Atk = resultAtk
+    }
+ 
+    getDef(player) {
+     var resultDef = player.stats.BaseAtk
+     for (let i = 0; i < this.state.arrayItem.length; i++) {
+      resultDef += this.state.arrayItem[i].Def
+         }
+         player.stats.Def = resultDef
+     }
 
     testCombat2 = (player, monster, callback) => {
 
