@@ -21,6 +21,21 @@ class Item {
             type,
             iconAdresse,
         }
+        this.getIndexRarity=this.getIndexRarity.bind(this)
+    }
+
+    get Atk(){
+        return 4 + 4 ** this.rarity.indexOf(this.stats.Rarity)
+    }
+
+    get Def(){
+        return 4 + 4 ** this.rarity.indexOf(this.stats.Rarity)
+    }
+
+    
+
+    getIndexRarity() {
+        return this.getRarityArray().indexOf(this.stats.Rarity)
     }
 
     getRarityArray() {

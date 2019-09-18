@@ -10,6 +10,14 @@ import Monster from "./characters/Monster"
 import InventoryModule from "./gameplay/InventoryModule";
 import soundfile from "../music/backgroundtheme.mp3"
 import Sound from "react-sound"
+import Leggings from "./items/equipement.dir/Leggings.js";
+import Helmet from "./items/equipement.dir/Helmet.js";
+import Breastplate from "./items/equipement.dir/Breastplate.js";
+import Shield from "./items/equipement.dir/Shield.js";
+import Shoes from "./items/equipement.dir/Shoes.js";
+import Weapon from "./items/equipement.dir/Weapon.js";
+
+
 
 class GamePage extends Component {
     constructor() {
@@ -17,14 +25,16 @@ class GamePage extends Component {
         this.state = {
             gameplayElement: 'inventary',
             combatInfo: 'Waiting...',
-            playerTest: new Player('Clement'),
-            monsterTest: new Monster('Florent'),
+            playerTest: new Player('Player'),
+            monsterTest: new Monster('Monster'),
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 50
+            gold: 0,
+            arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')],
         }
         this.lostGold = this.lostGold.bind(this)
+        this.updateStats(this.state.playerTest)
     }
 
     toggleElements() {
@@ -38,13 +48,13 @@ class GamePage extends Component {
             case 'characterStuff':
                 return (
                     <div>
-                        <CharacterStuff />
+                        <CharacterStuff items={this.state.arrayItem} player={this.state.playerTest}/>
                     </div>
                 )
             case 'wrought':
                 return (
                     <div>
-                        <Wrought lostGold={(cost) => { console.log('wrought'); return this.lostGold(cost) }} upgradeItem={(name) => this.setState({ combatInfo: 'You upgraded ' + name })} />
+                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem} updateStats={() => this.updateStats(this.state.playerTest)}/>
                     </div>
                 )
             case 'shop':
@@ -62,6 +72,11 @@ class GamePage extends Component {
         }
     }
 
+    updateStats = (player) => {
+        this.getAtk(player)
+        this.getDef(player)
+    }
+
     lostGold = (gold) => {
         let aReturn;
         if (gold > this.state.gold) {
@@ -73,6 +88,11 @@ class GamePage extends Component {
         }
         return aReturn;
     }
+
+     float2int = (value) => {
+        return value | 0;
+    }
+
 
     healMySelf = (character) => {
         character.stats.Life += 100
@@ -90,7 +110,7 @@ class GamePage extends Component {
                 setTimeout(() => callback('...but the farming is never ending !'), 500)
             }
         } else {
-            const goldLost = player.stats.Gold / 10
+            const goldLost = Math.round(player.stats.Gold / 10)
             player.stats.Gold -= goldLost
             this.setState({ gold: player.stats.Gold, })
             this.setState({ combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
@@ -120,8 +140,8 @@ class GamePage extends Component {
             setTimeout(() => callback(monster.Attack(player)), 500)
         } else {
             const goldEarned = monster.randomInt(100)
-            player.stats.Gold += goldEarned
-            this.setState({ counter: this.state.counter + 1, gold: player.stats.Gold, })
+            this.setState({ counter: this.state.counter + 1, gold: this.state.gold + goldEarned, })
+            player.stats.Gold = this.state.gold
             setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold'), 500)
         }
     }
@@ -134,6 +154,22 @@ class GamePage extends Component {
             this.setState({ combatInfo: 'You should rest...' })
         }
     }
+
+    getAtk(player) {
+        var resultAtk = player.stats.BaseAtk
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+         resultAtk += this.state.arrayItem[i].Atk
+        }
+        player.stats.Atk = resultAtk
+    }
+ 
+    getDef(player) {
+     var resultDef = player.stats.BaseAtk
+     for (let i = 0; i < this.state.arrayItem.length; i++) {
+      resultDef += this.state.arrayItem[i].Def
+         }
+         player.stats.Def = resultDef
+     }
 
     testCombat2 = (player, monster, callback) => {
 
@@ -189,7 +225,7 @@ class GamePage extends Component {
                             </div>
                             <br />
                             <div className="gameplay-infos border py-3 px-3">
-                                <a>Gold : {this.state.gold}</a>
+                                <a>Gold : {Math.round(this.state.gold)}</a>
                             </div>
                             <br />
                             <div className="gameplay-infos border py-3 px-3">

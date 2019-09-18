@@ -21,8 +21,7 @@ let nextColorStyle = {
 }
 
 let futurCost = 0
-let cost = 10
-let userCoins = 120
+let cost = 150
 
 
 // Get rarety/color association
@@ -37,22 +36,6 @@ let RARITY = {
 
 
 /* TODO : items should be a result from database */
-let items = []
-for(let i = 1; i < 7; i++) {
-    const random = randomInt(6)
-    const arrayItem = [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')]
-    let newItem = arrayItem[random]
-    newItem.setId(i)
-    let rarityArray = newItem.getRarityArray()
-    let randomRarity = Math.floor(Math.random() * 5)
-    newItem.setRarity(rarityArray[randomRarity])
-    items.push(newItem)
-}
-
-function randomInt(Max) {
-        return Math.floor(Math.random() * Max)
-
-    }
 
 
 function isEmpty(obj) {
@@ -69,6 +52,8 @@ class Wrought extends Component {
         }
     }
 
+    //Return rarity index + 1
+
     getNextRarity(item) {
         const currentRarity = item.getRarityArray().indexOf(item.infos.rarity)
         const nextRarity = currentRarity + 1
@@ -79,7 +64,6 @@ class Wrought extends Component {
         if (this.props.lostGold(futurCost)) {
             let nextItem = this.getNextRarity(item)
             item.setRarity(item.rarity[nextItem])
-            this.setState({ item : item })
             this.props.upgradeItem(item.infos.name)
         }       
     }
@@ -99,7 +83,7 @@ class Wrought extends Component {
                         } else {
                             let item = this.state.item
                             let futurRarity = this.getNextRarity(this.state.item)
-                            futurCost = cost*(futurRarity + 2)
+                            futurCost = cost*futurRarity**futurRarity
 
                             if (futurRarity > 4) {
                                 document.getElementById("upgrade-button").disabled = true;
@@ -141,7 +125,8 @@ class Wrought extends Component {
             
                 <form>
                     <div className="text-center border center-div">
-                            {items.map((item) => 
+                        {/* map arrayItem in GamePage*/}
+                            {this.props.items.map((item) => 
                                 <img 
                                 onClick={() => this.setState({ item : item})} 
                                 title={item.infos.name} 
@@ -157,7 +142,7 @@ class Wrought extends Component {
                     </div>
                     </form>
                 <div className="forge-buttton text-center mt-3 pb-5 d-flex justify-content-around">
-                    <button onClick={() => this.upgradeItem(this.state.item, futurCost)} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
+                    <button onClick={() => {this.upgradeItem(this.state.item, futurCost); this.props.updateStats()}} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
                 </div>
             </div>
         )
