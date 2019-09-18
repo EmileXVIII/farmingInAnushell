@@ -54,7 +54,7 @@ class LoginForm extends Component {
         console.log(currentUser)
         if(currentUser.email.length <= 0 
             || currentUser.password.length <=0) {
-            loginError = 'Thank you to complete all the fields.'
+            loginError = 'You need to complete all the fields.'
             console.log(loginError)
         }
         else {

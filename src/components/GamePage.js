@@ -31,7 +31,7 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 2500,
+            gold: 0,
             arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')],
         }
         this.updateStats(this.state.playerTest)
@@ -138,8 +138,8 @@ class GamePage extends Component {
             setTimeout(() => callback(monster.Attack(player)), 500)
         } else {
             const goldEarned = monster.randomInt(100)
-            player.stats.Gold += goldEarned
-            this.setState({ counter: this.state.counter + 1, gold: player.stats.Gold, })
+            this.setState({ counter: this.state.counter + 1, gold: this.state.gold + goldEarned, })
+            player.stats.Gold = this.state.gold
             setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold'), 500)
         }
     }
@@ -193,13 +193,13 @@ class GamePage extends Component {
     render() {
         return (
             <div>
-                {/* <Sound
+                <Sound
                     url={soundfile}
                     playStatus={Sound.status.PLAYING}
                     onLoading={this.handleSongLoading}
                     onPlaying={this.handleSongPlaying}
                     onFinishedPlaying={this.handleSongFinishedPlaying}
-                /> */}
+                />
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>

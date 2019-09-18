@@ -125,6 +125,7 @@ class Wrought extends Component {
             
                 <form>
                     <div className="text-center border center-div">
+                        {/* map arrayItem in GamePage*/}
                             {this.props.items.map((item) => 
                                 <img 
                                 onClick={() => this.setState({ item : item})} 

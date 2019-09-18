@@ -75,6 +75,11 @@ body {
   height: 40em;
 }
 
+.home-background {
+  background-image: url('img/background.png');
+  background-size: 80%
+}
+
 
 .page {
   background-color: #DDDCDC;

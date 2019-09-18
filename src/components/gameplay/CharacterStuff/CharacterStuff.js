@@ -34,6 +34,7 @@ class CharacterStuff extends Component {
                 <h3 className="text-center">Character</h3>
                 <div class="character">
                     <div className="row">
+                        {/* map arrayItem in GamePage*/}
                         {this.props.items.map((item)=>
                             <img 
                                 onClick={() => this.setState({ item : item})}   
