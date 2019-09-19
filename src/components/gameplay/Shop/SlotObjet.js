@@ -91,7 +91,7 @@ class SlotObjet extends Component {
 
     render() {
         return (
-            <div /*onClick={this.buyItem}*/ onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
+            <div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                 {this.affichage()}
             </div>
         )

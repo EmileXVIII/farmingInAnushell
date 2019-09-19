@@ -61,7 +61,8 @@ class Wrought extends Component {
     }
 
     upgradeItem(item, futurCost) {
-        if (this.props.lostGold(futurCost)) {
+        if (this.props.checkIfBuyable(futurCost)) {
+            this.props.lostGold(futurCost)
             let nextItem = this.getNextRarity(item)
             item.setRarity(item.rarityArray[nextItem])
 

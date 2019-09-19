@@ -64,7 +64,7 @@ class GamePage extends Component {
             case 'wrought':
                 return (
                     <div>
-                        <Wrought lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem} updateStats={() => this.updateStats(this.state.playerTest)}/>
+                        <Wrought checkIfBuyable={(cost) => this.checkIfBuyable(cost)} lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem} updateStats={() => this.updateStats(this.state.playerTest)}/>
                     </div>
                 )
             case 'shop':
