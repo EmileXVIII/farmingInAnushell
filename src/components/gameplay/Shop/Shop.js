@@ -31,14 +31,15 @@ class Shop extends Component {
     }
 
     buyItem = (cost, name) => {
-        if (this.props.lostGold(cost)) {
+        if (this.props.checkIfBuyable(cost)) {
+            this.props.lostGold(cost)
             this.props.displayBuying(name)
         }     
     }
 
     affichageList() {
         if (shopSaver.list === "" || this.gen === true) {
-            this.listobjet = this.state.list.map((idtab) => (<ListSlot /*buyItem={(cost, name) => {console.log('listSlotBuyItem'); return this.buyItem(cost, name)}}*/ key={idtab} checkIfBuyable={(cost) =>{ console.log('checkIfBuyable');return this.props.lostGold(cost)}}/>))
+            this.listobjet = this.state.list.map((idtab) => (<ListSlot buyItem={(cost, name) => {this.buyItem(cost, name)}} key={idtab} checkIfBuyable={(cost) =>{return this.props.checkIfBuyable(cost)}}/>))
             this.gen = false
         } else {
             this.gen = false

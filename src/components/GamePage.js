@@ -60,7 +60,7 @@ class GamePage extends Component {
             case 'shop':
                 return (
                     <div>
-                        <Shop lostGold={(cost) => { console.log('shop'); return this.lostGold(cost) }} displayBuying={(name) => this.setState({ combatInfo: 'You just bought ' + name })} />
+                        <Shop checkIfBuyable={(cost) => {return this.checkIfBuyable(cost)}} lostGold={(cost) => {this.lostGold(cost)}} displayBuying={(name) => this.setState({ combatInfo: 'You just bought ' + name })} />
                     </div>
                 )
             case 'room':
@@ -93,16 +93,17 @@ class GamePage extends Component {
          player.stats.Def = resultDef
      }
 
-    lostGold = (gold) => {
-        let aReturn;
-        if (gold > this.state.gold) {
-            aReturn = false;
+    checkIfBuyable = (cost) => {
+        if (cost > this.state.gold) {
             this.setState({ combatInfo: 'Too broke...' })
-        } else {
-            aReturn = true;
-            this.setState ((prevState)=>({ gold: prevState.gold - gold }))
+            return false;    
         }
-        return aReturn;
+        return true; 
+    }
+     
+
+    lostGold = (gold) => {
+        this.setState ((prevState)=>({ gold: prevState.gold - gold }))     
     }
 
      float2int = (value) => {

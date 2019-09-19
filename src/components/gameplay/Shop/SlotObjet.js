@@ -63,7 +63,7 @@ class SlotObjet extends Component {
     affichage = () => {
         if (this.state.item !== "") {
             return (
-                <Button onClick={() => this.buyItem(this.state.item.infos.cost, this.state.item.infos.name)} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
+                <Button onClick={() => this.buyItem()} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.infos.name}</h6>
                     <img width='45px' src={this.state.item.infos.iconAdresse}/>
                     <br/><br/><br/>
@@ -74,8 +74,8 @@ class SlotObjet extends Component {
     }
 
     buyItem = () => {
-        console.log('SlotObjet.buyItem')
         if (this.props.checkIfBuyable(this.state.item.infos.cost)) {
+            this.props.buyItem(this.state.item.infos.cost, this.state.item.infos.name)
             const item = this.state.item
             inventoryEquipementSaver.addOnFreePlace(item);
             this.setState({
