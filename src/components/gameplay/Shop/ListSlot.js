@@ -3,7 +3,7 @@ import SlotObjet from './SlotObjet';
 
 class ListSlot extends Component {
    state = {
-       slotObject: <SlotObjet buyItem={(cost, name) => this.props.buyItem(cost, name)} checkIfBuyable={(cost) => this.props.checkIfBuyable(cost)}/>
+       slotObject: <SlotObjet /*buyItem={(cost, name) => this.props.buyItem(cost, name)}*/ checkIfBuyable={(cost) => {console.log('listSlot.js');return this.props.checkIfBuyable(cost)}}/>
    }
 
     render() {

@@ -7,16 +7,15 @@ import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
 import Player from "./characters/Player"
 import Monster from "./characters/Monster"
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import InventoryModule from "./gameplay/InventoryModule";
 import soundfile from "../music/backgroundtheme.mp3"
 import Sound from "react-sound"
-import Helmet from "./items/Helmet";
-import Leggings from "./items/Leggings"
-import Breastplate from "./items/Breastplate";
-import Shield from "./items/Shield"
-import Shoes from "./items/Shoes";
-import Weapon from "./items/Weapon"
+import Leggings from "./items/equipement.dir/Leggings.js";
+import Helmet from "./items/equipement.dir/Helmet.js";
+import Breastplate from "./items/equipement.dir/Breastplate.js";
+import Shield from "./items/equipement.dir/Shield.js";
+import Shoes from "./items/equipement.dir/Shoes.js";
+import Weapon from "./items/equipement.dir/Weapon.js";
 
 
 
@@ -34,6 +33,7 @@ class GamePage extends Component {
             gold: 500,
             arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')],
         }
+        this.lostGold = this.lostGold.bind(this)
         this.updateStats(this.state.playerTest)
     }
 
@@ -60,7 +60,7 @@ class GamePage extends Component {
             case 'shop':
                 return (
                     <div>
-                        <Shop lostGold={(cost) => this.lostGold(cost)} displayBuying={(name) => this.setState({combatInfo: 'You just bought ' + name})} />
+                        <Shop lostGold={(cost) => { console.log('shop'); return this.lostGold(cost) }} displayBuying={(name) => this.setState({ combatInfo: 'You just bought ' + name })} />
                     </div>
                 )
             case 'room':
@@ -80,7 +80,7 @@ class GamePage extends Component {
     getAtk(player) {
         var resultAtk = player.stats.BaseAtk
         for (let i = 0; i < this.state.arrayItem.length; i++) {
-         resultAtk += this.state.arrayItem[i].stats.atk
+         resultAtk += this.state.arrayItem[i].atk
         }
         player.stats.Atk = resultAtk
     }
@@ -88,19 +88,21 @@ class GamePage extends Component {
     getDef(player) {
      var resultDef = player.stats.BaseAtk
      for (let i = 0; i < this.state.arrayItem.length; i++) {
-      resultDef += this.state.arrayItem[i].stats.def
+      resultDef += this.state.arrayItem[i].def
          }
          player.stats.Def = resultDef
      }
 
     lostGold = (gold) => {
+        let aReturn;
         if (gold > this.state.gold) {
-            this.setState({combatInfo: 'Too broke...'})
-            return false
+            aReturn = false;
+            this.setState({ combatInfo: 'Too broke...' })
         } else {
-            this.setState({gold: this.state.gold - gold})
-            return true
+            aReturn = true;
+            this.setState ((prevState)=>({ gold: prevState.gold - gold }))
         }
+        return aReturn;
     }
 
      float2int = (value) => {

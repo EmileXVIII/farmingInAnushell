@@ -62,24 +62,24 @@ class InfoItems extends Component {
             )
 
         }
-        else if (this.state.objetSurvole.pieceEquipement !== undefined) {
+        else if (this.state.objetSurvole.infos.type !== undefined) {
             return (
                 <div name='infoItems'>
-                    {`Name:${this.state.objetSurvole.name}`}<br/>{`
-                    Rarity:${this.state.objetSurvole.rarity}`}<br/><br/>{`
-                    Life:${this.state.objetSurvole.stats['pv']}`}<br/>{`
-                    Att:${this.state.objetSurvole.stats['att']}`}<br/>{`
-                    Def:${this.state.objetSurvole.stats['def']}`}<br/>{`
-                    Dodge:${this.state.objetSurvole.stats['esq']}`}<br/>{`
-                    Critical:${this.state.objetSurvole.stats['critical']}`}
+                    {`Name:${this.state.objetSurvole.infos.name}`}<br/>{`
+                    Rarity:${this.state.objetSurvole.infos.rarity}`}<br/><br/>{`
+                    Life:${this.state.objetSurvole['life']}`}<br/>{`
+                    Att:${this.state.objetSurvole['atk']}`}<br/>{`
+                    Def:${this.state.objetSurvole['def']}`}<br/>{`
+                    Dodge:${this.state.objetSurvole['dodge']}`}<br/>{`
+                    Critical:${this.state.objetSurvole['critical']}`}
                 </div>
             )
         }
         else {
             return (
                 <div name='infoItems'>
-                    {`Name:${this.state.objetSurvole.name}`}<br/>{`
-                    Rarity:${this.state.objetSurvole.rarity}`}<br/><br/>{`
+                    {`Name:${this.state.objetSurvole.infos.name}`}<br/>{`
+                    Rarity:${this.state.objetSurvole.infos.rarity}`}<br/><br/>{`
                     Effect's description:${this.state.objetSurvole.descriptionEffect}`}
                 </div>
             )

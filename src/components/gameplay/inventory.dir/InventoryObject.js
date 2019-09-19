@@ -12,8 +12,8 @@ class InventoryObject extends Component {
         let tempObj=this.chargerObjets();
         this.state = {
             object: tempObj ? tempObj : undefined ,
-            rarity: tempObj ? tempObj.rarity : undefined ,
-            urlicon: tempObj ? tempObj.iconAdresse : 'none',
+            rarity: tempObj ? tempObj.infos.rarity : undefined ,
+            urlicon: tempObj ? tempObj.infos.iconAdresse : 'none',
             classAditionnelle: '',
         };
         this.changeObject = this.changeObject.bind(this);
@@ -59,7 +59,7 @@ class InventoryObject extends Component {
     //}
     changeObject(newObject) {
         if (newObject){
-        this.setState((prevState) => ({ object: newObject, rarity: newObject.rarity, urlicon: newObject.iconAdresse, classAditionnelle: '' }))
+        this.setState((prevState) => ({ object: newObject, rarity: newObject.infos.rarity, urlicon: newObject.infos.iconAdresse, classAditionnelle: '' }))
         return newObject}
         else{
             this.setState((prevState) => ({ object: undefined, rarity: undefined, urlicon: undefined, classAditionnelle: '' }))

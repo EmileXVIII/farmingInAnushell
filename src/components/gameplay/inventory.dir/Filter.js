@@ -14,13 +14,17 @@ class Filter extends Component {
     }
     changeRarity(newObject) {
         let newRarity
-        if (newObject) { newRarity = newObject ? newObject.rarity : undefined; }
-        else { newRarity = this.props.rarity }
+        if (newObject)
+         {newRarity=  newObject ? newObject.infos.rarity : undefined; }
+        else {newRarity=this.props.rarity}
         let filterRarity;
         if (newRarity) { newRarity = newRarity.toLowerCase() }
         switch (newRarity) {
             case "common":
                 filterRarity = 'filter_common';
+                break
+            case "uncommon":
+                filterRarity='filter_uncommon';
                 break
             case "rare":
                 filterRarity = 'filter_rare';

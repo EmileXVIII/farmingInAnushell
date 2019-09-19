@@ -1,5 +1,4 @@
 import Character from './Character'
-import Helmet from '../items/Helmet.js'
 
 class Player extends Character {
     constructor(username) {

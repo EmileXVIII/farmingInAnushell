@@ -1,0 +1,102 @@
+CREATE DATABASE IF NOT EXISTS `farmingInAnutshell`;
+USE farmingInAnutshell;
+    CREATE TABLE IF NOT EXISTS `User` (
+        `IdUser` INTEGER UNIQUE AUTO_INCREMENT,
+        `pseudo` VARCHAR(25),
+        `email` VARCHAR(50),
+        `mdp` VARCHAR(25),
+        `privilege` VARCHAR(25),
+        PRIMARY KEY(IdUser));
+    
+    CREATE TABLE IF NOT EXISTS `Perso` (
+        `IdPerso` INTEGER UNIQUE AUTO_INCREMENT,id_user INTEGER ,
+        `name` VARCHAR(25),
+        `life` INTEGER,
+        `att` INTEGER,
+        `def` INTEGER,
+        `crit` INTEGER,
+        `dodg` INTEGER,
+        `level` INTEGER,
+        `golds` INTEGER,
+        `urlPerso` VARCHAR(50) ,
+        PRIMARY KEY(IdPerso),
+        Foreign KEY (id_candidature) REFERENCES User(IdUser));
+    
+    CREATE TABLE IF NOT EXISTS `Equipement` (
+        `IdEquip` INTEGER UNIQUE AUTO_INCREMENT,
+        `name` VARCHAR(25), 
+        `life` INTEGER, 
+        `att` INTEGER, 
+        `def` INTEGER, 
+        `crit` INTEGER, 
+        `dodg` INTEGER,
+        `urlIcon` VARCHAR(50) ,
+        PRIMARY KEY(IdEquip));
+
+    CREATE TABLE IF NOT EXISTS `LienEquip` (
+        `IdLienEquip` INTEGER UNIQUE AUTO_INCREMENT,
+        `id_equip`INTEGER,
+        `id_perso` INTEGER, 
+        `rarity` VARCHAR(50),
+        `location` VARCHAR(50) ,
+        PRIMARY KEY(IdLienEquip),
+        Foreign KEY (id_equip) REFERENCES Equipement(IdUser),
+        Foreign KEY (id_perso) REFERENCES Perso(IdPerso));
+
+    CREATE TABLE IF NOT EXISTS `Skill` (
+        `IdSkill` INTEGER UNIQUE AUTO_INCREMENT,
+        `powers` VARCHAR(500),
+        `descPowers` VARCHAR(500),
+        `roll` INTEGER
+        `class` VARCHAR(25),
+        `urlIcon` VARCHAR(50) ,
+        PRIMARY KEY(IdSkill));
+
+    CREATE TABLE IF NOT EXISTS `LienSkill` (
+        `IdLienSkill` INTEGER UNIQUE AUTO_INCREMENT,
+        `id_skill` INTEGER,
+        `id_perso` INTEGER, 
+        PRIMARY KEY(IdLienEquip),
+        Foreign KEY (id_skill) REFERENCES Skill(IdSkill),
+        Foreign KEY (id_perso) REFERENCES Perso(IdPerso));
+
+    CREATE TABLE IF NOT EXISTS `Expendable` (
+        `IdExpendable` INTEGER UNIQUE AUTO_INCREMENT,
+        `effects` VARCHAR(500),
+        `descEffects` VARCHAR(500),
+        PRIMARY KEY(IdExpendable));
+
+    CREATE TABLE IF NOT EXISTS `LienExpendable` (
+        `IdLienExpendable` INTEGER UNIQUE AUTO_INCREMENT,
+        `id_expendable` INTEGER,
+        `id_perso` INTEGER, 
+        PRIMARY KEY(IdLienExpendable),
+        Foreign KEY (id_expendable) REFERENCES Expendable(IdExpendable),
+        Foreign KEY (id_perso) REFERENCES Perso(IdPerso));
+
+
+    CREATE TABLE IF NOT EXISTS `world` (
+        `IdWorld` INTEGER UNIQUE AUTO_INCREMENT,
+        `descr` VARCHAR(500),
+        `level` INTEGER;
+
+    CREATE TABLE IF NOT EXISTS `monster` (
+        `Idmonster` INTEGER UNIQUE AUTO_INCREMENT,
+        `name` VARCHAR(25),
+        `life` INTEGER,
+        `att` INTEGER,
+        `def` INTEGER,LienExpendable
+        `crit` INTEGER,
+        `dodg` INTEGER;
+        `urlMonster` VARCHAR(50);
+
+    CREATE TABLE IF NOT EXISTS `LienMonster` (
+        `IdLienMonster` INTEGER UNIQUE AUTO_INCREMENT,
+        `id_world` INTEGER,
+        `id_monster` INTEGER, 
+        PRIMARY KEY(IdLienMonster),
+        Foreign KEY (id_world) REFERENCES world(IdWorld),
+        Foreign KEY (id_monster) REFERENCES monster(Idmonster));
+    
+
+    

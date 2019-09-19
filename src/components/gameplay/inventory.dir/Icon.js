@@ -15,8 +15,8 @@ class Icon extends Component {
 
     render() {
         return (
-            <div className={`filter ${this.state.rarity}`}></div>
+            <div className={`filter ${this.state.infos.rarity}`}></div>
         )
     }
 }
-export default Filter;
+export default Icon;

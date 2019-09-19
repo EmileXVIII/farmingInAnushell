@@ -320,19 +320,22 @@ body {
   z-index: 1;
 }
 .filter_common{
-  background-color: rgba(86, 129, 16, 0.2);
+  background-color: rgba(249, 250, 248, 0.2);
+}
+.filter_uncommon{
+  background-color: rgba(0, 128, 0, 0.2);
 }
 .filter_rare{
-  background-color: rgba(223, 174, 16, 0.2);
+  background-color: rgba(14, 126, 19, 0.2);
 }
 .filter_epic{
   background-color: rgba(147, 32, 255, 0.2);
 }
 .filter_legendary{
-  background-color: rgba(255,0,0,0.2);
+  background-color: rgba(255, 136, 0, 0.2);
 }
 .filter_selected{
-  background-color: rgba(0, 238, 255, 0.767);
+  background-color: rgba(255, 0, 128, 0.767);
 }
 .icon_objet{
   z-index: 2;

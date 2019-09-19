@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Item from "../items/Item";
-import Helmet from "../items/Helmet";
-import Leggings from "../items/Leggings"
-import Breastplate from "../items/Breastplate";
-import Shield from "../items/Shield"
-import Shoes from "../items/Shoes";
-import Weapon from "../items/Weapon"
+import Leggings from "../items/equipement.dir/Leggings";
+import Helmet from "../items/equipement.dir/Helmet";
+import Breastplate from "../items/equipement.dir/Breastplate";
+import Shield from "../items/equipement.dir/Shield";
+import Shoes from "../items/equipement.dir/Shoes";
+import Weapon from "../items/equipement.dir/Weapon";
 
 
 let style = {
@@ -55,7 +55,7 @@ class Wrought extends Component {
     //Return rarity index + 1
 
     getNextRarity(item) {
-        const currentRarity = item.getRarityArray().indexOf(item.stats.rarity)
+        const currentRarity = item.getRarityArray().indexOf(item.infos.rarity)
         const nextRarity = currentRarity + 1
         return nextRarity
     }
@@ -63,7 +63,7 @@ class Wrought extends Component {
     upgradeItem(item, futurCost) {
         if (this.props.lostGold(futurCost)) {
             let nextItem = this.getNextRarity(item)
-            item.setRarity(item.stats.rarityArray[nextItem])
+            item.setRarity(item.rarityArray[nextItem])
 
             //Props -> check Gamepage
             this.props.upgradeItem(item.infos.name)
@@ -83,7 +83,7 @@ class Wrought extends Component {
                                 </div>
                             )
                         } else {
-                            let item = this.state.item.infos
+                            let item = this.state.item
                             let futurRarity = this.getNextRarity(this.state.item)
                             futurCost = cost*futurRarity**futurRarity
 
@@ -98,10 +98,10 @@ class Wrought extends Component {
                             }
 
                             style = {
-                                backgroundColor : RARITY[this.state.item.stats.rarity]
+                                backgroundColor : RARITY[item.infos.rarity]
                             }
                             colorStyle = {
-                                color : RARITY[this.state.item.stats.rarity]
+                                color : RARITY[item.infos.rarity]
                             }
                             nextColorStyle = {
                                 color : RARITY[futurRarity] 
@@ -110,10 +110,10 @@ class Wrought extends Component {
                             return(
                                 <div>        
                                     <div className="forge">
-                                        <img style={style} className="rounded" width="100" src={item.image}/>
+                                        <img style={style} className="rounded" width="100" src={item.infos.iconAdresse}/>
                                     </div>
                                     <div class="medium-div-center mt-3  border">
-                                        <p>Current rarity : <span style={colorStyle}>{this.state.item.stats.rarity}</span></p>
+                                        <p>Current rarity : <span style={colorStyle}>{item.infos.rarity}</span></p>
                                         <p>Next level : <span style={nextColorStyle}>{futurRarity}</span></p>
                                         <p>Cost <span>{futurCost}</span> 
                                             <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40"/>
@@ -137,7 +137,7 @@ class Wrought extends Component {
                                 className="onHover mx-3 my-3 border" 
                                 width="75" 
                                 alt="item-icon"
-                                src={item.infos.image} 
+                                src={item.infos.iconAdresse} 
                                 key={item.infos.id}
                             />
                             )}
