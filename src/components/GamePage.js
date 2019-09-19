@@ -16,8 +16,10 @@ import Breastplate from "./items/equipement.dir/Breastplate.js";
 import Shield from "./items/equipement.dir/Shield.js";
 import Shoes from "./items/equipement.dir/Shoes.js";
 import Weapon from "./items/equipement.dir/Weapon.js";
+import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
+import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
 
-
+let itemsEquips=new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
 class GamePage extends Component {
     constructor() {
@@ -31,12 +33,20 @@ class GamePage extends Component {
             monsterHP: null,
             counter: 0,
             gold: 500,
-            arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')],
+            arrayItem: itemsEquips.listObj,
         }
         this.lostGold = this.lostGold.bind(this)
+        this.putMessage=this.putMessage.bind(this)
         this.updateStats(this.state.playerTest)
     }
-
+    componentDidMount (){
+        gestionnaireEvents.on('sellItem',this.lostGold);
+        gestionnaireEvents.on('newCombatInfo',this.putMessage)
+    }
+    componentWillUnmount (){
+        gestionnaireEvents.off('sellItem',this.lostGold)
+        gestionnaireEvents.off('newCombatInfo',this.putMessage)
+    }
     toggleElements() {
         switch (this.state.gameplayElement) {
             default: case 'inventary':
@@ -71,7 +81,9 @@ class GamePage extends Component {
                 )
         }
     }
-
+    putMessage(message){
+        this.setState({combatInfo:message})
+    }
     updateStats = (player) => {
         this.getAtk(player)
         this.getDef(player)
@@ -253,4 +265,5 @@ class GamePage extends Component {
     }
 }
 
-export default GamePage
+export default GamePage;
+export {itemsEquips}

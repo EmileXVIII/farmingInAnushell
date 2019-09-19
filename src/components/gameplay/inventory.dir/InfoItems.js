@@ -1,4 +1,4 @@
-import { gestionnaireEvents } from "./inventoryEvents";
+import { gestionnaireEvents, getionnaireSelectionObjet } from "./inventoryEvents";
 import React, { Component } from "react";
 
 class InfoItems extends Component {
@@ -51,10 +51,19 @@ class InfoItems extends Component {
             this.setState((prevState) => ({ objetSurvole: undefined, clear: true }))
         }
     }
+    componentDidUpdate(){
+        getionnaireSelectionObjet.message=undefined
+    }
     render() {
         //console.log('monObjet',this.state.objetSurvole)
         if (this.state.clear === true || !this.state.objetSurvole) {
             this.state.clear = false;
+            if ( getionnaireSelectionObjet.message)
+            return (
+                <div name='infoItems'>
+                    {`${getionnaireSelectionObjet.message}`}
+                </div>
+            )
             return (
                 <div name='infoItems'>
                     {`Rien à afficher`}
