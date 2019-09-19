@@ -77,15 +77,7 @@ class SlotObjet extends Component {
         console.log('SlotObjet.buyItem')
         if (this.props.checkIfBuyable(this.state.item.infos.cost)) {
             const item = this.state.item
-            let inventoryTab = ""
-            setTimeout(() => {
-                inventoryTab = inventoryEquipementSaver.objects
-            }, 0);
-            for (let i = 0; i < inventoryTab.length; i++) {
-                if (inventoryTab[i] === undefined) {
-                    inventoryTab[i] = item
-                }
-            };
+            inventoryEquipementSaver.addOnFreePlace(item);
             this.setState({
                 item: "",
             })
