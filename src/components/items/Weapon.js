@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Item from './Item.js'
+import Equipement from './Equipement'
 
-class Weapon extends Item {
+class Weapon extends Equipement {
     constructor(name, props) {
         super(props)
-        this.stats.Name = name
-        this.stats.Image = 'https://art.pixilart.com/661f9bda0e9b95e.png'
+        this.infos.name = name
+        this.infos.image = 'https://art.pixilart.com/661f9bda0e9b95e.png'   
     }
 }
 

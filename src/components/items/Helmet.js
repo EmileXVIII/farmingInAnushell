@@ -1,10 +1,11 @@
 import Item from './Item.js'
+import Equipement from './Equipement'
 
-class Helmet extends Item {
+class Helmet extends Equipement {
     constructor(name, props) {
         super(props)
-        this.stats.Name = name
-        this.stats.Image = 'https://art.pixilart.com/4cace868c94ee16.png'
+        this.infos.name = name
+        this.infos.image = 'https://art.pixilart.com/4cace868c94ee16.png'
     }
 }
 

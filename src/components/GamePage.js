@@ -31,7 +31,7 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 0,
-            gold: 0,
+            gold: 500,
             arrayItem: [new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')],
         }
         this.updateStats(this.state.playerTest)
@@ -76,6 +76,22 @@ class GamePage extends Component {
         this.getAtk(player)
         this.getDef(player)
     }
+
+    getAtk(player) {
+        var resultAtk = player.stats.BaseAtk
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+         resultAtk += this.state.arrayItem[i].stats.atk
+        }
+        player.stats.Atk = resultAtk
+    }
+ 
+    getDef(player) {
+     var resultDef = player.stats.BaseAtk
+     for (let i = 0; i < this.state.arrayItem.length; i++) {
+      resultDef += this.state.arrayItem[i].stats.def
+         }
+         player.stats.Def = resultDef
+     }
 
     lostGold = (gold) => {
         if (gold > this.state.gold) {
@@ -153,21 +169,7 @@ class GamePage extends Component {
         }
     }
 
-    getAtk(player) {
-        var resultAtk = player.stats.BaseAtk
-        for (let i = 0; i < this.state.arrayItem.length; i++) {
-         resultAtk += this.state.arrayItem[i].Atk
-        }
-        player.stats.Atk = resultAtk
-    }
- 
-    getDef(player) {
-     var resultDef = player.stats.BaseAtk
-     for (let i = 0; i < this.state.arrayItem.length; i++) {
-      resultDef += this.state.arrayItem[i].Def
-         }
-         player.stats.Def = resultDef
-     }
+    
 
     testCombat2 = (player, monster, callback) => {
 

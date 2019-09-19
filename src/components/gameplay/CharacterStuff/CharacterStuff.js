@@ -39,14 +39,14 @@ class CharacterStuff extends Component {
                             <img 
                                 onClick={() => this.setState({ item : item})}   
                                 //style={style}
-                                title={item.stats.Name} 
+                                title={item.infos.name} 
                                 data-toggle="tooltip" 
                                 data-placement="top" 
                                 className="onHover mx-3 my-3 border" 
                                 width="75" 
                                 alt="item-icon"
-                                src={item.stats.Image} 
-                                key={item.stats.Id}
+                                src={item.infos.image} 
+                                key={item.infos.id}
                             />
                         )}
                     </div>
@@ -63,24 +63,25 @@ class CharacterStuff extends Component {
                                     } else {
                                         let item = this.state.item
                                         style = {
-                                            backgroundColor : RARITY[item.stats.Rarity]
+                                            backgroundColor : RARITY[item.stats.rarity]
                                         }
                                         return(
                                             <div>
                                                 <div className="row">        
                                                     <div className="col-4">
-                                                        <img style={style} className="rounded border" width="120" src={item.stats.Image}/>
+                                                        <img style={style} className="rounded border" width="120" src={item.infos.image}/>
                                                     </div>
                                                     <div className="col-8">
-                                                        <b>{item.stats.Name}</b>
-                                                        <p>({item.stats.Rarity})</p><br/>
-                                                        <p>Atk : {item.Atk}</p>
-                                                        <p>Def : {item.Def}</p>
-                                                        <p>Dodge : {item.stats.Dodge}</p>
-                                                        <p>Critical : {item.stats.Critical}</p>
+                                                        <b>{item.infos.name}</b>
+                                                        <p>({item.stats.rarity})</p><br/>
+                                                        <p>Atk : {item.stats.atk}</p>
+                                                        <p>Def : {item.stats.def}</p>
+                                                        <p>Dodge : {item.stats.dodge}</p>
+                                                        <p>Critical : {item.stats.critical}</p>
+                                                        <p>{item.infos.description}</p>
                                                     </div>
                                                 </div>
-                                                <p className="mt-5">{item.stats.Description}</p>
+    
                                             </div>
                                         )
                                     }

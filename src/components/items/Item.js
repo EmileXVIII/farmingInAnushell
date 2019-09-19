@@ -1,60 +1,40 @@
 class Item {
     constructor() {
         this.getIndexRarity = this.getIndexRarity.bind(this)
-        this.rarity = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
+        this.rarityArray = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
 
-        this.stats = {
-            Id: 0,
-            Life: 0,
-            Dodge: 0,
-            Critical: 0,
-            Cost: this.randomInt(100),
-            SpecialAttribute: null,
-            Name: null,
-            Description: "Pas de Description",
-            Rarity: this.rarity[0],
-            Type: null,
-            Image: '',
-            
+        this.infos = {
+            id: 0,
+            cost: this.randomInt(100),
+            specialAttribute: null,
+            name: null,
+            description: "Pas de Description",
+            type: null,
+            image: '',
+            location: null,
         }
     }
-
-    get Atk(){
-        return 4 + 4 ** this.rarity.indexOf(this.stats.Rarity)
+  
+    getRarityArray() {
+        return this.rarityArray
     }
 
-    get Def(){
-        return 4 + 4 ** this.rarity.indexOf(this.stats.Rarity)
+    setName(name) {
+        this.infos.name = name
+    }
+
+    setId(id) {
+        this.infos.id = id
+    }
+
+    setImage(image) {
+        this.infos.image = image
     }
 
     
 
-    getIndexRarity() {
-        return this.getRarityArray().indexOf(this.stats.Rarity)
-    }
-
-    getRarityArray() {
-        return this.rarity
-    }
-
-    setName(name) {
-        this.stats.Name = name
-    }
-
-    setId(id) {
-        this.stats.Id = id
-    }
-
-    setImage(image) {
-        this.stats.Image = image
-    }
-
-    setRarity(rarity) {
-        this.stats.Rarity = rarity
-    }
-
     setDescription(description) {
-        this.stats.Description = description
+        this.infos.description = description
     }
 
     randomInt(Max) {
