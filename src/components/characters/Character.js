@@ -11,6 +11,8 @@ class Character {
             Gold: 0,
             BaseAtk: 15,
             BaseDef: 10,
+            BaseDodge: 0,
+            BaseCritical: 0,
             Username: username,
             get Alive() {
                 return this.Life > 0

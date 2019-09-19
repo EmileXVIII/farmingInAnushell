@@ -19,7 +19,7 @@ import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
 
-let itemsEquips=new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
+let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
 class GamePage extends Component {
     constructor() {
@@ -87,6 +87,8 @@ class GamePage extends Component {
     updateStats = (player) => {
         this.getAtk(player)
         this.getDef(player)
+        this.getDodge(player)
+        this.getCritical(player)
     }
 
     getAtk(player) {
@@ -98,12 +100,28 @@ class GamePage extends Component {
     }
  
     getDef(player) {
-     var resultDef = player.stats.BaseAtk
+     var resultDef = player.stats.BaseDef
      for (let i = 0; i < this.state.arrayItem.length; i++) {
       resultDef += this.state.arrayItem[i].def
          }
          player.stats.Def = resultDef
      }
+
+     getDodge(player) {
+        var resultDodge = player.stats.BaseDodge
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+         resultDodge += this.state.arrayItem[i].dodge
+            }
+            player.stats.Dodge = resultDodge
+    }
+
+    getCritical(player) {
+            var resultCritical = player.stats.BaseCritical
+            for (let i = 0; i < this.state.arrayItem.length; i++) {
+             resultCritical += this.state.arrayItem[i].critical
+            }
+            player.stats.Critical = resultCritical
+    }
 
     checkIfBuyable = (cost) => {
         if (cost > this.state.gold) {
