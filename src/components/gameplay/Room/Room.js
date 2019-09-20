@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Button, Input, Label } from 'reactstrap'
+import Dashboard from './Dashboard'
+import Store from './Store'
 
 class Room extends Component {
     state = {
@@ -34,12 +36,9 @@ class Room extends Component {
                 </header>
                 <div id="list-pseudo">
                     <h4>Joueur</h4>
-                    <ul>
-                        <li>Joueur 1</li>
-                        <li>Joueur 2</li>
-                        <li>Joueur 3</li>
-                        <li>Joueur 4</li>
-                    </ul>
+                    <Store>
+                        <Dashboard />
+                    </Store>  
                     <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br/><br/><br/>
                     <Button onClick={this.props.startGame}>Begin</Button> <br/><br/><br/>
                     <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
