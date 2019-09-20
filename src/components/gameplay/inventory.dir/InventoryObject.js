@@ -39,10 +39,12 @@ class InventoryObject extends Component {
     setBackground(cheminFichier='',numkey) {
        //this.setState((prevState) => {
         setTimeout(()=>{
+            try{
         let equipementDivSlot = document.getElementsByClassName(`${this.props.conteneurname}`)[0].children[numkey].getElementsByClassName('icon_objet')[0];//.getElementsByClassName('icon_objet')[0];
         equipementDivSlot.style.background = `url(${cheminFichier})`;
         equipementDivSlot.style.backgroundSize = "80px";
-        equipementDivSlot.style.backgroundRepeat = "no-repeat"
+        equipementDivSlot.style.backgroundRepeat = "no-repeat"}
+        catch(err){}
         },0)
         //;return{}})
         
