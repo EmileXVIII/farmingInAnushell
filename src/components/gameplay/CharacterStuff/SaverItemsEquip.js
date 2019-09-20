@@ -13,7 +13,7 @@ class SaverItemEquip {
             let objRet = this.listObj[ind];
             inventoryEquipementSaver.addOnFreePlace(objRet)
             this.listObj[ind] = obj;
-            return true
+            return objRet;
         }
         return false
 
