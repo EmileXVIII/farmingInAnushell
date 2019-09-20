@@ -42,6 +42,7 @@ class GamePage extends Component {
     componentDidMount (){
         gestionnaireEvents.on('sellItem',this.lostGold);
         gestionnaireEvents.on('newCombatInfo',this.putMessage)
+        itemsEquips.username=this.state.playerTest.Username
     }
     componentWillUnmount (){
         gestionnaireEvents.off('sellItem',this.lostGold)
@@ -89,8 +90,15 @@ class GamePage extends Component {
         this.getDef(player)
         this.getDodge(player)
         this.getCritical(player)
+        this.getMaxLife(player)
     }
-
+    getMaxLife(player){
+        var resultMaxLife = player.stats.MaxLife;
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+            resultMaxLife += this.state.arrayItem[i].life
+        }
+        player.stats.MaxLife = resultMaxLife
+    }
     getAtk(player) {
         var resultAtk = player.stats.BaseAtk
         for (let i = 0; i < this.state.arrayItem.length; i++) {
