@@ -80,7 +80,8 @@ class InfoItems extends Component {
                     Att:${this.state.objetSurvole['atk']}`}<br/>{`
                     Def:${this.state.objetSurvole['def']}`}<br/>{`
                     Dodge:${this.state.objetSurvole['dodge']}`}<br/>{`
-                    Critical:${this.state.objetSurvole['critical']}`}
+                    Critical:${this.state.objetSurvole['critical']}`}<br/>{`
+                    Sellable for:${Math.trunc(this.state.objetSurvole.infos.cost/2)}`}
                 </div>
             )
         }

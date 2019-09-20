@@ -95,7 +95,8 @@ class SelectObject {
         if (!object || !object.type) return false;
         gestionnaireEvents.emit(`${parentName}-${keyObjs}-deleateObject`);
         this.selected = undefined;
-        itemsEquips.equip(object)
+        let newObject=itemsEquips.equip(object)
+        gestionnaireEvents.emit(`${parentName}-${keyObjs}-changeObject`,newObject);
         gestionnaireEvents.emit('newCombatInfo', 'Item successfully equiped')
         return true;
 
