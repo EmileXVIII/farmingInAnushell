@@ -11,6 +11,7 @@ import Boss from "./characters/Boss"
 import InventoryModule from "./gameplay/InventoryModule";
 import soundfile from "../music/blackeyedpeas.mp3"
 import Sound from "react-sound"
+import Equipement from "./items/Equipement"
 import Leggings from "./items/equipement.dir/Leggings.js";
 import Helmet from "./items/equipement.dir/Helmet.js";
 import Breastplate from "./items/equipement.dir/Breastplate.js";
@@ -19,6 +20,7 @@ import Shoes from "./items/equipement.dir/Shoes.js";
 import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
+import {inventoryEquipementSaver} from '../App.js'
 
 let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
@@ -259,11 +261,7 @@ class GamePage extends Component {
         this.setState({ playerHP: player.stats.Life })
         this.setState({ monsterHP: boss.stats.Life })
         if (player.stats.Alive) {
-            if (boss.stats.Alive) {
-                setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)
-            } else {
-                this.setState({combatInfo: 'You did it. Congratulation'})
-            }
+                setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)       
         } else {
             const goldLost = Math.round(player.stats.Gold / 10)
             player.stats.Gold -= goldLost
@@ -283,6 +281,14 @@ class GamePage extends Component {
 
         if (boss.stats.Alive) {
             setTimeout(() => callback(boss.Attack(player)), 1000)
+        } 
+        else {
+            const reward = new Weapon('Dragon sword')
+            reward.setRarity('Legendary')
+            reward.setDescription('Sword made with dragon tooth')
+            reward.atk = 50
+            inventoryEquipementSaver.addOnFreePlace(reward)
+            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword'})
         }
     }
 
@@ -326,6 +332,7 @@ class GamePage extends Component {
 
 
     render() {
+        this.updateStats(this.state.playerTest)
         return (
             <div>
                 {/* <Sound

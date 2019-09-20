@@ -12,6 +12,9 @@ class Equipement extends Item {
     get dodge() {return 4 + 4 ** this.rarityArray.indexOf(this.infos.rarity)};
     get critical() {return 4 + 4 ** this.rarityArray.indexOf(this.infos.rarity)}
 
+    set atk(value) {return this.atk + value}
+
+
 }
 
 export default Equipement
