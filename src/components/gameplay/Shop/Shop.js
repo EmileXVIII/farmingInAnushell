@@ -19,7 +19,8 @@ class Shop extends Component {
     }
 
     refreshShop = () => {     
-        if (this.props.lostGold(this.state.costRefresh)) {
+        if (this.props.checkIfBuyable(this.state.costRefresh)) {
+            this.props.lostGold(this.state.costRefresh)
             this.gen = true
             this.id += 1
             const newlist = [this.id]

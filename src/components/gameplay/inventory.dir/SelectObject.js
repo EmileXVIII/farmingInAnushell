@@ -60,8 +60,11 @@ class SelectObject {
             newKey = this.selected.attributes.numKey.nodeValue,
             oldObject = gestionnaireEvents.emit(`${oldParentName}-${oldKey}-getObject`),
             newObject = gestionnaireEvents.emit(`${newParentName}-${newKey}-getObject`);
-        gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`, newObject);
-        gestionnaireEvents.emit(`${newParentName}-${newKey}-changeObject`, oldObject);
+        if (oldParentName===newParentName) {
+            gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`, newObject);
+            gestionnaireEvents.emit(`${newParentName}-${newKey}-changeObject`, oldObject);
+        }
+        else {gestionnaireEvents.emit('newCombatInfo', "You can't do that these items haven't the same type")}
         this.oldSelected = undefined;
         this.selected = undefined;
 
@@ -95,8 +98,8 @@ class SelectObject {
         if (!object || !object.type) return false;
         gestionnaireEvents.emit(`${parentName}-${keyObjs}-deleateObject`);
         this.selected = undefined;
-        let newObject=itemsEquips.equip(object)
-        gestionnaireEvents.emit(`${parentName}-${keyObjs}-changeObject`,newObject);
+        let newObject = itemsEquips.equip(object)
+        gestionnaireEvents.emit(`${parentName}-${keyObjs}-changeObject`, newObject);
         gestionnaireEvents.emit('newCombatInfo', 'Item successfully equiped')
         return true;
 
