@@ -98,7 +98,15 @@ body {
 }
 
 .small-text {
-  font-size: 16px;
+  font-size: 14px;
+}
+
+/* Display Skill */
+
+.displaySKill {
+  margin: auto;
+  max-width: 220px;
+  max-height: 220px;
 }
 
 

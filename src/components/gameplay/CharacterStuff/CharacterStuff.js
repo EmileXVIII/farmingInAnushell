@@ -73,7 +73,8 @@ class CharacterStuff extends Component {
                                                     </div>
                                                     <div className="col-8">
                                                         <b>{item.infos.name}</b>
-                                                        <p>({item.infos.rarity})</p><br />
+                                                        <p>({item.infos.rarity})</p>
+                                                        <p>Life : {item.life}</p>
                                                         <p>Atk : {item.atk}</p>
                                                         <p>Def : {item.def}</p>
                                                         <p>Dodge : {item.dodge}</p>
@@ -93,13 +94,24 @@ class CharacterStuff extends Component {
                         </div>
                     </div>
                     <br /><br /><br /><br />
-                    <div>
-                        <ul>
-                            <li>Atk : {this.props.player.stats.Atk}</li>
-                            <li>Def : {this.props.player.stats.Def}</li>
-                            <li>Dodge : {this.props.player.stats.Dodge}</li>
-                            <li>Critical : {this.props.player.stats.Critical}</li>
-                        </ul>
+                    <div className="row">
+                        <div className="col">
+                            <ul>
+                                <li>Maxlife : {this.props.player.stats.Maxlife}</li>
+                                <li>Atk : {this.props.player.stats.Atk}</li>
+                                <li>Def : {this.props.player.stats.Def}</li>
+                                <li>Dodge : {this.props.player.stats.Dodge}</li>
+                                <li>Critical : {this.props.player.stats.Critical}</li><br/>
+                                <li>Xp : {this.props.player.stats.Xp} / {300 * this.props.player.stats.Level}</li>
+                                <li>Level : {this.props.player.stats.Level} </li>
+                            </ul>       
+                        </div>
+                        <div className="col">
+                            <p>Skills</p>
+                            <ul >
+                                {this.props.player.skills.map((skill, key) => <li className="small-text">{skill.Name} - Power : {skill.Power}</li>)}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
