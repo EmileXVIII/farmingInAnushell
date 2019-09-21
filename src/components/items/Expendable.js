@@ -1,7 +1,7 @@
 class Expendable{ //consommable exemple Potion
     constructor(name,iconAdresse){
         this.name=name;
-        this.effect={};
+        this.effect=null;
         this.descriptionEffect='';
         this.iconAdresse=iconAdresse;
         this.location=undefined;
@@ -9,6 +9,7 @@ class Expendable{ //consommable exemple Potion
         this.numChild=undefined;
         this.doEffect=this.doEffect.bind(this);
         this.changeLocation=this.changeLocation.bind(this)
+        this.img = null
     }
     doEffect(target){
         for (let effect of this.effect){effect(target)}

@@ -24,13 +24,14 @@ class Room extends Component {
             <div id="Room">
                 <header class="container">
                     <Label for="exampleSelect">Selection du monde</Label>
-                    <Input type="select" name="select" id="exampleSelect">
-                        <option>Monde 1</option>
-                        <option>Monde 2</option>
-                        <option>Monde 3</option>
-                        <option>Monde 4</option>
-                        <option>Monde 5</option>
-                    </Input>
+                    <div className="row">
+                        <div className="col">
+                            <Button onClick={() => this.props.lowerCurrentWorld()}>Previous</Button>
+                        </div>
+                        <div className="col">
+                            <Button onClick={() => this.props.upCurrentWorld()}>Next</Button>
+                        </div>
+                    </div>
                 </header>
                 <div id="list-pseudo">
                     <h4>Joueur</h4>

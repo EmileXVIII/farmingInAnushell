@@ -19,6 +19,7 @@ class Character {
             BaseCritical: 0,
             BaseLife: 150,
             Username: username,
+            Img: null,
             get Alive() {
                 return this.Life > 0
             },
@@ -53,6 +54,8 @@ class Character {
                 Character.stats.Life -= dmgInflicted
                 return this.stats.Username + ': ' + skillUsed.Name + ' used ! ' + dmgInflicted + ' damage inflicted ! ' 
             }
+            gestionnaireEvents.emit('displaySkill', skillUsed.Img)
+            setTimeout(() => gestionnaireEvents.emit('displaySkill', ''), 1000)
             Character.stats.Life -= dmgInflicted * 2 
             return this.stats.Username + ': ' + skillUsed.Name + ' used ! Critical hit ! ' + dmgInflicted * 2 + ' damage inflicted ! '
         }

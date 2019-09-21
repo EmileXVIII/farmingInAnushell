@@ -7,7 +7,8 @@ import Shop from "./gameplay/Shop/Shop";
 import Room from "./gameplay/Room/Room.js"
 import Player from "./characters/Player"
 import Monster from "./characters/Monster"
-import Boss from "./characters/Boss"
+import Boss1 from "./characters/Boss1"
+import Boss2 from "./characters/Boss2"
 import InventoryModule from "./gameplay/InventoryModule";
 import soundfile from "../music/blackeyedpeas.mp3"
 import Sound from "react-sound"
@@ -32,7 +33,7 @@ class GamePage extends Component {
             combatInfo: 'Waiting...',
             playerTest: new Player('Player'),
             monsterTest: new Monster('Monster'),
-            bossTest: new Boss('Boss'),
+            bossTest: [new Boss1('Boss'), new Boss2('Boss')],
             playerHP: null,
             monsterHP: null,
             counter: 0,
@@ -41,7 +42,9 @@ class GamePage extends Component {
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
             displayMonster: "/img/eventmonster.png",
-            displaySkill: ''
+            displaySkill: '',
+            worldLevelMax: [1],
+            currentWorld: 1
         }
         this.lostGold = this.lostGold.bind(this)
         this.putMessage=this.putMessage.bind(this)
@@ -92,7 +95,7 @@ class GamePage extends Component {
             case 'room':
                 return (
                     <div>
-                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} startBoss={() => this.checkPlayerAliveBoss(this.state.playerTest, this.state.bossTest)} selfHealing={() => this.healMySelf(this.state.playerTest)} />
+                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} startBoss={() => this.checkPlayerAliveBoss(this.state.playerTest, this.state.bossTest[this.state.currentWorld - 1])} selfHealing={() => this.healMySelf(this.state.playerTest)} worldLevelMax={this.state.worldLevelMax} lowerCurrentWorld={() => this.lowerCurrentWorld()} upCurrentWorld={() => this.upCurrentWorld()}/>
                     </div>
                 )
         }
@@ -100,6 +103,29 @@ class GamePage extends Component {
     putMessage(message){
         this.setState({combatInfo:message})
     }
+
+    lowerCurrentWorld = () => {
+        if (this.state.currentWorld == 1) {
+            this.setState({combatInfo: 'Cant go lower'})
+        }
+        else {
+            this.setState(prevState => ({
+                currentWorld: prevState.currentWorld - 1, combatInfo: 'Going to the previous world'
+            }));
+        }
+    }
+
+    upCurrentWorld = () => {
+        if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
+            this.setState({combatInfo: 'You need to kill the boss to go to the next world'})
+        }
+        else {
+            this.setState(prevState => ({
+                currentWorld: prevState.currentWorld + 1, combatInfo: 'Going to the next world'
+              }));
+        }
+    }
+
     updateStats = (player) => {
         this.getAtk(player)
         this.getDef(player)
@@ -202,7 +228,11 @@ class GamePage extends Component {
         }
         else {
             this.setState({displayMonster: "/img/eventmonster.png"})
-            monster.stats.Life = 80 * player.stats.Level
+            monster.stats.Life = 80 * this.state.currentWorld
+            monster.stats.Atk = monster.stats.BaseAtk + 20 * this.state.currentWorld
+            monster.stats.Def = monster.stats.BaseDef + 10 * this.state.currentWorld
+            monster.stats.Dodge = 50 * (this.state.currentWorld * 0.8)
+            monster.stats.Critical = 50 * (this.state.currentWorld * 0.8)
             this.setState({ monsterHP: monster.stats.Life, combatInfo: 'Another monster is coming !' })
             setTimeout(() => callback(player.Attack(monster)), 1000)
         }
@@ -248,13 +278,20 @@ class GamePage extends Component {
     }
 
     checkPlayerAliveBoss = (player, boss) => {
-        if (player.stats.Alive) {
-            this.setState({combatInfo: 'The ultimate battle begin !', displayMonster: '/img/boss.png'})
-            setTimeout(() => this.testCombatBoss(player, boss, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
+        if (this.state.counter >= 30) {
+            if (player.stats.Alive) {
+                boss.stats.Life = boss.stats.BaseLife
+                this.setState({combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img})
+                setTimeout(() => this.testCombatBoss(player, boss, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
+            }
+            else {
+                this.setState({ combatInfo: 'You should rest...' })
+            }
         }
         else {
-            this.setState({ combatInfo: 'You should rest...' })
+            this.setState({combatInfo: 'You need to kill 30 monsters to fight the boss'})
         }
+        
     }
 
     createCombatBoss = (player, boss, callback) => {
@@ -288,7 +325,10 @@ class GamePage extends Component {
             reward.setDescription('Sword made with dragon tooth')
             reward.atk = 50
             inventoryEquipementSaver.addOnFreePlace(reward)
-            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword'})
+            if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax - 1]) {
+                this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
+            }
+            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !'})
         }
     }
 
@@ -344,6 +384,7 @@ class GamePage extends Component {
                 /> */}
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
+                    <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
                 </div>
 
