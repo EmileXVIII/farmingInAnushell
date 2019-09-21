@@ -7,11 +7,12 @@ class GeneratorEffect{
         this.heal=this.heal.bind(this)
     }
     heal(value){
-        this.curentListEffect['heal']=[(value=this[1])=>{
-            let maxHealable=(gestionnaireEvents.emit(`getStat-${itemsEquips.username}-stat`,'MaxLife')
-            -gestionnaireEvents.emit(`getStat-${itemsEquips.username}-stat`,'Life'))
+        this.curentListEffect['heal']=[(target,itemsEquips,value=this.curentListEffect['heal'][1])=>{
+            let maxHealable=gestionnaireEvents.emit(`getStat-${itemsEquips.username}-stat`,'MaxLife');
+            maxHealable-=gestionnaireEvents.emit(`getStat-${itemsEquips.username}-stat`,'Life');
             if(maxHealable < value){value=maxHealable}
-            gestionnaireEvents.emit(`modify-${itemsEquips.username}-stat`,'Life',value)
+            gestionnaireEvents.emit(`improve-${itemsEquips.username}-stat`,'Life',value)
+            console.log('Life',gestionnaireEvents.emit(`getStat-${itemsEquips.username}-stat`,'Life'))
         },value]
     }
 }

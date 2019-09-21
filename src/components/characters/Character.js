@@ -16,12 +16,13 @@ class Character {
             BaseDef: 10,
             BaseDodge: 0,
             BaseCritical: 0,
-            Username: username,
             get Alive() {
                 return this.Life > 0
             },
         };
+        this.Username=username;
         this.modifyCurentStat = this.modifyCurentStat.bind(this);
+        this.getStat=this.getStat.bind(this)
 
 
 
@@ -36,18 +37,19 @@ class Character {
                 Power: 1.2,
             }
         ]
-        gestionnaireEvents.on(`improve-${this.stats.Username}-stat`, this.modifyCurentStat)
-        gestionnaireEvents.on(`getStat-${this.stats.Username}-stat`, this.getStat)
+        gestionnaireEvents.on(`improve-${this.Username}-stat`, this.modifyCurentStat)
+        gestionnaireEvents.on(`getStat-${this.Username}-stat`, this.getStat)
     }
     modifyCurentStat(stat, value) {
-        if (this.stats.keys().index(stat) !== -1) {
-            this.stats[`${stat}`] += value
+        if (Object.keys(this.stats).indexOf(stat) !== -1) {
+            this.stats[`${stat}`] += value;
+            gestionnaireEvents.emit('updateStateGamePage')
             return true;
         }
         else { return false };
     }
     getStat(stat) {
-        if (this.stats.keys().index(stat) !== -1) {
+        if (Object.keys(this.stats).indexOf(stat) !== -1) {
             return this.stats[`${stat}`];
         }
         else { return false };

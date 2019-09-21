@@ -75,7 +75,9 @@ class SelectObject {
                 case 'd':
                     return this.sellItem();
                 case 'e':
-                    return this.equipItem()
+                    return this.equipItem();
+                case 'u':
+                    return this.usePotion();
             }
         }
         return false;
@@ -103,6 +105,16 @@ class SelectObject {
         gestionnaireEvents.emit('newCombatInfo', 'Item successfully equiped')
         return true;
 
+    }
+    usePotion() {
+        let keyObjs = this.selected.attributes.numKey.nodeValue,
+            parentName = this.selected.parentNode.attributes.name.nodeValue,
+            object = gestionnaireEvents.emit(`${parentName}-${keyObjs}-getObject`);
+        if (!object || object.type) return false;
+        gestionnaireEvents.emit(`${parentName}-${keyObjs}-deleateObject`);
+        this.selected = undefined;
+        object.doEffect();
+        return true;
     }
 
 }

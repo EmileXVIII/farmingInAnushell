@@ -1,4 +1,6 @@
 import Item from "./Item";
+import SaverItemEquip from "../gameplay/CharacterStuff/SaverItemsEquip";
+import { itemsEquips } from "../GamePage";
 
 class Expendable extends Item{ //consommable exemple Potion
     constructor(name,iconAdresse,dicoEffect){
@@ -11,8 +13,8 @@ class Expendable extends Item{ //consommable exemple Potion
             this.effects[`${key}`]=dicoEffect[key];
         }
     }
-    doEffect(target){
-        for (let effect of this.effects){effect(target)}
+    doEffect(target=SaverItemEquip.username){
+        for (let key of Object.keys(this.effects)){this.effects[key][0](target,itemsEquips)}
     }
     changeLocation(location,numChild){
         this.location=location;

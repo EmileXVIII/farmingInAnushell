@@ -35,18 +35,23 @@ class GamePage extends Component {
             gold: 500,
             arrayItem: itemsEquips.listObj,
         }
+        console.log('User :',this.state.playerTest.Username)
+        itemsEquips.username=this.state.playerTest.Username;
+        console.log('Usename :',itemsEquips.username)
         this.lostGold = this.lostGold.bind(this)
         this.putMessage=this.putMessage.bind(this)
         this.updateStats(this.state.playerTest)
     }
     componentDidMount (){
         gestionnaireEvents.on('sellItem',this.lostGold);
-        gestionnaireEvents.on('newCombatInfo',this.putMessage)
+        gestionnaireEvents.on('newCombatInfo',this.putMessage);
+        gestionnaireEvents.on('updateStateGamePage',this.updateState);
         itemsEquips.username=this.state.playerTest.Username
     }
     componentWillUnmount (){
-        gestionnaireEvents.off('sellItem',this.lostGold)
-        gestionnaireEvents.off('newCombatInfo',this.putMessage)
+        gestionnaireEvents.off('sellItem',this.lostGold);
+        gestionnaireEvents.off('newCombatInfo',this.putMessage);
+        gestionnaireEvents.off('updateStateGamePage',this.updateState)
     }
     toggleElements() {
         switch (this.state.gameplayElement) {
@@ -84,6 +89,9 @@ class GamePage extends Component {
     }
     putMessage(message){
         this.setState({combatInfo:message})
+    }
+    updateState = ()=>{
+        this.setState({ playerHP: this.state.playerTest.stats.Life })
     }
     updateStats = (player) => {
         this.getAtk(player)
