@@ -71,7 +71,7 @@ class InfoItems extends Component {
             )
 
         }
-        else if (this.state.objetSurvole.infos.type !== undefined) {
+        else if (this.state.objetSurvole.type !== undefined) {
             return (
                 <div name='infoItems'>
                     {`Name:${this.state.objetSurvole.infos.name}`}<br/>{`
