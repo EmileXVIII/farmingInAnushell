@@ -61,11 +61,7 @@ export default function Dashboard() {
                     <div className={classes.topicsWindow}>
                         <List>
                             {
-                                topics.map(topic => (
-                                    <ListItem onClick={e => changeActiveTopic(e.target.innerText)} key={topic} button>
-                                        <ListItemText primary={topic} />
-                                    </ListItem>
-                                ))
+                                user
                             }
                         </List>
                     </div>

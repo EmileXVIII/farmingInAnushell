@@ -126,6 +126,7 @@ class GamePage extends Component {
                 setTimeout(() => callback('...but the farming is never ending !'), 500)
             }
         } else {
+            document.getElementById('begin-button').disabled = false
             const goldLost = Math.round(player.stats.Gold / 10)
             player.stats.Gold -= goldLost
             this.setState({ gold: player.stats.Gold, })
@@ -165,6 +166,7 @@ class GamePage extends Component {
     checkPlayerAlive = (player, monster) => {
         if (player.stats.Alive) {
             setTimeout(() => this.testCombat2(player, monster, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 500)
+            document.getElementById('begin-button').disabled = true
         }
         else {
             this.setState({ combatInfo: 'You should rest...' })
