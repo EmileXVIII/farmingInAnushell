@@ -1,18 +1,20 @@
-class Expendable{ //consommable exemple Potion
-    constructor(name,iconAdresse){
-        this.name=name;
-        this.effect=null;
-        this.descriptionEffect='';
-        this.iconAdresse=iconAdresse;
-        this.location=undefined;
-        this.rarity=undefined;
-        this.numChild=undefined;
+import Item from "./Item";
+import SaverItemEquip from "../gameplay/CharacterStuff/SaverItemsEquip";
+import { itemsEquips } from "../GamePage";
+
+class Expendable extends Item{ //consommable exemple Potion
+    constructor(name,iconAdresse,dicoEffect){
+        super(name,iconAdresse);
+        this.effects={};
+        this.descriptionEffects='';
         this.doEffect=this.doEffect.bind(this);
         this.changeLocation=this.changeLocation.bind(this)
-        this.img = null
+        for (let key of Object.keys(dicoEffect)){
+            this.effects[`${key}`]=dicoEffect[key];
+        }
     }
-    doEffect(target){
-        for (let effect of this.effect){effect(target)}
+    doEffect(target=SaverItemEquip.username){
+        for (let key of Object.keys(this.effects)){this.effects[key][0](target,itemsEquips)}
     }
     changeLocation(location,numChild){
         this.location=location;

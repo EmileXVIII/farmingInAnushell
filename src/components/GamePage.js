@@ -36,16 +36,19 @@ class GamePage extends Component {
             bossTest: [new Boss1('Boss'), new Boss2('Boss')],
             playerHP: null,
             monsterHP: null,
-            counter: 0,
+            counter: 30,
             gold: 500,
             levelPlayer: 0,
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
             displayMonster: "/img/eventmonster.png",
             displaySkill: '',
-            worldLevelMax: [1],
+            worldLevelMax: [1, 2],
             currentWorld: 1
         }
+        console.log('User :',this.state.playerTest.Username)
+        itemsEquips.username=this.state.playerTest.Username;
+        console.log('Usename :',itemsEquips.username)
         this.lostGold = this.lostGold.bind(this)
         this.putMessage=this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
@@ -54,12 +57,15 @@ class GamePage extends Component {
     componentDidMount (){
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
         gestionnaireEvents.on('sellItem',this.lostGold);
-        gestionnaireEvents.on('newCombatInfo',this.putMessage)
+        gestionnaireEvents.on('newCombatInfo',this.putMessage);
+        gestionnaireEvents.on('updateStateGamePage',this.updateState);
+        itemsEquips.username=this.state.playerTest.Username
     }
     componentWillUnmount (){
         gestionnaireEvents.off('sellItem',this.lostGold)
         gestionnaireEvents.off('newCombatInfo',this.putMessage)
         gestionnaireEvents.off('displaySkill', this.changeImgSKill)
+        gestionnaireEvents.off('updateStateGamePage',this.updateState)
     }
 
     changeImgSKill(img) {
@@ -126,6 +132,9 @@ class GamePage extends Component {
         }
     }
 
+    updateState = ()=>{
+        this.setState({ playerHP: this.state.playerTest.stats.Life })
+    }
     updateStats = (player) => {
         this.getAtk(player)
         this.getDef(player)
@@ -133,7 +142,6 @@ class GamePage extends Component {
         this.getCritical(player)
         this.getLife(player)
     }
-
     getAtk(player) {
         var resultAtk = Math.round(player.stats.BaseAtk)
         for (let i = 0; i < this.state.arrayItem.length; i++) {

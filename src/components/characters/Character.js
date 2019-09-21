@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { gestionnaireEvents } from "../gameplay/inventory.dir/inventoryEvents";
 
 class Character {
-    constructor(username) {
+    constructor(username) {//username should be unique
         this.stats = {
             Maxlife: 0,
             Life: 0,
@@ -24,9 +24,12 @@ class Character {
                 return this.Life > 0
             },
         };
-        
+        this.Username=username;
+        this.modifyCurentStat = this.modifyCurentStat.bind(this);
+        this.getStat=this.getStat.bind(this)
 
-        
+
+
 
         this.skills = [
             {
@@ -40,6 +43,22 @@ class Character {
                 Img: "/img/skillkick.png"
             }
         ]
+        gestionnaireEvents.on(`improve-${this.Username}-stat`, this.modifyCurentStat)
+        gestionnaireEvents.on(`getStat-${this.Username}-stat`, this.getStat)
+    }
+    modifyCurentStat(stat, value) {
+        if (Object.keys(this.stats).indexOf(stat) !== -1) {
+            this.stats[`${stat}`] += value;
+            gestionnaireEvents.emit('updateStateGamePage')
+            return true;
+        }
+        else { return false };
+    }
+    getStat(stat) {
+        if (Object.keys(this.stats).indexOf(stat) !== -1) {
+            return this.stats[`${stat}`];
+        }
+        else { return false };
     }
 
     Attack(Character) {
@@ -65,7 +84,7 @@ class Character {
             return this.stats.Username + ' : You missed miserably...'
         }      
     }
-    
+
     randomInt(Max) {
         return Math.floor(Math.random() * Max)
 

@@ -1,7 +1,8 @@
 import { inventoryEquipementSaver } from "../../../App";
 
 class SaverItemEquip {
-    constructor(leggings, helmet, breastplate, shield, shoes, weapon) {
+    constructor(leggings, helmet, breastplate, shield, shoes, weapon,username) {
+        this.username=username;
         this.listObj=[leggings, helmet, breastplate, shield, shoes, weapon];
         this.index = ['Leggings', 'Helmet', 'Breastplate', 'Shield', 'Shoes', 'Weapon'];
         this.equip=this.equip.bind(this)

@@ -9,7 +9,6 @@ class Item {
             specialAttribute: null,
             name: name,
             description: "Pas de Description",
-            type: null,
             iconAdresse: iconAdresse,
             location: null,
             rarity:this.rarityArray[0]
