@@ -3,9 +3,9 @@ import io from 'socket.io-client'
 
 export const CTX = React.createContext()
 
-const initState = {
-    Team_Chat:[],
 
+export const initState = {
+    Team_Chat:[],
 }
 
 function reducer(state, action) {
