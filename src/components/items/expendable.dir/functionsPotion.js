@@ -1,5 +1,6 @@
 import { gestionnaireEvents } from "../../gameplay/inventory.dir/inventoryEvents"
 import { itemsEquips } from "../../GamePage";
+import Expendable from "../Expendable";
 
 class GeneratorEffect{
     constructor(){
@@ -17,4 +18,11 @@ class GeneratorEffect{
     }
 }
 
+function newbaseHealPotion(){
+    let gen=new GeneratorEffect();
+    gen.heal(100);
+    return new Expendable('Heal Potion','/img/potion.png',gen.curentListEffect)
+}
+
 export default GeneratorEffect;
+export {newbaseHealPotion}

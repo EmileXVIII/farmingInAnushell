@@ -7,7 +7,8 @@ import Shield from '../../items/equipement.dir/Shield'
 import Shoes from '../../items/equipement.dir/Shoes'
 import Weapon from '../../items/equipement.dir/Weapon'
 import { Button } from 'reactstrap';
-import { inventoryEquipementSaver } from "../../../App.js"
+import { inventoryEquipementSaver, inventoryExpendableSaver } from "../../../App.js"
+import { newbaseHealPotion } from "../../items/expendable.dir/functionsPotion";
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -26,8 +27,8 @@ class SlotObjet extends Component {
     }
 
     generate() {
-        const arrayItem = [new Leggings('Legs'), new Helmet('Helmet'), new Breastplate('Breast'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon')]
-        const rand = getRandomIntInclusive(0, 5)
+        const arrayItem = [new Leggings('Legs'), new Helmet('Helmet'), new Breastplate('Breast'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'),newbaseHealPotion()]
+        const rand = getRandomIntInclusive(0, 6)
         return arrayItem[rand]
     }
 
@@ -77,7 +78,8 @@ class SlotObjet extends Component {
         if (this.props.checkIfBuyable(this.state.item.infos.cost)) {
             this.props.buyItem(this.state.item.infos.cost, this.state.item.infos.name)
             const item = this.state.item
-            inventoryEquipementSaver.addOnFreePlace(item);
+            if (item.type) inventoryEquipementSaver.addOnFreePlace(item);
+            else inventoryExpendableSaver.addOnFreePlace(item);
             this.setState({
                 item: "",
             })

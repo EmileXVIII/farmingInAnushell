@@ -16,6 +16,7 @@
     "fs": "0.0.1-security",
     "mdbreact": "^4.19.2",
     "node": "^12.10.0",
+    "nodemon": "^1.19.2",
     "nvm": "0.0.4",
     "password-hash": "^1.2.2",
     "pixel-borders": "^1.1.4",
