@@ -8,7 +8,7 @@ import Shoes from '../../items/equipement.dir/Shoes'
 import Weapon from '../../items/equipement.dir/Weapon'
 import { Button } from 'reactstrap';
 import { inventoryEquipementSaver, inventoryExpendableSaver } from "../../../App.js"
-import { newbaseHealPotion } from "../../items/expendable.dir/functionsPotion";
+import { newbaseHealPotion, newbaseAttPotion, newbaseCritPotion, newbaseDefPotion, newbaseDodgPotion } from "../../items/expendable.dir/functionsPotion";
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -27,8 +27,8 @@ class SlotObjet extends Component {
     }
 
     generate() {
-        const arrayItem = [new Leggings('Legs'), new Helmet('Helmet'), new Breastplate('Breast'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'),newbaseHealPotion()]
-        const rand = getRandomIntInclusive(0, 6)
+        const arrayItem = [new Leggings('Legs'), new Helmet('Helmet'), new Breastplate('Breast'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'),newbaseHealPotion(),newbaseAttPotion(),newbaseCritPotion(),newbaseDefPotion(),newbaseDodgPotion()]
+        const rand = getRandomIntInclusive(0, arrayItem.length-1)
         return arrayItem[rand]
     }
 
@@ -50,7 +50,7 @@ class SlotObjet extends Component {
     }
 
     toggleHover = () => {
-        if (this.state.item !== "") {
+        if (this.state.item) {
             this.Desc()
         }
     }
@@ -62,7 +62,7 @@ class SlotObjet extends Component {
     }
 
     affichage = () => {
-        if (this.state.item !== "") {
+        if (this.state.item) {
             return (
                 <Button onClick={() => this.buyItem()} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.infos.name}</h6>

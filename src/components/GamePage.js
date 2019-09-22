@@ -134,6 +134,7 @@ class GamePage extends Component {
 
     updateState = ()=>{
         this.setState({ playerHP: this.state.playerTest.stats.Life })
+        this.updateStats(this.state.playerTest);
     }
     updateStats = (player) => {
         this.getAtk(player)
