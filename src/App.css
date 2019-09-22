@@ -342,6 +342,9 @@ body {
 .filter_legendary{
   background-color: rgba(255, 136, 0, 0.2);
 }
+.filter_merging{
+  background-color: rgba(199, 0, 0, 0.767);
+}
 .filter_selected{
   background-color: rgba(255, 0, 128, 0.767);
 }

@@ -1,5 +1,6 @@
 import { gestionnaireEvents } from "./inventoryEvents";
 import { itemsEquips } from "../../GamePage";
+import { gestionnaireMergePotion } from "../../../App";
 
 class SelectObject {
     constructor() {
@@ -50,6 +51,12 @@ class SelectObject {
     select(noeud) {
         noeud.getElementsByClassName('filter')[0].classList.add('filter_selected')
     }
+    selectMerge(noeud) {
+        noeud.getElementsByClassName('filter')[0].classList.add('filter_merging')
+    }
+    unSelectMerge(noeud) {
+        noeud.getElementsByClassName('filter')[0].classList.remove('filter_merging');
+    }
     unSelect(noeud) {
         noeud.getElementsByClassName('filter')[0].classList.remove('filter_selected');
     }
@@ -60,11 +67,11 @@ class SelectObject {
             newKey = this.selected.attributes.numKey.nodeValue,
             oldObject = gestionnaireEvents.emit(`${oldParentName}-${oldKey}-getObject`),
             newObject = gestionnaireEvents.emit(`${newParentName}-${newKey}-getObject`);
-        if (oldParentName===newParentName) {
+        if (oldParentName === newParentName) {
             gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`, newObject);
             gestionnaireEvents.emit(`${newParentName}-${newKey}-changeObject`, oldObject);
         }
-        else {gestionnaireEvents.emit('newCombatInfo', "You can't do that these items haven't the same type")}
+        else { gestionnaireEvents.emit('newCombatInfo', "You can't do that these items haven't the same type") }
         this.oldSelected = undefined;
         this.selected = undefined;
 
@@ -78,6 +85,8 @@ class SelectObject {
                     return this.equipItem();
                 case 'u':
                     return this.usePotion();
+                case 'm':
+                    return this.addToMerger();
             }
         }
         return false;
@@ -115,6 +124,31 @@ class SelectObject {
         this.selected = undefined;
         object.doEffect();
         return true;
+    }
+    addToMerger() {
+        let keyObjs = this.selected.attributes.numKey.nodeValue,
+            parentName = this.selected.parentNode.attributes.name.nodeValue,
+            object = gestionnaireEvents.emit(`${parentName}-${keyObjs}-getObject`);
+        if (object && !object.type) {
+            if (gestionnaireMergePotion.selected) {
+                if (gestionnaireMergePotion.selected === this.selected) {
+                    gestionnaireMergePotion.selected = undefined;
+                    this.unSelectMerge(this.selected);
+                    this.unSelect(this.selected);
+                }
+                else {
+                    gestionnaireMergePotion.oldSelected = this.selected;
+                    this.unSelect(this.selected);
+                    gestionnaireMergePotion.merge()
+                }
+            }
+            else {
+                gestionnaireMergePotion.selected = this.selected;
+                this.unSelect(this.selected);
+                this.selectMerge(this.selected)
+            }
+            this.selected = undefined
+        }
     }
 
 }

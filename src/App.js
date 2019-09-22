@@ -7,12 +7,14 @@ import { resolve } from 'path';
 import Saver from './components/gameplay/inventory.dir/Saver'
 import ShopSaver from "./components/gameplay/Shop/ShopSaver"
 import test from './components/gameplay/inventory.dir/test';
+import Merger from './components/items/expendable.dir/merger';
 
 let lenInvExpendable = 8,
   lenInvEquipement = 3 * 8,
   inventoryEquipementSaver = new Saver('conteneur_inventaire', lenInvEquipement),
   inventoryExpendableSaver = new Saver('conteneur_activables', lenInvExpendable),
-  shopSaver = new ShopSaver();
+  shopSaver = new ShopSaver(),
+  gestionnaireMergePotion = new Merger();
 test(inventoryEquipementSaver,inventoryExpendableSaver);
 
 class App extends Component {
@@ -31,4 +33,4 @@ class App extends Component {
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver };
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver ,gestionnaireMergePotion};
