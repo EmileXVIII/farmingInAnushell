@@ -34,7 +34,7 @@ class GamePage extends Component {
             combatInfo: 'Waiting...',
             playerTest: new Player('Player'),
             monsterTest: new Monster('Monster'),
-            bossTest: [new Boss1('Drakôn'), new Boss2('Death boi'), new Boss3('Bjorn')],
+            bossTest: [new Boss1('Drakôn'), new Boss2('Death boi'), new Boss3('Jeremy')],
             playerHP: null,
             monsterHP: null,
             counter: 30,

@@ -8,7 +8,7 @@ class Player extends Character {
         this.stats.Atk = this.stats.BaseAtk
         this.stats.Def = this.stats.BaseDef
 
-        this.skills.push({Name: 'Fireball', Power: 1.3, Img: "/img/skillfire2.gif"}, {Name: 'Ice spear', Power: 1.3, Img: "/img/skillice.gif"}, {
+        this.skills.push({Name: 'Fireball', Power: 1.3, Img: "/img/skillfireball.gif"}, {Name: 'Ice spear', Power: 1.3, Img: "/img/skillice.gif"}, {
             Name: 'Uppercut',
             Power: 1.1,
             Img: "/img/skillpunch.gif"
