@@ -309,6 +309,7 @@ class GamePage extends Component {
         if (player.stats.Alive) {
                 setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)       
         } else {
+            player.stats.Gold = this.state.gold
             const goldLost = Math.round(player.stats.Gold / 10)
             player.stats.Gold -= goldLost
             this.setState({ gold: player.stats.Gold, })
