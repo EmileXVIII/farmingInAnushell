@@ -9,10 +9,10 @@ class Boss2 extends Character {
         this.stats.Def = 80
         this.stats.Dodge = 120
         this.stats.Crit = 120
-        this.stats.Img = '/img/boss2.png'
+        this.stats.Img = '/img/boss2.gif'
         this.skills.shift()
         this.skills.shift()
-        this.skills.push({Name: 'Throw skull', Power: 1.4, Img: "/img/skilldeath.png"}, {Name: 'Death scythe', Power: 1.5, Img: "/img/skillscythe.png"}, {Name: 'Ghost army', Power: 1.3, Img: "/img/skillghost.png"})
+        this.skills.push({Name: 'Crow', Power: 1.4, Img: "/img/skilldeath.gif"}, {Name: 'Skull army', Power: 1.5, Img: "/img/skilldeath2.gif"}, {Name: 'Ghost army', Power: 1.3, Img: "/img/skilldeath3.gif"})
     }
 }
 

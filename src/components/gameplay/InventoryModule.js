@@ -18,6 +18,7 @@ class InventoryModule extends Component {
         return (
             <div className='w-100 h-100'>
                 <h3 className="text-center mb-3">Inventory</h3>
+                <p>E to equip / D to sell / M to merge</p>
                 <div className="inventory w-100 h-100">
                     <div className="element_inventory">
                         <div name='conteneur_activables' className="conteneur_activables">

@@ -145,7 +145,7 @@ class Wrought extends Component {
                     </div>
                     </form>
                 <div className="forge-buttton text-center mt-3 pb-5 d-flex justify-content-around">
-                    <button onClick={() => {this.upgradeItem(this.state.item, futurCost); this.props.updateStats()}} type="button" id="upgrade-button" className="btn btn-outline-info"> Améliorer </button>
+                    <button onClick={() => {this.upgradeItem(this.state.item, futurCost); this.props.updateStats()}} type="button" id="upgrade-button" className="btn btn-outline-info"> Upgrade </button>
                 </div>
             </div>
         )

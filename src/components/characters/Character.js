@@ -17,7 +17,7 @@ class Character {
             BaseDef: 10,
             BaseDodge: 0,
             BaseCritical: 0,
-            BaseLife: 150,
+            BaseLife: 200,
             Username: username,
             Img: null,
             get Alive() {
@@ -31,18 +31,8 @@ class Character {
 
 
 
-        this.skills = [
-            {
-                Name: 'Uppercut',
-                Power: 1.1,
-                Img: "/img/skilluppercut.png"
-            },
-            {
-                Name: 'Kick',
-                Power: 1.2,
-                Img: "/img/skillkick.png"
-            }
-        ]
+        this.skills = []
+
         gestionnaireEvents.on(`improve-${this.Username}-stat`, this.modifyCurentStat)
         gestionnaireEvents.on(`getStat-${this.Username}-stat`, this.getStat)
     }

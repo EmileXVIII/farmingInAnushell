@@ -22,6 +22,7 @@ import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
 import {inventoryEquipementSaver} from '../App.js'
+import Boss3 from "./characters/Boss3.js";
 
 let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
@@ -33,7 +34,7 @@ class GamePage extends Component {
             combatInfo: 'Waiting...',
             playerTest: new Player('Player'),
             monsterTest: new Monster('Monster'),
-            bossTest: [new Boss1('Boss'), new Boss2('Boss')],
+            bossTest: [new Boss1('Drakôn'), new Boss2('Death boi'), new Boss3('Bjorn')],
             playerHP: null,
             monsterHP: null,
             counter: 30,
@@ -41,10 +42,11 @@ class GamePage extends Component {
             levelPlayer: 0,
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
-            displayMonster: "/img/eventmonster.png",
+            displayMonster: "/img/monster.gif",
             displaySkill: '',
-            worldLevelMax: [1, 2],
-            currentWorld: 1
+            worldLevelMax: [1, 2, 3],
+            currentWorld: 1,
+            isFarming : false
         }
         console.log('User :',this.state.playerTest.Username)
         itemsEquips.username=this.state.playerTest.Username;
@@ -210,20 +212,25 @@ class GamePage extends Component {
     }
 
     createCombat = (player, monster, callback) => {
-        this.setState({ playerHP: player.stats.Life })
-        this.setState({ monsterHP: monster.stats.Life })
+        if (this.state.isFarming == true) {
+            this.setState({ playerHP: player.stats.Life })
+            this.setState({ monsterHP: monster.stats.Life })
 
-        if (player.stats.Alive) {
-            if (monster.stats.Alive) {
-                setTimeout(() => callback('The battle begin'), 500)
+            if (player.stats.Alive) {
+                if (monster.stats.Alive) {
+                    setTimeout(() => callback('The battle begin'), 500)
+                } else {
+                    setTimeout(() => callback('...but the farming is never ending !'), 500)
+                }
             } else {
-                setTimeout(() => callback('...but the farming is never ending !'), 500)
+                const goldLost = Math.round(player.stats.Gold / 10)
+                player.stats.Gold -= goldLost
+                this.setState({ gold: player.stats.Gold, })
+                this.setState({ combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
             }
-        } else {
-            const goldLost = Math.round(player.stats.Gold / 10)
-            player.stats.Gold -= goldLost
-            this.setState({ gold: player.stats.Gold, })
-            this.setState({ combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
+        }
+        else {
+            this.setState({combatInfo: 'Farm interrupted...'})
         }
     }
 
@@ -236,7 +243,7 @@ class GamePage extends Component {
             setTimeout(() => callback(player.Attack(monster)), 1000)
         }
         else {
-            this.setState({displayMonster: "/img/eventmonster.png"})
+            this.setState({displayMonster: "/img/monster.gif"})
             monster.stats.Life = 80 * this.state.currentWorld
             monster.stats.Atk = monster.stats.BaseAtk + 20 * this.state.currentWorld
             monster.stats.Def = monster.stats.BaseDef + 10 * this.state.currentWorld
@@ -266,20 +273,20 @@ class GamePage extends Component {
                 player.stats.BaseDef *= 1.1
                 player.stats.BaseLife *= 1.05
                 this.updateStats(player)
-                this.setState({displayMonster: '/img/monsterdead.png'})
-                setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold. Level up !'), 500)
+                this.setState({displayMonster: '/img/monsterdead.gif'})
+                setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold. Level up !'), 1000)
             }
             else {
-                this.setState({displayMonster: '/img/monsterdead.png'})
-                setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold and ' + xpEarned + ' XP.'), 500)
+                this.setState({displayMonster: '/img/monsterdead.gif'})
+                setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold and ' + xpEarned + ' XP.'), 1000)
             }   
         }
     }
 
     checkPlayerAlive = (player, monster) => {
         if (player.stats.Alive) {
-            this.setState({displayMonster: "/img/eventmonster.png"})
-            setTimeout(() => this.testCombat2(player, monster, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 500)
+            this.setState({displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming})
+            setTimeout(() => this.testCombat2(player, monster, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
         }
         else {
             this.setState({ combatInfo: 'You should rest...' })
@@ -304,17 +311,18 @@ class GamePage extends Component {
     }
 
     createCombatBoss = (player, boss, callback) => {
-        this.setState({ playerHP: player.stats.Life })
-        this.setState({ monsterHP: boss.stats.Life })
-        if (player.stats.Alive) {
-                setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)       
-        } else {
-            player.stats.Gold = this.state.gold
-            const goldLost = Math.round(player.stats.Gold / 10)
-            player.stats.Gold -= goldLost
-            this.setState({ gold: player.stats.Gold, })
-            setTimeout(() => this.setState({ combatInfo: 'You got destroyed. ' + boss.stats.Username + ' stole you ' + goldLost + ' gold.' }), 1000) 
-        }
+            this.setState({ playerHP: player.stats.Life })
+            this.setState({ monsterHP: boss.stats.Life })
+            if (player.stats.Alive) {
+                    setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)       
+            } else {
+                player.stats.Gold = this.state.gold
+                const goldLost = Math.round(player.stats.Gold / 10)
+                player.stats.Gold -= goldLost
+                this.setState({ gold: player.stats.Gold, })
+                setTimeout(() => this.setState({ combatInfo: 'You got destroyed. ' + boss.stats.Username + ' stole you ' + goldLost + ' gold.' }), 1000) 
+            }
+        
     }
 
     bossAlive = (player, boss, callback) => {

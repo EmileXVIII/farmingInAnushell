@@ -44,7 +44,7 @@ function newbaseDefPotion(){
 function newbaseCritPotion(){
     let gen=new GeneratorEffect();
     gen.improveStat('BaseCritical',50,5000);
-    return new Expendable('Critical','/img/potion.png',gen.curentListEffect)
+    return new Expendable('Crit','/img/potion.png',gen.curentListEffect)
 }
 
 function newbaseDodgPotion(){
