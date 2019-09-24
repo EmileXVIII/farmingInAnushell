@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Progress } from 'reactstrap';
+import { Redirect } from 'react-router-dom'
 import {
     Container, Col, Form, Button,
     FormGroup, Label, Input
@@ -68,8 +68,8 @@ class LoginForm extends Component {
     }
 
     loginRedirect = () => {
-        // return <Redirect to='/game/' />
-        this.props.history.push("/game");
+        return <Redirect to='/game/' />
+        // this.props.history.push("/game");
     }
 
     login() {
