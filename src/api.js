@@ -20,17 +20,18 @@ app.use(function (req, res, next) {
 
 // Connection bdd Serveur FarmingNutshell
 // app.use(function (req, res, next) {
-//     res.locals.connection = mysql.createConnection({
+//     dbConn = mysql.createConnection({
 //         host: '10.33.15.53',
 //         user: 'padmin',
 //         password: 'D3b14nr0oT',
 //         database: 'FarmingInAnutshell'
 //     });
-//     res.locals.connect();
+//     dbConn.connect();
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
-
-
 
 app.get('/user/:email/pwd', (req, res) => {
     const email = req.params.email
