@@ -1,16 +1,20 @@
 const mysql = require('mysql')
 const app = require('express')()
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 8080
+let dbConn = ""
 
 // Connection bdd local
 app.use(function (req, res, next) {
-    res.locals.connection = mysql.createConnection({
+    dbConn = mysql.createConnection({
         host: 'localhost',
         user: 'debian-sys-maint',
         password: 'phrHtsSP5Hoq6EYl',
-        database: 'FarmingInAnutshell'
+        database: 'farmingInAnutshell'
     });
-    res.locals.connect();
+    dbConn.connect();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
@@ -30,22 +34,20 @@ app.use(function (req, res, next) {
 
 app.get('/user/:email/pwd', (req, res) => {
     const email = req.params.email
-    mysql.all("SELECT User.mdp FROM User WHERE User.email = ?", email)
-        .then((response) => {
-            res.json(response);
-        })
-        .catch(error => console.error('error', error))
+    dbConn.query("SELECT User.mdp FROM User WHERE User.email = ?", email, function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'user pwd' });
+    });
 });
 
 app.post('/user/:email/:username/:mdp', (req, res) => {
     const email = req.params.email
     const username = req.params.username
     const mdp = req.params.mdp
-    mysql.all("insert into User (email, username, mdo) values (?, ?, ?)", [email, username, mdp])
-        .then((response) => {
-            res.json(response);
-        })
-        .catch(error => console.error('error', error))
+    dbConn.query("insert into User (email, username, mdo) values (?, ?, ?)", [email, username, mdp], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'users list.' });
+    });
 });
 
 app.listen(PORT, () => {

@@ -1,58 +1,52 @@
 import React, { Component } from "react";
+import { Progress } from 'reactstrap';
 import {
     Container, Col, Form, Button,
     FormGroup, Label, Input
 } from 'reactstrap'
 import axios from "axios";
 
-
-let loginError = ''
-
-let user = {
-    email: 'florent.nicolas@ynov.com',
-    password: 'password'
-}
-
 let userLogin = {
     email: '',
-    password: ''
+    password: '',
 }
 
-
 class LoginForm extends Component {
-    constructor() {
-        super()
-        this.dbpwd = ''
+    constructor(props) {
+        super(props)
+        this.getbdpwd = this.getbdpwd.bind(this)
+
         this.state = {
+            dbpwd: '',
             email: '',
-            password: ''
+            password: '',
+            loginError: '',
+            progressbar: '',
+            btnstatus: false,
         }
     }
 
-    getbdpwd() {
-        axios
-            .get(`localhost:3001/users/${this.state.email}/pwd`)
+    async getbdpwd() {
+        await axios
+            .get(`http://localhost:8080/user/${this.state.email}/pwd`)
             .then(response => {
-
                 // create an array of contacts only with relevant data
-                const newContacts = response.data.map(c => {
+                const result = response.data.data.map(c => {
                     return c.mdp
                 });
-                console.log(newContacts)
+                this.setState({
+                    dbpwd: result[0]
+                })
             })
             .catch(error => console.log(error));
     }
-
-
-
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
-        this.getbdpwd()
-    }
 
+    }
 
     // Get data from login form
     onSubmit = (e) => {
@@ -63,28 +57,46 @@ class LoginForm extends Component {
         }
         this.setState({
             email: userLogin.email,
-            password: userLogin.password
+            password: userLogin.password,
+            btnstatus: true
         })
-        this.login(user, this.state)
+        this.getbdpwd()
+        setTimeout(() => this.login(), 3000)
+        this.setState({
+            loginError: 'Conection processing, please wait.',
+        })
     }
 
+    loginRedirect = () => {
+        // return <Redirect to='/game/' />
+        this.props.history.push("/game");
+    }
 
-    login(user, currentUser) {
-        console.log(currentUser)
-        if (currentUser.email.length <= 0 || currentUser.password.length <= 0) {
-            loginError = 'You need to complete all the fields.'
-            console.log(loginError)
-        }
-        else {
-            if (currentUser.email === user.email && currentUser.password === user.password) {
-                loginError = "Successful login : " + user.email + " !"
-                //return <Redirect to='/game' />
+    login() {
+        if (this.state.email.length === 0 || this.state.password.length === 0) {
+            this.setState({
+                loginError: 'You need to complete all the fields.',
+                btnstatus: false
+            })
+            console.log(this.state.loginError)
+
+        } else {
+            if (this.state.password === this.state.dbpwd) {
+                this.setState({
+                    loginError: "Successful login : " + this.state.email + " !"
+                })
+                console.log(this.state.loginError)
+                this.loginRedirect()
             }
             else {
-                loginError = 'Invalid authentication.'
-                console.log(loginError)
+                this.setState({
+                    loginError: 'Invalid authentication.',
+                    btnstatus: false
+                })
+                console.log(this.state.loginError)
             }
         }
+
     }
 
 
@@ -97,11 +109,13 @@ class LoginForm extends Component {
                         <FormGroup>
                             <Label>Email</Label>
                             <Input
-                                onChange={e => this.handleChange(e)}
+
                                 type="email"
                                 name="email"
                                 id="exampleEmail"
                                 placeholder="myemail@email.com"
+                                value={this.state.email}
+                                onChange={evt => this.handleChange(evt)}
                             />
                         </FormGroup>
                     </Col>
@@ -109,24 +123,27 @@ class LoginForm extends Component {
                         <FormGroup>
                             <Label for="examplePassword">Password</Label>
                             <Input
-                                onChange={e => this.handleChange(e)}
                                 type="password"
                                 name="password"
                                 id="examplePassword"
                                 placeholder="********"
+                                value={this.state.password}
+                                onChange={evt => this.handleChange(evt)}
                             />
                         </FormGroup>
                     </Col>
                     <div className="error-display text-warning my-3 text-center">
-                        {loginError}
+                        {this.state.progressbar}
+                        {this.state.loginError}
                     </div>
-
                     <Container className="text-center">
                         <Button
+                            href="/game"
+                            disabled={this.state.btnstatus}
                             onClick={(e) => this.onSubmit(e)}
                             type="submit"
                             className="btn btn-primary"
-                            href="/game">
+                        >
                             Play
                     </Button>
                     </Container>
