@@ -423,6 +423,7 @@ class GamePage extends Component {
                                 </div>         
                             </div>
                             <img width="700" src="/img/player.png" />
+                            <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
                             <div className="gameplay-infos border py-3 px-3">
                                 <a>{this.state.combatInfo}</a>
                             </div>
