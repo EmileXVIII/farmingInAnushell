@@ -26,8 +26,8 @@ class LoginForm extends Component {
         }
     }
 
-    async getbdpwd() {
-        await axios
+    getbdpwd() {
+        axios
             .get(`http://localhost:8080/user/${this.state.email}/pwd`)
             .then(response => {
                 // create an array of contacts only with relevant data
@@ -68,8 +68,7 @@ class LoginForm extends Component {
     }
 
     loginRedirect = () => {
-        return <Redirect to='/game/' />
-        // this.props.history.push("/game");
+        return <Redirect to='/game' />
     }
 
     login() {
@@ -83,10 +82,10 @@ class LoginForm extends Component {
         } else {
             if (this.state.password === this.state.dbpwd) {
                 this.setState({
+                    redirectToLogin: true,
                     loginError: "Successful login : " + this.state.email + " !"
                 })
                 console.log(this.state.loginError)
-                this.loginRedirect()
             }
             else {
                 this.setState({
@@ -101,6 +100,10 @@ class LoginForm extends Component {
 
 
     render() {
+        if (this.state.redirectToLogin) {
+            return this.loginRedirect()
+        }
+
         return (
             <div>
                 <h3 className="text-center">Log In</h3>
