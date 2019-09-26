@@ -20,7 +20,7 @@ import Shoes from "./items/equipement.dir/Shoes.js";
 import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
-import { inventoryEquipementSaver } from '../App.js'
+import { inventoryEquipementSaver, idPerso } from '../App.js'
 
 let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
@@ -333,6 +333,7 @@ class GamePage extends Component {
 
     render() {
         this.updateStats(this.state.playerTest)
+        console.log(idPerso)
         return (
             <div>
                 {/* <Sound
