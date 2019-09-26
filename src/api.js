@@ -5,28 +5,28 @@ const PORT = process.env.PORT || 8080
 let dbConn = ""
 
 // Connection bdd local
-app.use(function (req, res, next) {
-    dbConn = mysql.createConnection({
-        host: 'localhost',
-        user: 'debian-sys-maint',
-        password: 'phrHtsSP5Hoq6EYl',
-        database: 'farmingInAnutshell'
-    });
-    dbConn.connect();
-    next();
-});
-
-// Connection bdd Serveur FarmingNutshell
 // app.use(function (req, res, next) {
 //     dbConn = mysql.createConnection({
-//         host: '10.33.15.53',
-//         user: 'padmin',
-//         password: 'D3b14nr0oT',
-//         database: 'FarmingInAnutshell'
+//         host: 'localhost',
+//         user: 'debian-sys-maint',
+//         password: 'phrHtsSP5Hoq6EYl',
+//         database: 'farmingInAnutshell'
 //     });
 //     dbConn.connect();
 //     next();
 // });
+
+// Connection bdd Serveur FarmingNutshell
+app.use(function (req, res, next) {
+    dbConn = mysql.createConnection({
+        host: '10.33.15.53',
+        user: 'padmin',
+        password: 'D3b14nr0oT',
+        database: 'FarmingInAnutshell'
+    });
+    dbConn.connect();
+    next();
+});
 
 app.use(cors())
 
