@@ -37,8 +37,8 @@ class LoginForm extends Component {
                 const result = response.data.data;
                 console.log(result)
                 this.setState({
-                    dbpwd: result[1],
-                    idPerso: result[0],
+                    dbpwd: result.mdp,
+                    idPerso: result.IdPerso,
                 })
             })
             .catch(error => console.log(error));
