@@ -29,7 +29,7 @@ class LoginForm extends Component {
 
     getbdpwd() {
         axios
-            .get(`http://localhost:8080/user/${this.state.email}/pwd`)
+            .get(`http://10.33.15.53:8080/user/${this.state.email}/pwd`)
             .then(response => {
                 // create an array of contacts only with relevant data
                 const result = response.data.data.map(c => {
