@@ -36,6 +36,8 @@ class LoginForm extends Component {
                 // create an array of contacts only with relevant data
                 const result = response.data.data;
                 console.log(result)
+                console.log(result.mdp)
+                console.log(result.IdPerso)
                 this.setState({
                     dbpwd: result.mdp,
                     idPerso: result.IdPerso,
