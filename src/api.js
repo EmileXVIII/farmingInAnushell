@@ -19,10 +19,10 @@ let dbConn = ""
 // Connection bdd Serveur FarmingNutshell
 app.use(function (req, res, next) {
     dbConn = mysql.createConnection({
-        host: '10.33.15.53',
+        host: 'localhost',
         user: 'padmin',
         password: 'D3b14nr0oT',
-        database: 'FarmingInAnutshell'
+        database: 'farmingInAnutshell'
     });
     dbConn.connect();
     next();
