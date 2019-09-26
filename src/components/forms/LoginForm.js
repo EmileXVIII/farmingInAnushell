@@ -5,6 +5,7 @@ import {
     FormGroup, Label, Input
 } from 'reactstrap'
 import axios from "axios";
+import idPerso from "../../App"
 var passwordHash = require('password-hash');
 
 let userLogin = {
@@ -18,6 +19,7 @@ class LoginForm extends Component {
         this.getbdpwd = this.getbdpwd.bind(this)
 
         this.state = {
+            idPerso: '',
             dbpwd: '',
             email: '',
             password: '',
@@ -32,11 +34,11 @@ class LoginForm extends Component {
             .get(`http://10.33.15.53:8080/user/${this.state.email}/pwd`)
             .then(response => {
                 // create an array of contacts only with relevant data
-                const result = response.data.data.map(c => {
-                    return c.mdp
-                });
+                const result = response.data.data.map();
+                console.log(result)
                 this.setState({
-                    dbpwd: result[0]
+                    dbpwd: result[1],
+                    idPerso: result[0],
                 })
             })
             .catch(error => console.log(error));
@@ -46,7 +48,6 @@ class LoginForm extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-
     }
 
     // Get data from login form
@@ -69,6 +70,7 @@ class LoginForm extends Component {
     }
 
     loginRedirect = () => {
+        idPerso[0] = this.state.idPerso
         return <Redirect to='/game' />
     }
 

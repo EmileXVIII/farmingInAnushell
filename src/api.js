@@ -32,21 +32,27 @@ app.use(cors())
 
 app.get('/user/:email/pwd', (req, res) => {
     const email = req.params.email
-    dbConn.query("SELECT User.mdp FROM User WHERE User.email = ?", email, function (error, results, fields) {
+    dbConn.query("SELECT Perso.IdPerso, User.mdp FROM User inner join Perso on IdUser=id_user WHERE User.email = ?", email, function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'user pwd' });
     });
 });
 
-app.post('/userpost/:email/:username/:mdp', (req, res) => {
+app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
     const email = req.params.email
     const username = req.params.username
     const mdp = req.params.mdp
     dbConn.query("insert into User (email, pseudo, mdp) values (?, ?, ?)", [email, username, mdp], function (error, results, fields) {
-        if (error) throw error;
-        return res.send({ error: false, data: results, message: 'users list.' });
+        if (error) return next(error);
+        res.send({ error: false, data: results, message: 'users list.' });
     });
+
 });
+
+app.use((err, req, res, next) => {
+    console.log(err)
+    res.send(err.message)
+})
 
 app.listen(PORT, () => {
     console.log('Serveur sur port : ', PORT)

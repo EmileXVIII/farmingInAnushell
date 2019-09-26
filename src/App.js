@@ -16,9 +16,9 @@ let lenInvExpendable = 8,
   shopSaver = new ShopSaver();
 test(inventoryEquipementSaver, inventoryExpendableSaver);
 
+let idPerso = []
+
 class App extends Component {
-
-
 
   render() {
     return (
@@ -34,4 +34,4 @@ class App extends Component {
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver };
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso };
