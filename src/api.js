@@ -41,11 +41,11 @@ app.get('/user/:email/pwd', (req, res) => {
     });
 });
 
-app.post('/user/:email/:username/:mdp', (req, res) => {
+app.post('/userpost/:email/:username/:mdp', (req, res) => {
     const email = req.params.email
     const username = req.params.username
     const mdp = req.params.mdp
-    dbConn.query("insert into User (email, username, mdo) values (?, ?, ?)", [email, username, mdp], function (error, results, fields) {
+    dbConn.query("insert into User (email, pseudo, mdp) values (?, ?, ?)", [email, username, mdp], function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'users list.' });
     });

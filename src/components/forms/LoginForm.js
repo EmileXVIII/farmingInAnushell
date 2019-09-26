@@ -5,6 +5,7 @@ import {
     FormGroup, Label, Input
 } from 'reactstrap'
 import axios from "axios";
+var passwordHash = require('password-hash');
 
 let userLogin = {
     email: '',
@@ -80,7 +81,7 @@ class LoginForm extends Component {
             console.log(this.state.loginError)
 
         } else {
-            if (this.state.password === this.state.dbpwd) {
+            if (passwordHash.verify(this.state.password, this.state.dbpwd)) {
                 this.setState({
                     redirectToLogin: true,
                     loginError: "Successful login : " + this.state.email + " !"
