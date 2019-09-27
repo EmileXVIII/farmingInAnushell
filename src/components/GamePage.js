@@ -45,6 +45,7 @@ class GamePage extends Component {
             displayMonster: "/img/monster.gif",
             displaySkill: '',
             worldLevelMax: [1, 2, 3],
+            keyPad: "/img/monster.gif",
             currentWorld: 1,
             isFarming : false
         }
@@ -61,6 +62,7 @@ class GamePage extends Component {
         gestionnaireEvents.on('sellItem',this.lostGold);
         gestionnaireEvents.on('newCombatInfo',this.putMessage);
         gestionnaireEvents.on('updateStateGamePage',this.updateState);
+        gestionnaireEvents.on('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
         itemsEquips.username=this.state.playerTest.Username
     }
     componentWillUnmount (){
@@ -68,6 +70,7 @@ class GamePage extends Component {
         gestionnaireEvents.off('newCombatInfo',this.putMessage)
         gestionnaireEvents.off('displaySkill', this.changeImgSKill)
         gestionnaireEvents.off('updateStateGamePage',this.updateState)
+        gestionnaireEvents.off('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
     }
 
     changeImgSKill(img) {
@@ -403,6 +406,7 @@ class GamePage extends Component {
                 <div className="d-flex justify-content-around">
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
+                    <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
                     <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
                 </div>
 
@@ -419,6 +423,7 @@ class GamePage extends Component {
                                 </div>         
                             </div>
                             <img width="700" src="/img/player.png" />
+                            <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
                             <div className="gameplay-infos border py-3 px-3">
                                 <a>{this.state.combatInfo}</a>
                             </div>
