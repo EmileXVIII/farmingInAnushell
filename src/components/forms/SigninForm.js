@@ -92,14 +92,17 @@ class SigninForm extends Component {
                     axios.post(`http://${serveur}/userpost/${currentUser.email}/${currentUser.username}/${password}`)
                         .then(function (response) {
                             console.log(response);
+                            this.setState({
+                                redirectToLogin: true,
+                                signinError: "Successful registration : " + currentUser.username + " !"
+                            })
                         })
                         .catch(function (error) {
+                            // this.setState({
+                            //     signinError: `${error.data}`
+                            // })
                             console.log(error);
                         });
-                    this.setState({
-                        redirectToLogin: true,
-                        signinError: "Successful registration : " + currentUser.username + " !"
-                    })
                 }
             }
 
