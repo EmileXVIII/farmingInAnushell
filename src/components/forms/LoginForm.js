@@ -6,6 +6,7 @@ import {
 } from 'reactstrap'
 import axios from "axios";
 import idPerso from "../../App"
+import { serveur } from "../../App"
 var passwordHash = require('password-hash');
 
 let userLogin = {
@@ -31,7 +32,7 @@ class LoginForm extends Component {
 
     getbdpwd() {
         axios
-            .get(`http://10.33.15.53:8080/user/${this.state.email}/pwd`)
+            .get(`http://${serveur}/user/${this.state.email}/pwd`)
             .then(response => {
                 // create an array of contacts only with relevant data
                 const result = response.data.data;

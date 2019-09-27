@@ -16,6 +16,7 @@ let lenInvExpendable = 8,
   shopSaver = new ShopSaver();
 test(inventoryEquipementSaver, inventoryExpendableSaver);
 
+const serveur = `localhost:8080`
 let idPerso = []
 
 class App extends Component {
@@ -34,4 +35,4 @@ class App extends Component {
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso };
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur };

@@ -5,6 +5,7 @@ import {
 } from 'reactstrap'
 import { Redirect } from 'react-router-dom'
 import axios from "axios";
+import { serveur } from "../../App"
 var passwordHash = require('password-hash');
 
 
@@ -87,7 +88,8 @@ class SigninForm extends Component {
                     // Hash pwd and User creation
                     const password = this.hashPassword(currentUser.password)
                     // Then store it in database
-                    axios.post(`http://10.33.15.53:8080/userpost/${currentUser.email}/${currentUser.username}/${password}`)
+                    console.log(serveur)
+                    axios.post(`http://${serveur}/userpost/${currentUser.email}/${currentUser.username}/${password}`)
                         .then(function (response) {
                             console.log(response);
                         })

@@ -5,35 +5,35 @@ const PORT = process.env.PORT || 8080
 let dbConn = ""
 
 // Connection bdd local
-// app.use(function (req, res, next) {
-//     dbConn = mysql.createConnection({
-//         host: 'localhost',
-//         user: 'debian-sys-maint',
-//         password: 'phrHtsSP5Hoq6EYl',
-//         database: 'farmingInAnutshell'
-//     });
-//     dbConn.connect();
-//     next();
-// });
-
-// Connection bdd Serveur FarmingNutshell
 app.use(function (req, res, next) {
     dbConn = mysql.createConnection({
         host: 'localhost',
-        user: 'padmin',
-        password: 'D3b14nr0oT',
+        user: 'debian-sys-maint',
+        password: 'phrHtsSP5Hoq6EYl',
         database: 'farmingInAnutshell'
     });
     dbConn.connect();
     next();
 });
 
+// Connection bdd Serveur FarmingNutshell
+// app.use(function (req, res, next) {
+//     dbConn = mysql.createConnection({
+//         host: 'localhost',
+//         user: 'padmin',
+//         password: 'D3b14nr0oT',
+//         database: 'farmingInAnutshell'
+//     });
+//     dbConn.connect();
+//     next();
+// });
+
 app.use(cors())
 
-app.get('/user/:email/pwd', (req, res) => {
+app.get('/user/:email/pwd', (req, res, next) => {
     const email = req.params.email
     dbConn.query("SELECT Perso.IdPerso, User.mdp FROM User inner join Perso on IdUser=id_user WHERE User.email = ?", email, function (error, results, fields) {
-        if (error) throw error;
+        if (error) return next(error);
         return res.send({ error: false, data: results, message: 'user pwd' });
     });
 });
