@@ -27,30 +27,30 @@ class GeneratorEffect{
 function newbaseHealPotion(){
     let gen=new GeneratorEffect();
     gen.heal(100);
-    return new Expendable('Heal','/img/potion.png',gen.curentListEffect)
+    return new Expendable('Heal','/img/greenpotion.png',gen.curentListEffect)
 }
 function newbaseAttPotion(){
     let gen=new GeneratorEffect();
     gen.improveStat('BaseAtk',50,5000);
-    return new Expendable('Str','/img/potion.png',gen.curentListEffect)
+    return new Expendable('Str','/img/redpotion.png',gen.curentListEffect)
 }
 
 function newbaseDefPotion(){
     let gen=new GeneratorEffect();
     gen.improveStat('BaseDef',50,5000);
-    return new Expendable('Def','/img/potion.png',gen.curentListEffect)
+    return new Expendable('Def','/img/bluepotion.png',gen.curentListEffect)
 }
 
 function newbaseCritPotion(){
     let gen=new GeneratorEffect();
     gen.improveStat('BaseCritical',50,5000);
-    return new Expendable('Crit','/img/potion.png',gen.curentListEffect)
+    return new Expendable('Crit','/img/yellowpotion.png',gen.curentListEffect)
 }
 
 function newbaseDodgPotion(){
     let gen=new GeneratorEffect();
     gen.improveStat('BaseDodge',50,5000);
-    return new Expendable('Dodge','/img/potion.png',gen.curentListEffect)
+    return new Expendable('Dodge','/img/purplepotion.png',gen.curentListEffect)
 }
 
 export default GeneratorEffect;

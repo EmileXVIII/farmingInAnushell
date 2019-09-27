@@ -100,8 +100,8 @@ class CharacterStuff extends Component {
                                 <li>Maxlife : {this.props.player.stats.Maxlife}</li>
                                 <li>Atk : {this.props.player.stats.Atk}</li>
                                 <li>Def : {this.props.player.stats.Def}</li>
-                                <li>Dodge : {this.props.player.stats.Dodge}</li>
-                                <li>Critical : {this.props.player.stats.Critical}</li><br/>
+                                <li>Dodge : {this.props.player.stats.Dodge / 100}%</li>
+                                <li>Critical : {this.props.player.stats.Critical / 100}%</li><br/>
                                 <li>Xp : {this.props.player.stats.Xp} / {300 * this.props.player.stats.Level}</li>
                                 <li>Level : {this.props.player.stats.Level} </li>
                             </ul>       

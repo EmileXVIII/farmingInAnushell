@@ -17,7 +17,7 @@ class Character {
             BaseDef: 10,
             BaseDodge: 0,
             BaseCritical: 0,
-            BaseLife: 20000,
+            BaseLife: 200,
             Username: username,
             Img: null,
             get Alive() {

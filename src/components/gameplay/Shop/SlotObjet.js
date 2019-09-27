@@ -66,7 +66,7 @@ class SlotObjet extends Component {
             return (
                 <Button onClick={() => this.buyItem()} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.infos.name}</h6>
-                    <img width='45px' src={this.state.item.infos.iconAdresse}/>
+                    <img width='30px' src={this.state.item.infos.iconAdresse}/>
                     <br/><br/><br/>
                     <p className="cost" >{this.state.item.infos.cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
                 </Button>

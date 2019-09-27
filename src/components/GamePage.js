@@ -260,7 +260,7 @@ class GamePage extends Component {
         if (monster.stats.Alive) {
             setTimeout(() => callback(monster.Attack(player)), 1000)
         } else {
-            const goldEarned = monster.randomInt(100)
+            const goldEarned = monster.randomInt(100) * this.state.currentWorld
             const xpEarned = 50
             this.setState({ counter: this.state.counter + 1, gold: this.state.gold + goldEarned, xpPlayer: this.state.xpPlayer + xpEarned })
             player.stats.Gold = this.state.gold
