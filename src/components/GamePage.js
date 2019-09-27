@@ -38,13 +38,13 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 30,
-            gold: 500,
+            gold: 5000000,
             levelPlayer: 0,
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
             displayMonster: "/img/monster.gif",
             displaySkill: '',
-            worldLevelMax: [1, 2, 3],
+            worldLevelMax: [1],
             keyPad: "/img/monster.gif",
             currentWorld: 1,
             isFarming : false
@@ -228,8 +228,8 @@ class GamePage extends Component {
             } else {
                 const goldLost = Math.round(player.stats.Gold / 10)
                 player.stats.Gold -= goldLost
-                this.setState({ gold: player.stats.Gold, })
-                this.setState({ combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
+                this.setState({ gold: player.stats.Gold, combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
+                this.setState((prevState) => ({isFarming: !prevState.isFarming}))
             }
         }
         else {
@@ -346,10 +346,10 @@ class GamePage extends Component {
             reward.setDescription('Sword made with dragon tooth')
             reward.atk = 50
             inventoryEquipementSaver.addOnFreePlace(reward)
-            if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax - 1]) {
+            if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
             }
-            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !'})
+            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0})
         }
     }
 
