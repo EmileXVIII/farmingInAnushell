@@ -47,11 +47,11 @@ class GamePage extends Component {
             worldLevelMax: [1],
             keyPad: "/img/monster.gif",
             currentWorld: 1,
-            isFarming : false
+            isFarming: false
         }
-        console.log('User :',this.state.playerTest.Username)
-        itemsEquips.username=this.state.playerTest.Username;
-        console.log('Usename :',itemsEquips.username)
+        console.log('User :', this.state.playerTest.Username)
+        itemsEquips.username = this.state.playerTest.Username;
+        console.log('Usename :', itemsEquips.username)
         this.lostGold = this.lostGold.bind(this)
         this.putMessage = this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
@@ -59,18 +59,18 @@ class GamePage extends Component {
     }
     componentDidMount() {
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
-        gestionnaireEvents.on('sellItem',this.lostGold);
-        gestionnaireEvents.on('newCombatInfo',this.putMessage);
-        gestionnaireEvents.on('updateStateGamePage',this.updateState);
-        gestionnaireEvents.on('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
-        itemsEquips.username=this.state.playerTest.Username
+        gestionnaireEvents.on('sellItem', this.lostGold);
+        gestionnaireEvents.on('newCombatInfo', this.putMessage);
+        gestionnaireEvents.on('updateStateGamePage', this.updateState);
+        gestionnaireEvents.on('newFreePotionImg', (keyPadUrlImg) => this.setState({ keyPad: keyPadUrlImg }))
+        itemsEquips.username = this.state.playerTest.Username
     }
     componentWillUnmount() {
         gestionnaireEvents.off('sellItem', this.lostGold)
         gestionnaireEvents.off('newCombatInfo', this.putMessage)
         gestionnaireEvents.off('displaySkill', this.changeImgSKill)
-        gestionnaireEvents.off('updateStateGamePage',this.updateState)
-        gestionnaireEvents.off('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
+        gestionnaireEvents.off('updateStateGamePage', this.updateState)
+        gestionnaireEvents.off('newFreePotionImg', (keyPadUrlImg) => this.setState({ keyPad: keyPadUrlImg }))
     }
 
     changeImgSKill(img) {
@@ -106,7 +106,7 @@ class GamePage extends Component {
             case 'room':
                 return (
                     <div>
-                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} startBoss={() => this.checkPlayerAliveBoss(this.state.playerTest, this.state.bossTest[this.state.currentWorld - 1])} selfHealing={() => this.healMySelf(this.state.playerTest)} worldLevelMax={this.state.worldLevelMax} lowerCurrentWorld={() => this.lowerCurrentWorld()} upCurrentWorld={() => this.upCurrentWorld()}/>
+                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} startBoss={() => this.checkPlayerAliveBoss(this.state.playerTest, this.state.bossTest[this.state.currentWorld - 1])} selfHealing={() => this.healMySelf(this.state.playerTest)} worldLevelMax={this.state.worldLevelMax} lowerCurrentWorld={() => this.lowerCurrentWorld()} upCurrentWorld={() => this.upCurrentWorld()} />
                     </div>
                 )
         }
@@ -117,7 +117,7 @@ class GamePage extends Component {
 
     lowerCurrentWorld = () => {
         if (this.state.currentWorld == 1) {
-            this.setState({combatInfo: 'Cant go lower'})
+            this.setState({ combatInfo: 'Cant go lower' })
         }
         else {
             this.setState(prevState => ({
@@ -128,16 +128,16 @@ class GamePage extends Component {
 
     upCurrentWorld = () => {
         if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
-            this.setState({combatInfo: 'You need to kill the boss to go to the next world'})
+            this.setState({ combatInfo: 'You need to kill the boss to go to the next world' })
         }
         else {
             this.setState(prevState => ({
                 currentWorld: prevState.currentWorld + 1, combatInfo: 'Going to the next world'
-              }));
+            }));
         }
     }
 
-    updateState = ()=>{
+    updateState = () => {
         this.setState({ playerHP: this.state.playerTest.stats.Life })
         this.updateStats(this.state.playerTest);
     }
@@ -229,11 +229,11 @@ class GamePage extends Component {
                 const goldLost = Math.round(player.stats.Gold / 10)
                 player.stats.Gold -= goldLost
                 this.setState({ gold: player.stats.Gold, combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
-                this.setState((prevState) => ({isFarming: !prevState.isFarming}))
+                this.setState((prevState) => ({ isFarming: !prevState.isFarming }))
             }
         }
         else {
-            this.setState({combatInfo: 'Farm interrupted...'})
+            this.setState({ combatInfo: 'Farm interrupted...' })
         }
     }
 
@@ -246,7 +246,7 @@ class GamePage extends Component {
             setTimeout(() => callback(player.Attack(monster)), 1000)
         }
         else {
-            this.setState({displayMonster: "/img/monster.gif"})
+            this.setState({ displayMonster: "/img/monster.gif" })
             monster.stats.Life = 80 * this.state.currentWorld
             monster.stats.Atk = monster.stats.BaseAtk + 20 * this.state.currentWorld
             monster.stats.Def = monster.stats.BaseDef + 10 * this.state.currentWorld
@@ -276,19 +276,19 @@ class GamePage extends Component {
                 player.stats.BaseDef *= 1.1
                 player.stats.BaseLife *= 1.05
                 this.updateStats(player)
-                this.setState({displayMonster: '/img/monsterdead.gif'})
+                this.setState({ displayMonster: '/img/monsterdead.gif' })
                 setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold. Level up !'), 1000)
             }
             else {
-                this.setState({displayMonster: '/img/monsterdead.gif'})
+                this.setState({ displayMonster: '/img/monsterdead.gif' })
                 setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold and ' + xpEarned + ' XP.'), 1000)
-            }   
+            }
         }
     }
 
     checkPlayerAlive = (player, monster) => {
         if (player.stats.Alive) {
-            this.setState({displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming})
+            this.setState({ displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming })
             setTimeout(() => this.testCombat2(player, monster, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
         }
         else {
@@ -300,7 +300,7 @@ class GamePage extends Component {
         if (this.state.counter >= 30) {
             if (player.stats.Alive) {
                 boss.stats.Life = boss.stats.BaseLife
-                this.setState({combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img})
+                this.setState({ combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img })
                 setTimeout(() => this.testCombatBoss(player, boss, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
             }
             else {
@@ -308,24 +308,24 @@ class GamePage extends Component {
             }
         }
         else {
-            this.setState({combatInfo: 'You need to kill 30 monsters to fight the boss'})
+            this.setState({ combatInfo: 'You need to kill 30 monsters to fight the boss' })
         }
-        
+
     }
 
     createCombatBoss = (player, boss, callback) => {
-            this.setState({ playerHP: player.stats.Life })
-            this.setState({ monsterHP: boss.stats.Life })
-            if (player.stats.Alive) {
-                    setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)       
-            } else {
-                player.stats.Gold = this.state.gold
-                const goldLost = Math.round(player.stats.Gold / 10)
-                player.stats.Gold -= goldLost
-                this.setState({ gold: player.stats.Gold, })
-                setTimeout(() => this.setState({ combatInfo: 'You got destroyed. ' + boss.stats.Username + ' stole you ' + goldLost + ' gold.' }), 1000) 
-            }
-        
+        this.setState({ playerHP: player.stats.Life })
+        this.setState({ monsterHP: boss.stats.Life })
+        if (player.stats.Alive) {
+            setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)
+        } else {
+            player.stats.Gold = this.state.gold
+            const goldLost = Math.round(player.stats.Gold / 10)
+            player.stats.Gold -= goldLost
+            this.setState({ gold: player.stats.Gold, })
+            setTimeout(() => this.setState({ combatInfo: 'You got destroyed. ' + boss.stats.Username + ' stole you ' + goldLost + ' gold.' }), 1000)
+        }
+
     }
 
     bossAlive = (player, boss, callback) => {
@@ -349,7 +349,7 @@ class GamePage extends Component {
             if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
             }
-            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0})
+            this.setState({ combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0 })
         }
     }
 
