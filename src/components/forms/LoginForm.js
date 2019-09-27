@@ -36,11 +36,10 @@ class LoginForm extends Component {
             .then(response => {
                 // create an array of contacts only with relevant data
                 const result = response.data.data;
-                console.log(result)
                 this.setState({
-                    dbpwd: result.mdp,
-                    idPerso: result.IdPerso,
-                    pseudo: result.pseudo
+                    dbpwd: result[0].mdp,
+                    idPerso: result[0].IdPerso,
+                    pseudo: result[0].pseudo,
                 })
             })
             .catch(error => console.log(error));
@@ -74,7 +73,6 @@ class LoginForm extends Component {
     loginRedirect = () => {
         idPerso[0] = this.state.idPerso
         userPseudo[0] = this.state.pseudo
-        console.log(userPseudo[0])
         return <Redirect to='/game' />
     }
 

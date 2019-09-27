@@ -44,7 +44,7 @@ app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
     const mdp = req.params.mdp
     dbConn.query("insert into User (email, pseudo, mdp) values (?, ?, ?)", [email, username, mdp], function (error, results, fields) {
         if (error) return next(error);
-        res.send({ error: false, data: results, message: 'users list.' });
+        res.send({ error: false, data: results, message: 'insert into user' });
     });
 
 });
