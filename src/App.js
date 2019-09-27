@@ -20,6 +20,7 @@ test(inventoryEquipementSaver, inventoryExpendableSaver);
 
 const serveur = `localhost:8080`
 let idPerso = []
+let userPseudo = []
 
 class App extends Component {
 
@@ -37,4 +38,4 @@ class App extends Component {
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur,gestionnaireMergePotion };
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur, gestionnaireMergePotion, userPseudo };

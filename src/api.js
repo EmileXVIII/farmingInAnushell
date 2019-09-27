@@ -32,7 +32,7 @@ app.use(cors())
 
 app.get('/user/:email/pwd', (req, res, next) => {
     const email = req.params.email
-    dbConn.query("SELECT Perso.IdPerso, User.mdp FROM User inner join Perso on IdUser=id_user WHERE User.email = ?", email, function (error, results, fields) {
+    dbConn.query("SELECT Perso.IdPerso, User.mdp, User.pseudo FROM User inner join Perso on IdUser=id_user WHERE User.email = ?", email, function (error, results, fields) {
         if (error) return next(error);
         return res.send({ error: false, data: results, message: 'user pwd' });
     });
