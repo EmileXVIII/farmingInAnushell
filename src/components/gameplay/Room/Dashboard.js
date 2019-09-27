@@ -45,7 +45,7 @@ export default function Dashboard() {
 
     const classes = useStyles()
 
-    const { allChats, sendChatAction, user } = React.useContext(CTX)
+    const { allChats, sendChatAction, user} = React.useContext(CTX)
     const topics = Object.keys(allChats)
 
     const [activeTopic, changeActiveTopic] = React.useState(topics[0])

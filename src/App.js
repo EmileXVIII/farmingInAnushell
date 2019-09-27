@@ -7,24 +7,27 @@ import { resolve } from 'path';
 import Saver from './components/gameplay/inventory.dir/Saver'
 import ShopSaver from "./components/gameplay/Shop/ShopSaver"
 import test from './components/gameplay/inventory.dir/test';
+import Store from './components/gameplay/Room/Store'
 
 let lenInvExpendable = 8,
   lenInvEquipement = 3 * 8,
   inventoryEquipementSaver = new Saver('conteneur_inventaire', lenInvEquipement),
   inventoryExpendableSaver = new Saver('conteneur_activables', lenInvExpendable),
   shopSaver = new ShopSaver();
-test(inventoryEquipementSaver,inventoryExpendableSaver);
+test(inventoryEquipementSaver, inventoryExpendableSaver);
 
 class App extends Component {
 
   render() {
     return (
       <div className="main-div">
-        <Router>
-          {/* Routing */}
-          <Route exact path="/" component={MainPage} />
-          <Route path="/game" render={(props) => <GamePage {...props} />} />
-        </Router>
+        <Store>
+          <Router>
+            {/* Routing */}
+            <Route exact path="/" component={MainPage} />
+            <Route path="/game" render={(props) => <GamePage {...props} />} />
+          </Router>
+        </Store>
       </div>
     );
   }

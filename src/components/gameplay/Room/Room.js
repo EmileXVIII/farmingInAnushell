@@ -36,9 +36,7 @@ class Room extends Component {
                 </header>
                 <div id="list-pseudo">
                     <h4>Joueur</h4>
-                    <Store>
-                        <Dashboard />
-                    </Store>  
+                    <Dashboard />
                     <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br/><br/><br/>
                     <Button id="begin-button" onClick={this.props.startGame}>Begin</Button> <br/><br/><br/>
                     <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
