@@ -3,6 +3,7 @@ import './App.css';
 import MainPage from './components/MainPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import GamePage from './components/GamePage';
+import { Redirect } from 'react-router-dom'
 import { resolve } from 'path';
 import Saver from './components/gameplay/inventory.dir/Saver'
 import ShopSaver from "./components/gameplay/Shop/ShopSaver"
@@ -15,7 +16,10 @@ let lenInvExpendable = 8,
   inventoryExpendableSaver = new Saver('conteneur_activables', lenInvExpendable),
   shopSaver = new ShopSaver(),
   gestionnaireMergePotion = new Merger();
-test(inventoryEquipementSaver,inventoryExpendableSaver);
+test(inventoryEquipementSaver, inventoryExpendableSaver);
+
+const serveur = `localhost:8080`
+let idPerso = []
 
 class App extends Component {
 
@@ -33,4 +37,4 @@ class App extends Component {
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver ,gestionnaireMergePotion};
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur,gestionnaireMergePotion };

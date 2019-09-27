@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import {
     Container, Col, Form, Button,
     FormGroup, Label, Input
-  } from 'reactstrap'
-import User from "../User";
+} from 'reactstrap'
 import { Redirect } from 'react-router-dom'
+import axios from "axios";
+import { serveur } from "../../App"
 var passwordHash = require('password-hash');
 
-let signinError = ''
 
 let userSignin = {
-    email : '',
-    username : '',
-    password : '',
-    confirmPassword : ''
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
 }
 
 
@@ -21,10 +21,11 @@ class SigninForm extends Component {
     constructor() {
         super()
         this.state = {
-            email : '',
-            username : '',
-            password : '',
-            confirmPassword : ''
+            signinError: '',
+            email: '',
+            username: '',
+            password: '',
+            confirmPassword: ''
         }
     }
 
@@ -36,27 +37,25 @@ class SigninForm extends Component {
 
     // Redirect on Login
     renderRedirect = () => {
-        if (this.state.redirect) {
-          return <Redirect to='/game' />
-        }
-      }
+        return <Redirect to='/' />
+    }
 
     // Get Data from Sign in form 
     onSubmit = (e) => {
-       e.preventDefault();
-       userSignin = {
-        email : this.state.email,
-        username : this.state.username,
-        password : this.state.password,
-        confirmPassword : this.state.confirmPassword
-    }
-       this.setState({
+        e.preventDefault();
+        userSignin = {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword
+        }
+        this.setState({
             email: userSignin.email,
-            username : userSignin.username,
+            username: userSignin.username,
             password: userSignin.password,
-            confirmPassword : userSignin.confirmPassword
-       })
-       this.register(this.state)
+            confirmPassword: userSignin.confirmPassword
+        })
+        this.register(this.state)
     }
 
     hashPassword(password) {
@@ -65,102 +64,117 @@ class SigninForm extends Component {
 
     // TODO : Verify if user existing in Database
     register(currentUser) {
-        if(currentUser.email.length <= 0 
-            || currentUser.username.length <=0
-            || currentUser.password.length <=0
-            || currentUser.confirmPassword.length <=0) {
-            signinError = 'Thank you to complete all the fields.'
-            console.log(signinError)
+        if (currentUser.email.length <= 0
+            || currentUser.username.length <= 0
+            || currentUser.password.length <= 0
+            || currentUser.confirmPassword.length <= 0) {
+            this.setState({
+                signinError: 'You need to complete all the fields.'
+            })
         }
         else {
-            if(currentUser.password != currentUser.confirmPassword) {
-                signinError = "Both passwords must be identical."
+            if (currentUser.password !== currentUser.confirmPassword) {
+                this.setState({
+                    signinError: "Both passwords must be identical."
+                })
             }
             else {
-                if(currentUser.password.length < 8) {
-                    signinError = "Your password is not secure enough. Minimum length : 8 characters."
+                if (currentUser.password.length < 8) {
+                    this.setState({
+                        signinError: "Your password is not secure enough. Minimum length : 8 characters."
+                    })
                 }
                 else {
-                    signinError = ""
                     // Hash pwd and User creation
-                    let password = this.hashPassword(currentUser.password)
-                    const user = new User(currentUser.email, currentUser.username, password)
-                    signinError = "Successful registration : " + user.username + " !"
+                    const password = this.hashPassword(currentUser.password)
                     // Then store it in database
-
-                    console.log(user)
-                    //this.renderRedirect()
+                    console.log(serveur)
+                    axios.post(`http://${serveur}/userpost/${currentUser.email}/${currentUser.username}/${password}`)
+                        .then(function (response) {
+                            console.log(response);
+                            this.setState({
+                                redirectToLogin: true,
+                                signinError: "Successful registration : " + currentUser.username + " !"
+                            })
+                        })
+                        .catch(function (error) {
+                            // this.setState({
+                            //     signinError: `${error.data}`
+                            // })
+                            console.log(error);
+                        });
                 }
             }
-            
+
         }
     }
 
     render() {
-        return(
+        if (this.state.redirectToLogin) { this.renderRedirect() }
+        return (
             <div>
                 <h3 className="text-center">Sign In</h3>
                 <Form className="form">
-                <Col>
-                    <FormGroup>
-                    <Label>Email</Label>
-                    <Input
-                        onChange={e => this.handleChange(e)}
-                        type="email"
-                        name="email"
-                        id="exampleEmail"
-                        placeholder="myemail@email.com"
-                    />
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                    <Label>Username</Label>
-                    <Input
-                        onChange={e => this.handleChange(e)}
-                        type="text"
-                        name="username"
-                        id="username"
-                        placeholder="mon pseudo deter"
-                    />
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                    <Label for="examplePassword">Password</Label>
-                    <Input
-                        onChange={e => this.handleChange(e)}
-                        type="password"
-                        name="password"
-                        id="examplePassword"
-                        placeholder="********"
-                    />
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                    <Label for="examplePassword">Confirm password</Label>
-                    <Input
-                        onChange={e => this.handleChange(e)}
-                        type="password"
-                        name="confirmPassword"
-                        id="examplePassword2"
-                        placeholder="********"
-                    />
-                    </FormGroup>
-                </Col>
-                <div className="error-display text-warning my-3 text-center">
-                    { signinError }
-                </div>
-                <Container className="text-center">
-                    <Button 
-                        onClick={(e) => this.onSubmit(e)}
-                        type="submit" 
-                        className="btn btn-primary" 
-                        href="/game">
-                        Play
+                    <Col>
+                        <FormGroup>
+                            <Label>Email</Label>
+                            <Input
+                                onChange={e => this.handleChange(e)}
+                                type="email"
+                                name="email"
+                                id="exampleEmail"
+                                placeholder="myemail@email.com"
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label>Username</Label>
+                            <Input
+                                onChange={e => this.handleChange(e)}
+                                type="text"
+                                name="username"
+                                id="username"
+                                placeholder="mon pseudo deter"
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="examplePassword">Password</Label>
+                            <Input
+                                onChange={e => this.handleChange(e)}
+                                type="password"
+                                name="password"
+                                id="examplePassword"
+                                placeholder="********"
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="examplePassword">Confirm password</Label>
+                            <Input
+                                onChange={e => this.handleChange(e)}
+                                type="password"
+                                name="confirmPassword"
+                                id="examplePassword2"
+                                placeholder="********"
+                            />
+                        </FormGroup>
+                    </Col>
+                    <div className="error-display text-warning my-3 text-center">
+                        {this.state.signinError}
+                    </div>
+                    <Container className="text-center">
+                        <Button
+                            onClick={(e) => this.onSubmit(e)}
+                            type="submit"
+                            className="btn btn-primary"
+                            href="/game">
+                            Play
                     </Button>
-                </Container>
+                    </Container>
                 </Form>
             </div>
         )

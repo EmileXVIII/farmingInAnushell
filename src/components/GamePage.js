@@ -21,8 +21,8 @@ import Shoes from "./items/equipement.dir/Shoes.js";
 import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
-import {inventoryEquipementSaver} from '../App.js'
 import Boss3 from "./characters/Boss3.js";
+import { inventoryEquipementSaver, idPerso } from '../App.js'
 
 let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
@@ -53,11 +53,11 @@ class GamePage extends Component {
         itemsEquips.username=this.state.playerTest.Username;
         console.log('Usename :',itemsEquips.username)
         this.lostGold = this.lostGold.bind(this)
-        this.putMessage=this.putMessage.bind(this)
+        this.putMessage = this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
         this.updateStats(this.state.playerTest)
     }
-    componentDidMount (){
+    componentDidMount() {
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
         gestionnaireEvents.on('sellItem',this.lostGold);
         gestionnaireEvents.on('newCombatInfo',this.putMessage);
@@ -65,16 +65,16 @@ class GamePage extends Component {
         gestionnaireEvents.on('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
         itemsEquips.username=this.state.playerTest.Username
     }
-    componentWillUnmount (){
-        gestionnaireEvents.off('sellItem',this.lostGold)
-        gestionnaireEvents.off('newCombatInfo',this.putMessage)
+    componentWillUnmount() {
+        gestionnaireEvents.off('sellItem', this.lostGold)
+        gestionnaireEvents.off('newCombatInfo', this.putMessage)
         gestionnaireEvents.off('displaySkill', this.changeImgSKill)
         gestionnaireEvents.off('updateStateGamePage',this.updateState)
         gestionnaireEvents.off('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
     }
 
     changeImgSKill(img) {
-        this.setState({displaySkill: img})
+        this.setState({ displaySkill: img })
     }
 
     toggleElements() {
@@ -88,19 +88,19 @@ class GamePage extends Component {
             case 'characterStuff':
                 return (
                     <div>
-                        <CharacterStuff items={this.state.arrayItem} player={this.state.playerTest}/>
+                        <CharacterStuff items={this.state.arrayItem} player={this.state.playerTest} />
                     </div>
                 )
             case 'wrought':
                 return (
                     <div>
-                        <Wrought checkIfBuyable={(cost) => this.checkIfBuyable(cost)} lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem} updateStats={() => this.updateStats(this.state.playerTest)}/>
+                        <Wrought checkIfBuyable={(cost) => this.checkIfBuyable(cost)} lostGold={(cost) => this.lostGold(cost)} upgradeItem={(name) => this.setState({ combatInfo: 'You upgraded ' + name })} items={this.state.arrayItem} updateStats={() => this.updateStats(this.state.playerTest)} />
                     </div>
                 )
             case 'shop':
                 return (
                     <div>
-                        <Shop checkIfBuyable={(cost) => {return this.checkIfBuyable(cost)}} lostGold={(cost) => {this.lostGold(cost)}} displayBuying={(name) => this.setState({ combatInfo: 'You just bought ' + name })} />
+                        <Shop checkIfBuyable={(cost) => { return this.checkIfBuyable(cost) }} lostGold={(cost) => { this.lostGold(cost) }} displayBuying={(name) => this.setState({ combatInfo: 'You just bought ' + name })} />
                     </div>
                 )
             case 'room':
@@ -111,8 +111,8 @@ class GamePage extends Component {
                 )
         }
     }
-    putMessage(message){
-        this.setState({combatInfo:message})
+    putMessage(message) {
+        this.setState({ combatInfo: message })
     }
 
     lowerCurrentWorld = () => {
@@ -151,57 +151,57 @@ class GamePage extends Component {
     getAtk(player) {
         var resultAtk = Math.round(player.stats.BaseAtk)
         for (let i = 0; i < this.state.arrayItem.length; i++) {
-         resultAtk += this.state.arrayItem[i].atk
+            resultAtk += this.state.arrayItem[i].atk
         }
         player.stats.Atk = resultAtk
     }
- 
-    getDef(player) {
-     var resultDef = Math.round(player.stats.BaseDef)
-     for (let i = 0; i < this.state.arrayItem.length; i++) {
-      resultDef += this.state.arrayItem[i].def
-         }
-         player.stats.Def = resultDef
-     }
 
-     getDodge(player) {
+    getDef(player) {
+        var resultDef = Math.round(player.stats.BaseDef)
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+            resultDef += this.state.arrayItem[i].def
+        }
+        player.stats.Def = resultDef
+    }
+
+    getDodge(player) {
         var resultDodge = player.stats.BaseDodge
         for (let i = 0; i < this.state.arrayItem.length; i++) {
-         resultDodge += this.state.arrayItem[i].dodge
-            }
-            player.stats.Dodge = resultDodge
+            resultDodge += this.state.arrayItem[i].dodge
+        }
+        player.stats.Dodge = resultDodge
     }
 
     getLife(player) {
         var resultLife = Math.round(player.stats.BaseLife)
         for (let i = 0; i < this.state.arrayItem.length; i++) {
-         resultLife += this.state.arrayItem[i].life
+            resultLife += this.state.arrayItem[i].life
         }
-            player.stats.Maxlife = resultLife
+        player.stats.Maxlife = resultLife
     }
 
     getCritical(player) {
-            var resultCritical = player.stats.BaseCritical
-            for (let i = 0; i < this.state.arrayItem.length; i++) {
-             resultCritical += this.state.arrayItem[i].critical
-            }
-            player.stats.Critical = resultCritical
+        var resultCritical = player.stats.BaseCritical
+        for (let i = 0; i < this.state.arrayItem.length; i++) {
+            resultCritical += this.state.arrayItem[i].critical
+        }
+        player.stats.Critical = resultCritical
     }
 
     checkIfBuyable = (cost) => {
         if (cost > this.state.gold) {
             this.setState({ combatInfo: 'Too broke...' })
-            return false;    
+            return false;
         }
-        return true; 
+        return true;
     }
-     
+
 
     lostGold = (gold) => {
-        this.setState ((prevState)=>({ gold: prevState.gold - gold }))     
+        this.setState((prevState) => ({ gold: prevState.gold - gold }))
     }
 
-     float2int = (value) => {
+    float2int = (value) => {
         return value | 0;
     }
 
@@ -211,7 +211,7 @@ class GamePage extends Component {
         if (character.stats.Life > character.stats.Maxlife) {
             character.stats.Life = character.stats.Maxlife
         }
-        this.setState({ playerHP: character.stats.Life, combatInfo: 'You healed yourself'})
+        this.setState({ playerHP: character.stats.Life, combatInfo: 'You healed yourself' })
     }
 
     createCombat = (player, monster, callback) => {
@@ -270,7 +270,7 @@ class GamePage extends Component {
             player.stats.Xp = this.state.xpPlayer
             if (player.stats.Xp >= 300 * player.stats.Level) {
                 player.stats.Level += 1
-                this.setState({xpPlayer: 0})
+                this.setState({ xpPlayer: 0 })
                 player.stats.Xp = this.state.xpPlayer
                 player.stats.BaseAtk *= 1.1
                 player.stats.BaseDef *= 1.1
@@ -335,11 +335,11 @@ class GamePage extends Component {
     }
 
     playerAliveBoss = (player, boss, callback) => {
-        this.setState({monsterHP: boss.stats.Life})
+        this.setState({ monsterHP: boss.stats.Life })
 
         if (boss.stats.Alive) {
             setTimeout(() => callback(boss.Attack(player)), 1000)
-        } 
+        }
         else {
             const reward = new Weapon('Dragon sword')
             reward.setRarity('Legendary')
@@ -355,13 +355,13 @@ class GamePage extends Component {
 
     testCombatBoss = (player, boss, callback) => {
         this.createCombatBoss(player, boss, message => {
-            this.setState({combatInfo: message})
+            this.setState({ combatInfo: message })
 
             this.bossAlive(player, boss, message2 => {
-                this.setState({combatInfo: message2})
+                this.setState({ combatInfo: message2 })
 
                 this.playerAliveBoss(player, boss, message3 => {
-                    this.setState({combatInfo: message3})
+                    this.setState({ combatInfo: message3 })
 
                     this.testCombatBoss(player, boss)
                 })
@@ -394,6 +394,7 @@ class GamePage extends Component {
 
     render() {
         this.updateStats(this.state.playerTest)
+        console.log(idPerso)
         return (
             <div>
                 {/* <Sound
@@ -416,11 +417,11 @@ class GamePage extends Component {
                         <div className="border col-6">
                             <div className=" row h-30">
                                 <div className="col w-100 text-center">
-                                    <img className="displaySkill" src={this.state.displaySkill}/> 
+                                    <img className="displaySkill" src={this.state.displaySkill} />
                                 </div>
                                 <div className="col w-100">
-                                    <img src={this.state.displayMonster}/>
-                                </div>         
+                                    <img src={this.state.displayMonster} />
+                                </div>
                             </div>
                             <img width="700" src="/img/player.png" />
                             <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
@@ -428,7 +429,7 @@ class GamePage extends Component {
                                 <a>{this.state.combatInfo}</a>
                             </div>
                             <br />
-                            <div className="d-flex justify-content-around"> 
+                            <div className="d-flex justify-content-around">
                                 <div className="gameplay-infos border py-3 px-3 col">
                                     <a>Player HP : {this.state.playerHP}</a>
                                 </div>
@@ -445,7 +446,7 @@ class GamePage extends Component {
                                 <div className="gameplay-infos border py-3 px-3 col">
                                     <a>Monster killed : {this.state.counter}</a>
                                 </div>
-                            </div>      
+                            </div>
                         </div>
                         <div className="col-6">
                             <div className="d-flex justify-content-around mb-5">
@@ -467,4 +468,4 @@ class GamePage extends Component {
 }
 
 export default GamePage;
-export {itemsEquips}
+export { itemsEquips }

@@ -13,7 +13,7 @@ class Character {
             Gold: 0,
             Xp: 0,
             Level: 1,
-            BaseAtk: 1500,
+            BaseAtk: 15,
             BaseDef: 10,
             BaseDodge: 0,
             BaseCritical: 0,

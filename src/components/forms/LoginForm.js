@@ -1,31 +1,50 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom'
 import {
     Container, Col, Form, Button,
     FormGroup, Label, Input
-  } from 'reactstrap'
-import { Redirect } from 'react-router-dom'
+} from 'reactstrap'
+import axios from "axios";
+import idPerso from "../../App"
+import { serveur } from "../../App"
+var passwordHash = require('password-hash');
 
-
-  let loginError = ''
-
-  let user = {
-        email : 'florent.nicolas@ynov.com',
-        password : 'password'
-  }
-
-  let userLogin = {
-      email : '',
-      password : ''
-  }
-  
+let userLogin = {
+    email: '',
+    password: '',
+}
 
 class LoginForm extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+        this.getbdpwd = this.getbdpwd.bind(this)
+
         this.state = {
-            email : '',
-            password : ''
+            idPerso: '',
+            dbpwd: '',
+            email: '',
+            password: '',
+            loginError: '',
+            progressbar: '',
+            btnstatus: false,
         }
+    }
+
+    getbdpwd() {
+        axios
+            .get(`http://${serveur}/user/${this.state.email}/pwd`)
+            .then(response => {
+                // create an array of contacts only with relevant data
+                const result = response.data.data;
+                console.log(result)
+                console.log(result.mdp)
+                console.log(result.IdPerso)
+                this.setState({
+                    dbpwd: result.mdp,
+                    idPerso: result.IdPerso,
+                })
+            })
+            .catch(error => console.log(error));
     }
 
     handleChange = (e) => {
@@ -34,84 +53,109 @@ class LoginForm extends Component {
         })
     }
 
-
     // Get data from login form
     onSubmit = (e) => {
-       e.preventDefault();
-       userLogin = {
-            email : this.state.email,
-            password : this.state.password
-       }
-       this.setState({
+        e.preventDefault();
+        userLogin = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        this.setState({
             email: userLogin.email,
-            password: userLogin.password
-       })
-       this.login(user, this.state)
+            password: userLogin.password,
+            btnstatus: true
+        })
+        this.getbdpwd()
+        setTimeout(() => this.login(), 3000)
+        this.setState({
+            loginError: 'Conection processing, please wait.',
+        })
     }
 
+    loginRedirect = () => {
+        idPerso[0] = this.state.idPerso
+        return <Redirect to='/game' />
+    }
 
-    login(user, currentUser) {
-        console.log(currentUser)
-        if(currentUser.email.length <= 0 
-            || currentUser.password.length <=0) {
-            loginError = 'You need to complete all the fields.'
-            console.log(loginError)
-        }
-        else {
-            if(currentUser.email === user.email && currentUser.password === user.password) {
-                loginError = "Successful login : " + user.email + " !"
-                //return <Redirect to='/game' />
-            } 
+    login() {
+        if (this.state.email.length === 0 || this.state.password.length === 0) {
+            this.setState({
+                loginError: 'You need to complete all the fields.',
+                btnstatus: false
+            })
+            console.log(this.state.loginError)
+
+        } else {
+            if (passwordHash.verify(this.state.password, this.state.dbpwd)) {
+                this.setState({
+                    redirectToLogin: true,
+                    loginError: "Successful login : " + this.state.email + " !"
+                })
+                console.log(this.state.loginError)
+            }
             else {
-                loginError = 'Invalid authentication.'
-                console.log(loginError)
+                this.setState({
+                    loginError: 'Invalid authentication.',
+                    btnstatus: false
+                })
+                console.log(this.state.loginError)
             }
         }
+
     }
-    
+
 
     render() {
-        return(
+        if (this.state.redirectToLogin) {
+            return this.loginRedirect()
+        }
+
+        return (
             <div>
                 <h3 className="text-center">Log In</h3>
                 <Form className="form">
-                <Col>
-                    <FormGroup>
-                    <Label>Email</Label>
-                    <Input
-                        onChange={e => this.handleChange(e)}
-                        type="email"
-                        name="email"
-                        id="exampleEmail"
-                        placeholder="myemail@email.com"
-                    />
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                    <Label for="examplePassword">Password</Label>
-                    <Input
-                        onChange={e => this.handleChange(e)}
-                        type="password"
-                        name="password"
-                        id="examplePassword"
-                        placeholder="********"
-                    />
-                    </FormGroup>
-                </Col>
-                <div className="error-display text-warning my-3 text-center">
-                    { loginError }
-                </div>
-                
-                <Container className="text-center">
-                    <Button 
-                        onClick={(e) => this.onSubmit(e)}
-                        type="submit" 
-                        className="btn btn-primary" 
-                        href="/game">
-                        Play
+                    <Col>
+                        <FormGroup>
+                            <Label>Email</Label>
+                            <Input
+
+                                type="email"
+                                name="email"
+                                id="exampleEmail"
+                                placeholder="myemail@email.com"
+                                value={this.state.email}
+                                onChange={evt => this.handleChange(evt)}
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="examplePassword">Password</Label>
+                            <Input
+                                type="password"
+                                name="password"
+                                id="examplePassword"
+                                placeholder="********"
+                                value={this.state.password}
+                                onChange={evt => this.handleChange(evt)}
+                            />
+                        </FormGroup>
+                    </Col>
+                    <div className="error-display text-warning my-3 text-center">
+                        {this.state.progressbar}
+                        {this.state.loginError}
+                    </div>
+                    <Container className="text-center">
+                        <Button
+                            href="/game"
+                            disabled={this.state.btnstatus}
+                            onClick={(e) => this.onSubmit(e)}
+                            type="submit"
+                            className="btn btn-primary"
+                        >
+                            Play
                     </Button>
-                </Container>
+                    </Container>
                 </Form>
             </div>
         )

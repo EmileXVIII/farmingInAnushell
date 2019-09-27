@@ -27,7 +27,7 @@ class Merger {
             gestionnaireEvents.emit(`${newParentName}-${newKey}-deleateObject`);
             this.selected = undefined;
             this.oldSelected = undefined;
-            gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`,new Expendable('Crafted Potion', '/img/potion.png', effects))
+            gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`,new Expendable('Crafted Potion', '/img/mergepotion.png', effects))
         }
     }
 }

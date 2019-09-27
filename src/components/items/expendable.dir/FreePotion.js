@@ -44,7 +44,7 @@ class FreePotion {
                 if (this.value) {
                     let gen = new GeneratorEffect();
                     gen.heal(this.value);
-                    inventoryExpendableSaver.addOnFreePlace(new Expendable('FreeHeal', '/img/potion.png', gen.curentListEffect))
+                    inventoryExpendableSaver.addOnFreePlace(new Expendable('FreeHeal', '/img/greenpotion.png', gen.curentListEffect))
                 }
                 this.time = 0;
                 this.timeAfterPreviousInput = 0;
