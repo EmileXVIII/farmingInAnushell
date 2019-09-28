@@ -8,7 +8,7 @@ class FreePotion {
     constructor() {
         this.img = undefined;
         this.keyToPress = undefined;
-        this.answer = undefined; 
+        this.answer = undefined;
         this.value = 0;
         this.time = 0;
         this.timeAfterPreviousInput = 0;
@@ -62,7 +62,7 @@ class FreePotion {
     check = (keyPress) => { return keyPress === this.keyToPress ? true : false }
 }
 function setTime(time) {
-    console.log('InSetTime')
+    // console.log('InSetTime')
     setTimeout(() => {
         this[time] += 10;
         setTime.call(this, time)

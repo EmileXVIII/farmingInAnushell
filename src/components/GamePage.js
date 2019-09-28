@@ -57,7 +57,8 @@ class GamePage extends Component {
         this.lostGold = this.lostGold.bind(this)
         this.putMessage = this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
-        this.updateStats(this.state.playerTest)
+        this.loadSave()
+        setTimeout(() => this.updateStats(this.state.playerTest), 200)
     }
     componentDidMount() {
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
@@ -114,22 +115,8 @@ class GamePage extends Component {
         }
     }
 
-    getbdpwd() {
-        axios
-            .get(`http://${serveur}/user/${this.state.email}/pwd`)
-            .then(response => {
-                // create an array of contacts only with relevant data
-                const result = response.data.data;
-                this.setState({
-                    dbpwd: result[0].mdp,
-                    idPerso: result[0].IdPerso,
-                    pseudo: result[0].pseudo,
-                })
-            })
-            .catch(error => console.log(error));
-    }
-
     loadSave = () => {
+        console.log("load")
         this.loadInventory()
         this.loadEquiped()
         this.loadStats()
@@ -138,6 +125,7 @@ class GamePage extends Component {
     loadInventory = () => {
         axios.get(`http://${serveur}/lienequip/false/${idPerso[0]}`)
             .then(response => {
+                console.log(response)
                 const result = response.data.data
                 for (let i = 0; i < result.length; i++) {
                     let resultIndex = result[i]
@@ -159,6 +147,7 @@ class GamePage extends Component {
     loadEquiped = () => {
         axios.get(`http://${serveur}/lienequip/true/${idPerso[0]}`)
             .then(response => {
+                console.log(response)
                 const result = response.data.data
                 let arrayEquiped = []
                 let finalArray = [null, null, null, null, null, null]
@@ -167,15 +156,17 @@ class GamePage extends Component {
                     let name = resultIndex.name
                     let iconAdresse = resultIndex.urlIcon
                     let type = resultIndex.type
+                    let life = resultIndex.life
                     let atk = resultIndex.att
                     let def = resultIndex.def
                     let crit = resultIndex.crit
                     let dodge = resultIndex.dodg
-                    let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge)
+                    let description = resultIndex.description
+                    let equip = new Equipement(name, iconAdresse, type, life, atk, def, crit, dodge, description)
                     arrayEquiped.push(equip)
                 }
 
-                for (let itemEquiped of arrayEquiped) {
+                arrayEquiped.forEach((itemEquiped) => {
                     switch (itemEquiped.type) {
                         case 'Leggings': finalArray[0] = itemEquiped; break;
                         case 'Helmet': finalArray[1] = itemEquiped; break;
@@ -185,8 +176,24 @@ class GamePage extends Component {
                         case 'Weapon': finalArray[5] = itemEquiped; break;
                         default: break;
                     }
-                }
+                    console.log("test")
+                })
+
+                // for (let itemEquiped of arrayEquiped) {
+                //     switch (itemEquiped.type) {
+                //         case 'Leggings': finalArray[0] = itemEquiped; break;
+                //         case 'Helmet': finalArray[1] = itemEquiped; break;
+                //         case 'Breastplate': finalArray[2] = itemEquiped; break;
+                //         case 'Shield': finalArray[3] = itemEquiped; break;
+                //         case 'Shoes': finalArray[4] = itemEquiped; break;
+                //         case 'Weapon': finalArray[5] = itemEquiped; break;
+                //         default: break;
+                //     }
+                // }
                 itemsEquips.listObj = finalArray
+                this.setState({
+                    arrayItem: itemsEquips.listObj
+                })
             })
             .catch(error => console.log(error))
     }
@@ -194,12 +201,12 @@ class GamePage extends Component {
     loadStats = () => {
         axios.get(`http://${serveur}/perso/lvl/gold/${idPerso[0]}`)
             .then(response => {
-                const result = response.data.data
+                const result = response.data.data[0]
                 let golds = result.golds
                 let xp = result.xp
                 let worldMax = result.worldMax
                 let level = result.level
-
+                console.log("level : ", level)
                 this.setState({ gold: golds, xpPlayer: xp, levelPlayer: level })
                 for (let i = 1; i < worldMax; i++) {
                     this.state.worldLevelMax.push(i + 1)
@@ -370,7 +377,7 @@ class GamePage extends Component {
             player.stats.Xp = this.state.xpPlayer
             if (player.stats.Xp >= 300 * player.stats.Level) {
                 player.stats.Level += 1
-                this.setState({ xpPlayer: 0 })
+                this.setState({ xpPlayer: 0, levelPlayer: player.stats.Level })
                 player.stats.Xp = this.state.xpPlayer
                 player.stats.BaseAtk *= 1.1
                 player.stats.BaseDef *= 1.1
@@ -495,9 +502,6 @@ class GamePage extends Component {
 
 
     render() {
-        this.loadSave()
-        this.updateStats(this.state.playerTest)
-        console.log(idPerso)
         return (
             <div>
                 {/* <Sound

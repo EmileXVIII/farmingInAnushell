@@ -5,7 +5,7 @@ import {
     FormGroup, Label, Input
 } from 'reactstrap'
 import axios from "axios";
-import idPerso, { userPseudo } from "../../App"
+import { idPerso, userPseudo } from "../../App"
 import { serveur } from "../../App"
 var passwordHash = require('password-hash');
 
@@ -72,6 +72,8 @@ class LoginForm extends Component {
     }
 
     loginRedirect = () => {
+        console.log("coucou")
+        console.log(this.state.idPerso)
         idPerso[0] = this.state.idPerso
         userPseudo[0] = this.state.pseudo
         return <Redirect to='/game' />

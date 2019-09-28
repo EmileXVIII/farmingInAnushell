@@ -58,7 +58,7 @@ app.get('/perso/lvl/gold/:id', (req, res, next) => {
 
 app.get('/lienequip/true/:id', (req, res, next) => {
     const id = req.params.id
-    dbConn.query("Get * FROM lienEquip l INNER JOIN Equipement e ON e.IdEquip = id_equip WHERE id_perso = ? AND location = true", id, function (error, results, fields) {
+    dbConn.query("SELECT * FROM LienEquip INNER JOIN Equipement ON Equipement.IdEquip = id_equip WHERE location = 1 AND id_perso = ? ", id, function (error, results, fields) {
         if (error) return next(error);
         return res.send({ error: false, data: results, message: 'stuff equiped' });
     });
@@ -66,7 +66,7 @@ app.get('/lienequip/true/:id', (req, res, next) => {
 
 app.get('/lienequip/false/:id', (req, res, next) => {
     const id = req.params.id
-    dbConn.query("Get * FROM lienEquip l INNER JOIN Equipement e ON e.IdEquip = id_equip WHERE id_perso = ? AND location = false", id, function (error, results, fields) {
+    dbConn.query("SELECT * FROM LienEquip INNER JOIN Equipement ON Equipement.IdEquip = id_equip WHERE location = 0 AND id_perso = ?", id, function (error, results, fields) {
         if (error) return next(error);
         return res.send({ error: false, data: results, message: 'inventory stuff' });
     });
