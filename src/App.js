@@ -4,7 +4,6 @@ import MainPage from './components/MainPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import GamePage from './components/GamePage';
 import { Redirect } from 'react-router-dom'
-import { resolve } from 'path';
 import Saver from './components/gameplay/inventory.dir/Saver'
 import ShopSaver from "./components/gameplay/Shop/ShopSaver"
 import test from './components/gameplay/inventory.dir/test';
@@ -44,7 +43,6 @@ class App extends Component {
   render() {
 
     if (localStorage.getItem("idPerso") !== null) {
-      console.log("test ", localStorage.getItem("idPerso"))
       idPerso[0] = localStorage.getItem("idPerso")
       userPseudo[0] = localStorage.getItem("userPseudo")
       this.redir = <Redirect to='/game' />

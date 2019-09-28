@@ -148,13 +148,13 @@ body {
 
 /* CHARACTER CSS */
 
-#Character .list-equip {
+#CharacterStuffDiv .list-equip {
   padding: 1em;
   max-width: 80px;
   float: left;
 }
 
-#Character .objet {
+#CharacterStuffDiv .objet {
   background-repeat: no-repeat;
   background-size: 80px 80px;
   float: left;
@@ -162,26 +162,26 @@ body {
   width: 80px;
 }
 
-#Character .Helmet {
+#CharacterStuffDiv .Helmet {
   background-image: url("/img/Helmet.png");
 }
-#Character .Chest {
+#CharacterStuffDiv .Chest {
   background-image: url("/img/Chest.png");
 }
-#Character .Main {
+#CharacterStuffDiv .Main {
   background-image: url("/img/MainHand.png");
 }
-#Character .Legs {
+#CharacterStuffDiv .Legs {
   background-image: url("/img/Legs.png");
 }
-#Character .Boots {
+#CharacterStuffDiv .Boots {
   background-image: url("/img/Boots.png");
 }
-#Character .Off {
+#CharacterStuffDiv .Off {
   background-image: url("/img/OffHand.png");
 }
 
-#Character .element-character {
+#CharacterStuffDiv .element-character {
   background-image: url("/img/Character.png");
   background-repeat: no-repeat;
   height: 320px;
@@ -189,7 +189,7 @@ body {
   margin-left: 20px;
 }
 
-#Character #list-inventaire{
+#CharacterStuffDiv #list-inventaire{
   padding: 2em;
   background: url("/img/Shop-Description-window.png");
   background-size: 420px 565px;
@@ -199,7 +199,7 @@ body {
   height: 565px;
 }
 
-#Character .clear{
+#CharacterStuffDiv .clear{
   clear: both;
 }
 
@@ -413,10 +413,10 @@ body {
 .focus-item-character {
   padding: 2em;
   background: url("/img/Shop-Description-window.png");
-  background-size: 420px 350px;
+  background-size: 420px 420px;
   background-repeat: no-repeat;
   width: 420px;
-  height: 350px;
+  height: 420px;
 }
 
 .onHover:hover {

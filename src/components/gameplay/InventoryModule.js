@@ -5,9 +5,9 @@ import { inventoryEquipementSaver, inventoryExpendableSaver, lenInvExpendable, l
 import InfoItems from "./inventory.dir/InfoItems";
 
 class InventoryModule extends Component {
-    constructor() {
-        super()
-    }
+    // constructor() {
+    //     super()
+    // }
 
     componentWillUnmount() {
         inventoryEquipementSaver.saveAll();

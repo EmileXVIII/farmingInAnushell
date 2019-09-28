@@ -1,12 +1,4 @@
 import React, { Component } from "react";
-import Item from "../items/Item";
-import Leggings from "../items/equipement.dir/Leggings";
-import Helmet from "../items/equipement.dir/Helmet";
-import Breastplate from "../items/equipement.dir/Breastplate";
-import Shield from "../items/equipement.dir/Shield";
-import Shoes from "../items/equipement.dir/Shoes";
-import Weapon from "../items/equipement.dir/Weapon";
-
 
 let style = {
     backgroundColor: ''
@@ -75,7 +67,7 @@ class Wrought extends Component {
         return (
             <div className="wrought-content">
                 <h3 className="text-center mb-3">Wrought</h3>
-                <div class="text-center">
+                <div className="text-center">
                     {(() => {
                         if (isEmpty(this.state.item)) {
                             return (
@@ -111,13 +103,13 @@ class Wrought extends Component {
                             return (
                                 <div>
                                     <div className="forge">
-                                        <img style={style} className="rounded" width="100" src={item.infos.iconAdresse} />
+                                        <img style={style} className="rounded" width="100" src={item.infos.iconAdresse} alt="item in the forge" />
                                     </div>
-                                    <div class="medium-div-center mt-3  border">
+                                    <div className="medium-div-center mt-3  border">
                                         <p>Current rarity : <span style={colorStyle}>{item.infos.rarity}</span></p>
                                         <p>Next level : <span style={nextColorStyle}>{futurRarity}</span></p>
                                         <p>Cost <span>{futurCost}</span>
-                                            <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40" />
+                                            <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40" alt="coins" />
                                         </p>
                                     </div>
                                 </div>

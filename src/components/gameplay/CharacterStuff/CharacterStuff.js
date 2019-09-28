@@ -30,9 +30,9 @@ class CharacterStuff extends Component {
 
     render() {
         return (
-            <div id="Character">
+            <div id="CharacterStuffDiv">
                 <h3 className="text-center">Character</h3>
-                <div class="character">
+                <div className="character">
                     <div className="row">
                         {/* map arrayItem in GamePage*/}
                         {this.props.items.map((item) =>
@@ -69,7 +69,7 @@ class CharacterStuff extends Component {
                                             <div>
                                                 <div className="row">
                                                     <div className="col-4">
-                                                        <img style={style} className="rounded" width="120" src={item.infos.iconAdresse} />
+                                                        <img style={style} className="rounded" width="120" src={item.infos.iconAdresse} alt="Item character" />
                                                     </div>
                                                     <div className="col-8">
                                                         <b>{item.infos.name}</b>

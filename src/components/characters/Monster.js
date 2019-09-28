@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import Character from './Character.js'
 
 class Monster extends Character {
@@ -10,7 +9,7 @@ class Monster extends Character {
         this.stats.Dodge = 50
         this.stats.Critical = 50
 
-        this.skills.push({Name: 'Bite', Power: 1.2, Img: "/img/skillbite.gif"}, {Name: 'Magic wand', Power: 1.2, Img: "/img/skillpd.gif"})
+        this.skills.push({ Name: 'Bite', Power: 1.2, Img: "/img/skillbite.gif" }, { Name: 'Magic wand', Power: 1.2, Img: "/img/skillpd.gif" })
     }
 }
 

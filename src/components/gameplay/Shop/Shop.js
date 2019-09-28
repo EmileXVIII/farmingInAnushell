@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button } from 'reactstrap';
 import Icon from '@material-ui/core/Icon';
 import ListSlot from "./ListSlot";
-import { inventoryEquipementSaver, shopSaver } from "../../../App.js"
+import { shopSaver } from "../../../App.js"
 
 class Shop extends Component {
     constructor() {

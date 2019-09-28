@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Button, Input, Label } from 'reactstrap'
+import { Button, Label } from 'reactstrap'
 import Dashboard from './Dashboard'
-import Store from './Store'
 
 class Room extends Component {
     state = {
@@ -52,10 +51,10 @@ class Room extends Component {
                             <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
+
+
+
+
                 </div>
             </div >
         )

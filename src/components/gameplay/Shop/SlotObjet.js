@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
-import Helmet from '../../items/equipement.dir/Helmet'
-import Leggings from '../../items/equipement.dir/Leggings'
-import Breastplate from '../../items/equipement.dir/Breastplate'
-import Shield from '../../items/equipement.dir/Shield'
-import Shoes from '../../items/equipement.dir/Shoes'
-import Weapon from '../../items/equipement.dir/Weapon'
 import { Button } from 'reactstrap';
-import { inventoryEquipementSaver, inventoryExpendableSaver, serveur, arrayItems } from "../../../App.js"
-import { newbaseHealPotion, newbaseAttPotion, newbaseCritPotion, newbaseDefPotion, newbaseDodgPotion } from "../../items/expendable.dir/functionsPotion";
-import Axios from "axios";
+import { inventoryEquipementSaver, inventoryExpendableSaver, arrayItems } from "../../../App.js"
 import Equipement from "../../items/Equipement";
 
 function getRandomIntInclusive(min, max) {
@@ -74,7 +66,7 @@ class SlotObjet extends Component {
             return (
                 <Button onClick={() => this.buyItem()} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.infos.name}</h6>
-                    <img width='30px' src={this.state.item.infos.iconAdresse} />
+                    <img width='30px' src={this.state.item.infos.iconAdresse} alt="Random Item" />
                     <br /><br /><br />
                     <p className="cost" >{this.state.item.infos.cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
                 </Button>

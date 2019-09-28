@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import { Col, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
@@ -10,8 +10,6 @@ import Monster from "./characters/Monster"
 import Boss1 from "./characters/Boss1"
 import Boss2 from "./characters/Boss2"
 import InventoryModule from "./gameplay/InventoryModule";
-import soundfile from "../music/blackeyedpeas.mp3"
-import Sound from "react-sound"
 import Equipement from "./items/Equipement"
 import Leggings from "./items/equipement.dir/Leggings.js";
 import Helmet from "./items/equipement.dir/Helmet.js";
@@ -213,7 +211,7 @@ class GamePage extends Component {
     }
 
     lowerCurrentWorld = () => {
-        if (this.state.currentWorld == 1) {
+        if (this.state.currentWorld === 1) {
             this.setState({ combatInfo: 'Cant go lower' })
         }
         else {
@@ -224,7 +222,7 @@ class GamePage extends Component {
     }
 
     upCurrentWorld = () => {
-        if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
+        if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
             this.setState({ combatInfo: 'You need to kill the boss to go to the next world' })
         }
         else {
@@ -315,7 +313,7 @@ class GamePage extends Component {
     }
 
     createCombat = (player, monster, callback) => {
-        if (this.state.isFarming == true) {
+        if (this.state.isFarming === true) {
             this.setState({ playerHP: player.stats.Life })
             this.setState({ monsterHP: monster.stats.Life })
 
@@ -445,7 +443,7 @@ class GamePage extends Component {
             reward.setRarity('Legendary')
             reward.setDescription('Sword made with dragon tooth')
             inventoryEquipementSaver.addOnFreePlace(reward)
-            if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
+            if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
             }
             this.setState({ combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0 })
@@ -517,36 +515,36 @@ class GamePage extends Component {
                         <div className="border col-6">
                             <div className=" row h-30">
                                 <div className="col w-100">
-                                    <img className="imgbottom" src={this.state.displayPlayer} />
+                                    <img className="imgbottom" src={this.state.displayPlayer} alt="Player" />
                                 </div>
                                 <div className="col w-100 text-center">
-                                    <img width="200px" className="displaySkill" src={this.state.displaySkill} />
+                                    <img width="200px" className="displaySkill" src={this.state.displaySkill} alt="" />
                                 </div>
                                 <div className="col w-100 ">
-                                    <img src={this.state.displayMonster} />
+                                    <img src={this.state.displayMonster} alt="Monster" />
                                 </div>
                             </div>
                             {/* <img src={this.state.keyPad} alt='lol' width={50} height={50}></img> */}
                             <div className="gameplay-infos border py-3 px-3">
-                                <a>{this.state.combatInfo}</a>
+                                <p>{this.state.combatInfo}</p>
                             </div>
                             <br />
                             <div className="d-flex justify-content-around">
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Player HP : {this.state.playerHP}</a>
+                                    <p>Player HP : {this.state.playerHP}</p>
                                 </div>
                                 <br />
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Monster HP : {this.state.monsterHP}</a>
+                                    <p>Monster HP : {this.state.monsterHP}</p>
                                 </div>
                             </div>
                             <br />
                             <div className="d-flex justify-content-around">
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Gold : {Math.round(this.state.gold)}</a>
+                                    <p>Gold : {Math.round(this.state.gold)}</p>
                                 </div>
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Monster killed : {this.state.counter}</a>
+                                    <p>Monster killed : {this.state.counter}</p>
                                 </div>
                             </div>
                         </div>

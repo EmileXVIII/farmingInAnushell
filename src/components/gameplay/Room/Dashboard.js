@@ -5,8 +5,6 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 
 import Chip from '@material-ui/core/Chip'
 import Button from '@material-ui/core/Button'
@@ -45,10 +43,10 @@ export default function Dashboard() {
 
     const classes = useStyles()
 
-    const { allChats, sendChatAction, user} = React.useContext(CTX)
+    const { allChats, sendChatAction, user } = React.useContext(CTX)
     const topics = Object.keys(allChats)
 
-    const [activeTopic, changeActiveTopic] = React.useState(topics[0])
+    const [activeTopic] = React.useState(topics[0])
     const [textValue, changeTextValue] = React.useState('')
 
     return (
@@ -84,12 +82,12 @@ export default function Dashboard() {
                         onChange={e => changeTextValue(e.target.value)}
                     />
                     <Button
-                        
+
                         variant="contained"
                         color="primary"
                         className={classes.button}
                         onClick={() => {
-                            sendChatAction({from: user, msg: textValue, topic: activeTopic})
+                            sendChatAction({ from: user, msg: textValue, topic: activeTopic })
                             changeTextValue('')
                         }}
                     >

@@ -1,11 +1,10 @@
-import { inventoryExpendableSaver } from "../../../App";
 import Expendable from "../Expendable";
 import { gestionnaireEvents } from "../../gameplay/inventory.dir/inventoryEvents";
 
 class Merger {
     constructor() {
-        this.selected=undefined;
-        this.oldSelected=undefined;
+        this.selected = undefined;
+        this.oldSelected = undefined;
     }
     merge = () => {
 
@@ -27,7 +26,7 @@ class Merger {
             gestionnaireEvents.emit(`${newParentName}-${newKey}-deleateObject`);
             this.selected = undefined;
             this.oldSelected = undefined;
-            gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`,new Expendable('Crafted Potion', '/img/mergepotion.png', effects))
+            gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`, new Expendable('Crafted Potion', '/img/mergepotion.png', effects))
         }
     }
 }

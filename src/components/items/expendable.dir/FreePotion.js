@@ -2,7 +2,6 @@ import { inventoryExpendableSaver } from "../../../App";
 import { gestionnaireEvents } from "../../gameplay/inventory.dir/inventoryEvents";
 import GeneratorEffect from "./functionsPotion";
 import Expendable from "../Expendable";
-import { async } from "q";
 
 class FreePotion {
     constructor() {

@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import { gestionnaireEvents } from "../gameplay/inventory.dir/inventoryEvents";
 
 class Character {
@@ -24,9 +23,9 @@ class Character {
                 return this.Life > 0
             },
         };
-        this.Username=username;
+        this.Username = username;
         this.modifyCurentStat = this.modifyCurentStat.bind(this);
-        this.getStat=this.getStat.bind(this)
+        this.getStat = this.getStat.bind(this)
 
 
 
@@ -61,18 +60,18 @@ class Character {
                 gestionnaireEvents.emit('displaySkill', skillUsed.Img)
                 setTimeout(() => gestionnaireEvents.emit('displaySkill', ''), 1000)
                 Character.stats.Life -= dmgInflicted
-                return this.stats.Username + ': ' + skillUsed.Name + ' used ! ' + dmgInflicted + ' damage inflicted ! ' 
+                return this.stats.Username + ': ' + skillUsed.Name + ' used ! ' + dmgInflicted + ' damage inflicted ! '
             }
             gestionnaireEvents.emit('displaySkill', skillUsed.Img)
             setTimeout(() => gestionnaireEvents.emit('displaySkill', ''), 1000)
-            Character.stats.Life -= dmgInflicted * 2 
+            Character.stats.Life -= dmgInflicted * 2
             return this.stats.Username + ': ' + skillUsed.Name + ' used ! Critical hit ! ' + dmgInflicted * 2 + ' damage inflicted ! '
         }
         else {
             gestionnaireEvents.emit('displaySkill', "/img/skillmiss.png")
             setTimeout(() => gestionnaireEvents.emit('displaySkill', ''), 1000)
             return this.stats.Username + ' : You missed miserably...'
-        }      
+        }
     }
 
     randomInt(Max) {
