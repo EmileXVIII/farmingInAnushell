@@ -86,7 +86,7 @@ function promesseFreePotion() {
                 if (this.check(event.code)) resolve(true); else reject('wrongTouch')
             }
         })
-        setTimeout(() => { console.log('In timeout'); reject('TimeOut') }, 5000);
+        setTimeout(() => { reject('TimeOut') }, 5000);
     })
 }
 

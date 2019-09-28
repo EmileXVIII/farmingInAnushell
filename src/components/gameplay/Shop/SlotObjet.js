@@ -26,8 +26,6 @@ class SlotObjet extends Component {
             arrayItem.push(new Equipement(element.name, element.urlIcon, element.type, element.life, element.att, element.def, element.dodg, element.crit, element.description))
         })
         const rand = getRandomIntInclusive(0, arrayItem.length - 1)
-        console.log("tototatta")
-        console.log(arrayItem[rand])
         return arrayItem[rand]
     }
 
