@@ -8,7 +8,6 @@ import axios from "axios";
 import { serveur } from "../../App"
 var passwordHash = require('password-hash');
 
-
 let userSignin = {
     email: '',
     username: '',
@@ -16,10 +15,19 @@ let userSignin = {
     confirmPassword: ''
 }
 
+// function dbreturn(i, error, username) {
+//     if (i) {
+
+//     } else {
+
+//     }
+// }
+
 
 class SigninForm extends Component {
     constructor() {
         super()
+        // this.dbreturn = dbreturn.bind(this)
         this.state = {
             signinError: '',
             email: '',
@@ -62,14 +70,13 @@ class SigninForm extends Component {
         return passwordHash.generate(password);
     }
 
-    // TODO : Verify if user existing in Database
-    register(currentUser) {
+    async register(currentUser) {
         if (currentUser.email.length <= 0
             || currentUser.username.length <= 0
             || currentUser.password.length <= 0
             || currentUser.confirmPassword.length <= 0) {
             this.setState({
-                signinError: 'You need to complete all the fields.'
+                signinError: "Successful registration : " + currentUser.username + " !"
             })
         }
         else {
@@ -88,29 +95,53 @@ class SigninForm extends Component {
                     // Hash pwd and User creation
                     const password = this.hashPassword(currentUser.password)
                     // Then store it in database
-                    console.log(serveur)
-                    axios.post(`http://${serveur}/userpost/${currentUser.email}/${currentUser.username}/${password}`)
+                    let res = await axios
+                        .post(`http://${serveur}/userpost/${currentUser.email}/${currentUser.username}/${password}`)
                         .then(function (response) {
                             console.log(response);
-                            this.setState({
-                                redirectToLogin: true,
-                                signinError: "Successful registration : " + currentUser.username + " !"
-                            })
+                            return {
+                                data: response.data,
+                            }
                         })
                         .catch(function (error) {
-                            // this.setState({
-                            //     signinError: `${error.data}`
-                            // })
                             console.log(error);
+                            return {
+                                data: error,
+                            }
                         });
+                    if (res.data.error === false) {
+                        this.setState({
+                            signinError: "Your account have been created with succes"
+                        })
+                    }
+                    else if (res.data === `ER_DUP_ENTRY: Duplicate entry '${currentUser.username}' for key 'pseudo'`) {
+                        this.setState({
+                            signinError: "This username is already used"
+                        })
+                    } else if (res.data === `ER_DUP_ENTRY: Duplicate entry '${currentUser.email}' for key 'email'`) {
+                        this.setState({
+                            signinError: "This mail is already used"
+                        })
+                    } else if (res.data === "ER_DATA_TOO_LONG: Data too long for column 'pseudo' at row 1") {
+                        this.setState({
+                            signinError: "You're username is too long"
+                        })
+                    } else {
+                        this.setState({
+                            signinError: res.data
+                        })
+                    }
                 }
             }
-
         }
+
     }
 
+
     render() {
-        if (this.state.redirectToLogin) { this.renderRedirect() }
+        if (this.state.redirectToLogin) {
+            this.renderRedirect()
+        }
         return (
             <div>
                 <h3 className="text-center">Sign In</h3>

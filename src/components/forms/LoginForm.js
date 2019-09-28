@@ -5,7 +5,7 @@ import {
     FormGroup, Label, Input
 } from 'reactstrap'
 import axios from "axios";
-import idPerso from "../../App"
+import idPerso, { userPseudo } from "../../App"
 import { serveur } from "../../App"
 var passwordHash = require('password-hash');
 
@@ -36,12 +36,10 @@ class LoginForm extends Component {
             .then(response => {
                 // create an array of contacts only with relevant data
                 const result = response.data.data;
-                console.log(result)
-                console.log(result.mdp)
-                console.log(result.IdPerso)
                 this.setState({
-                    dbpwd: result.mdp,
-                    idPerso: result.IdPerso,
+                    dbpwd: result[0].mdp,
+                    idPerso: result[0].IdPerso,
+                    pseudo: result[0].pseudo,
                 })
             })
             .catch(error => console.log(error));
@@ -74,6 +72,7 @@ class LoginForm extends Component {
 
     loginRedirect = () => {
         idPerso[0] = this.state.idPerso
+        userPseudo[0] = this.state.pseudo
         return <Redirect to='/game' />
     }
 

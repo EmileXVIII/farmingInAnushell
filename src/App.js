@@ -9,6 +9,7 @@ import Saver from './components/gameplay/inventory.dir/Saver'
 import ShopSaver from "./components/gameplay/Shop/ShopSaver"
 import test from './components/gameplay/inventory.dir/test';
 import Merger from './components/items/expendable.dir/merger';
+import Store from './components/gameplay/Room/Store'
 
 let lenInvExpendable = 8,
   lenInvEquipement = 3 * 8,
@@ -20,21 +21,24 @@ test(inventoryEquipementSaver, inventoryExpendableSaver);
 
 const serveur = `localhost:8080`
 let idPerso = []
+let userPseudo = []
 
 class App extends Component {
 
   render() {
     return (
       <div className="main-div">
-        <Router>
-          {/* Routing */}
-          <Route exact path="/" component={MainPage} />
-          <Route path="/game" render={(props) => <GamePage {...props} />} />
-        </Router>
+        <Store>
+          <Router>
+            {/* Routing */}
+            <Route exact path="/" component={MainPage} />
+            <Route path="/game" render={(props) => <GamePage {...props} />} />
+          </Router>
+        </Store>
       </div>
     );
   }
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur,gestionnaireMergePotion };
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur, gestionnaireMergePotion, userPseudo };
