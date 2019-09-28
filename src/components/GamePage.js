@@ -390,6 +390,9 @@ class GamePage extends Component {
         })
     }
 
+    saveAll() {
+
+    }
 
 
     render() {
