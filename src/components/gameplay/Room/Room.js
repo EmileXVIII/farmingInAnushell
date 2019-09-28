@@ -38,10 +38,24 @@ class Room extends Component {
                 <div id="list-pseudo">
                     <h4>Joueur</h4>
                     <Dashboard />
-                    <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br /><br /><br />
-                    <Button onClick={this.props.startGame}>Farm</Button> <br /><br /><br />
-                    <Button onClick={this.props.startBoss}>Fight boss</Button> <br /><br /><br />
-                    <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
+                    <div className=" row h-30">
+                        <div className="col w-100">
+                            <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button>
+                        </div>
+                        <div className="col w-100">
+                            <Button onClick={this.props.startGame}>Farm</Button>
+                        </div>
+                        <div className="col w-100">
+                            <Button onClick={this.props.startBoss}>Fight boss</Button>
+                        </div>
+                        <div className="col w-100">
+                            <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
                 </div>
             </div >
         )
