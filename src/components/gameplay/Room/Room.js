@@ -41,7 +41,6 @@ class Room extends Component {
                     <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br /><br /><br />
                     <Button onClick={this.props.startGame}>Farm</Button> <br /><br /><br />
                     <Button onClick={this.props.startBoss}>Fight boss</Button> <br /><br /><br />
-                    <Button id="begin-button" onClick={this.props.startGame}>Begin</Button> <br /><br /><br />
                     <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
                 </div>
             </div >
