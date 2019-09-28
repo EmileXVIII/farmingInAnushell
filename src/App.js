@@ -26,6 +26,10 @@ let userPseudo = []
 let arrayItems = []
 
 class App extends Component {
+  constructor() {
+    super()
+    this.redir = ''
+  }
 
   getItems() {
     Axios
@@ -38,12 +42,23 @@ class App extends Component {
   }
 
   render() {
+
+    if (localStorage.getItem("idPerso") !== null) {
+      console.log("test ", localStorage.getItem("idPerso"))
+      idPerso[0] = localStorage.getItem("idPerso")
+      userPseudo[0] = localStorage.getItem("userPseudo")
+      this.redir = <Redirect to='/game' />
+    } else if (localStorage.getItem("idPerso") === null) {
+      this.redir = <Redirect to='/' />
+    }
+
     this.getItems()
     return (
       <div className="main-div">
         <Store>
           <Router>
             {/* Routing */}
+            {this.redir}
             <Route exact path="/" component={MainPage} />
             <Route path="/game" render={(props) => <GamePage {...props} />} />
           </Router>

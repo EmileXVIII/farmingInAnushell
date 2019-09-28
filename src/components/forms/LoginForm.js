@@ -72,8 +72,8 @@ class LoginForm extends Component {
     }
 
     loginRedirect = () => {
-        console.log("coucou")
-        console.log(this.state.idPerso)
+        localStorage.setItem('idPerso', this.state.idPerso)
+        localStorage.setItem('userPseudo', this.state.pseudo)
         idPerso[0] = this.state.idPerso
         userPseudo[0] = this.state.pseudo
         return <Redirect to='/game' />

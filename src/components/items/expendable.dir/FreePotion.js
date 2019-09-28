@@ -23,15 +23,15 @@ class FreePotion {
         setTime.call(this, 'time');
         setTime.call(this, 'timeAfterPreviousInput');
         while (true) {
-            console.log('In process');
+            // console.log('In process');
             try {
                 await this.answer;
                 this.status = true;
-                console.log('answer:', this.answer);
+                // console.log('answer:', this.answer);
             }
             catch{
                 this.status = false;
-                console.log('error Catched')
+                // console.log('error Catched')
             }
             if (this.status === true) {
                 this.value += (20 - Math.trunc(this.timeAfterPreviousInput / 100)) / 5;
@@ -73,7 +73,7 @@ function setTime(time) {
 
 function promesseFreePotion() {
     return new Promise((resolve, reject) => {
-        console.log(this);
+        // console.log(this);
         window.removeEventListener('keydown', (event) => {
             if (this.possibilities.indexOf(event.code) !== -1) {
                 this.timeAfterPreviousInput = 0;
@@ -81,7 +81,7 @@ function promesseFreePotion() {
             }
         });
         window.addEventListener('keydown', (event) => {
-            console.log('FreePotionKeyPress', event.key)
+            // console.log('FreePotionKeyPress', event.key)
             if (this.possibilities.indexOf(event.key) !== -1) {
                 this.timeAfterPreviousInput = 0;
                 if (this.check(event.code)) resolve(true); else reject('wrongTouch')

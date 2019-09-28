@@ -51,14 +51,12 @@ class GamePage extends Component {
             currentWorld: 1,
             isFarming: false
         }
-        console.log('User :', this.state.playerTest.Username)
         itemsEquips.username = this.state.playerTest.Username;
-        console.log('Usename :', itemsEquips.username)
         this.lostGold = this.lostGold.bind(this)
         this.putMessage = this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
         this.loadSave()
-        setTimeout(() => this.updateStats(this.state.playerTest), 200)
+        setTimeout(() => this.updateStats(this.state.playerTest), 500)
     }
     componentDidMount() {
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
@@ -116,7 +114,6 @@ class GamePage extends Component {
     }
 
     loadSave = () => {
-        console.log("load")
         this.loadInventory()
         this.loadEquiped()
         this.loadStats()
@@ -125,7 +122,6 @@ class GamePage extends Component {
     loadInventory = () => {
         axios.get(`http://${serveur}/lienequip/false/${idPerso[0]}`)
             .then(response => {
-                console.log(response)
                 const result = response.data.data
                 for (let i = 0; i < result.length; i++) {
                     let resultIndex = result[i]
@@ -147,7 +143,6 @@ class GamePage extends Component {
     loadEquiped = () => {
         axios.get(`http://${serveur}/lienequip/true/${idPerso[0]}`)
             .then(response => {
-                console.log(response)
                 const result = response.data.data
                 let arrayEquiped = []
                 let finalArray = [null, null, null, null, null, null]
@@ -176,7 +171,6 @@ class GamePage extends Component {
                         case 'Weapon': finalArray[5] = itemEquiped; break;
                         default: break;
                     }
-                    console.log("test")
                 })
 
                 // for (let itemEquiped of arrayEquiped) {
@@ -206,7 +200,6 @@ class GamePage extends Component {
                 let xp = result.xp
                 let worldMax = result.worldMax
                 let level = result.level
-                console.log("level : ", level)
                 this.setState({ gold: golds, xpPlayer: xp, levelPlayer: level })
                 for (let i = 1; i < worldMax; i++) {
                     this.state.worldLevelMax.push(i + 1)
@@ -500,7 +493,6 @@ class GamePage extends Component {
 
     }
 
-
     render() {
         return (
             <div>
@@ -516,7 +508,7 @@ class GamePage extends Component {
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
                     <Button className="btn btn-logout btn-warning mt-3" >Sauvegarder</Button>
-                    <a className="btn btn-logout btn-danger mt-3" href="/">Logout</a>
+                    <a className="btn btn-logout btn-danger mt-3" onClick={() => (localStorage.clear())} href="/"  >Logout</a>
                 </div>
 
                 <div className="mt-5 border py-3  mx-3">
