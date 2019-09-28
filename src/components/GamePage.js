@@ -45,7 +45,7 @@ class GamePage extends Component {
             displayPlayer: "img/player.gif",
             displayMonster: "/img/monster.gif",
             displaySkill: '',
-            worldLevelMax: [1, 2, 3],
+            worldLevelMax: [1],
             keyPad: "/img/monster.gif",
             currentWorld: 1,
             isFarming: false
@@ -112,6 +112,99 @@ class GamePage extends Component {
                 )
         }
     }
+
+    getbdpwd() {
+        axios
+            .get(`http://${serveur}/user/${this.state.email}/pwd`)
+            .then(response => {
+                // create an array of contacts only with relevant data
+                const result = response.data.data;
+                this.setState({
+                    dbpwd: result[0].mdp,
+                    idPerso: result[0].IdPerso,
+                    pseudo: result[0].pseudo,
+                })
+            })
+            .catch(error => console.log(error));
+    }
+
+    loadSave = () => {
+        this.loadInventory()
+        this.loadEquiped()
+        this.loadStats()
+    }
+
+    loadInventory = () => {
+        axios.get(`http://${serveur}/user/${this.state.email}/pwd`)
+        .then(response => {
+            const result = response.data.data
+            for (let i = 0; i < result.length; i++) {
+                resultIndex = result[i]
+                let name = resultIndex.name
+                let iconAdresse = resultIndex.urlIcon
+                let type = resultIndex.type
+                let atk = resultIndex.att
+                let def = resultIndex.def
+                let crit = resultIndex.crit
+                let dodge = resultIndex.dodg
+                let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge)
+                inventoryEquipementSaver.addOnFreePlace(equip)
+            }
+        })
+        .catch(error => console.log(error))
+    }
+
+    loadEquiped = () => {
+        axios.get(`http://${serveur}/user/${this.state.email}/pwd`)
+        .then(response => {
+            const result = response.data.data
+            let arrayEquiped = []
+            let finalArray = [null, null, null, null, null, null]
+            for (let i = 0; i < result.length; i++) {
+                resultIndex = result[i]
+                let name = resultIndex.name
+                let iconAdresse = resultIndex.urlIcon
+                let type = resultIndex.type
+                let atk = resultIndex.att
+                let def = resultIndex.def
+                let crit = resultIndex.crit
+                let dodge = resultIndex.dodg
+                let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge)
+                arrayEquiped.push(equip)
+            }
+
+            for (itemEquiped of arrayEquiped) {
+                switch (itemEquiped.type) {
+                    case 'Leggings': finalArray[0] = itemEquiped; break;
+                    case 'Helmet': finalArray[1] = itemEquiped; break;
+                    case 'Breastplate': finalArray[2] = itemEquiped; break;
+                    case 'Shield': finalArray[3] = itemEquiped; break;
+                    case 'Shoes': finalArray[4] = itemEquiped; break;
+                    case 'Weapon': finalArray[5] = itemEquiped; break;
+                }
+            }
+            itemsEquips.listObj = finalArray
+        })
+        .catch(error => console.log(error))
+    }
+
+    loadStats = () => {
+        axios.get(`http://${serveur}/user/${this.state.email}/pwd`)
+        .then(response => {
+            const result = response.data.data
+            let golds = result.golds
+            let xp = result.xp
+            let worldMax = result.worldMax
+            let level = result.level
+            
+            this.setState({gold: golds, xpPlayer: xp, levelPlayer: level})
+            for (let i = 1; i < worldMax; i++) {
+                this.state.worldLevelMax.push(i + 1)
+            }
+        })
+        .catch(error => console.log(error))
+    }
+
     putMessage(message) {
         this.setState({ combatInfo: message })
     }
@@ -148,6 +241,9 @@ class GamePage extends Component {
         this.getDodge(player)
         this.getCritical(player)
         this.getLife(player)
+        player.stats.Level = this.state.levelPlayer
+        player.stats.Xp = this.state.xpPlayer
+        player.stats.Gold = this.state.gold
     }
     getAtk(player) {
         var resultAtk = Math.round(player.stats.BaseAtk)
@@ -394,6 +490,7 @@ class GamePage extends Component {
 
 
     render() {
+        this.loadSave()
         this.updateStats(this.state.playerTest)
         console.log(idPerso)
         return (

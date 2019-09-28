@@ -8,7 +8,7 @@ class FreePotion {
     constructor() {
         this.img = undefined;
         this.keyToPress = undefined;
-        this.answer ; 
+        this.answer = undefined; 
         this.value = 0;
         this.time = 0;
         this.timeAfterPreviousInput = 0;
