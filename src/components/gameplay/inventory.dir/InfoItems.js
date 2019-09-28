@@ -66,7 +66,7 @@ class InfoItems extends Component {
             )
             return (
                 <div name='infoItems'>
-                    {`Rien à afficher`}
+                    {``}
                 </div>
             )
 

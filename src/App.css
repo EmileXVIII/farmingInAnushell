@@ -103,11 +103,15 @@ body {
 
 /* Display Skill */
 
-.displaySKill {
+.displaySkill {
+  position: absolute;
+  top: 47%;
   margin: auto;
   max-width: 220px;
   max-height: 220px;
 }
+
+.displaySkill
 
 
 /*--------------------------------*/
@@ -129,6 +133,15 @@ body {
 
 .clear{
   clear: both;
+}
+
+/*--------------------------------*/
+
+.imgbottom{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 /*-------------------------------*/

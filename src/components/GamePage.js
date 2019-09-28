@@ -42,9 +42,10 @@ class GamePage extends Component {
             levelPlayer: 0,
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
+            displayPlayer: "img/player.gif",
             displayMonster: "/img/monster.gif",
             displaySkill: '',
-            worldLevelMax: [1],
+            worldLevelMax: [1, 2, 3],
             keyPad: "/img/monster.gif",
             currentWorld: 1,
             isFarming : false
@@ -416,15 +417,17 @@ class GamePage extends Component {
                         {/*Game scene*/}
                         <div className="border col-6">
                             <div className=" row h-30">
-                                <div className="col w-100 text-center">
-                                    <img className="displaySkill" src={this.state.displaySkill} />
-                                </div>
                                 <div className="col w-100">
+                                    <img className="imgbottom" src={this.state.displayPlayer} />
+                                </div>
+                                <div className="col w-100 text-center">
+                                    <img width="200px" className="displaySkill" src={this.state.displaySkill} />
+                                </div>
+                                <div className="col w-100 ">
                                     <img src={this.state.displayMonster} />
                                 </div>
                             </div>
-                            <img width="700" src="/img/player.png" />
-                            <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
+                            {/* <img src={this.state.keyPad} alt='lol' width={50} height={50}></img> */}
                             <div className="gameplay-infos border py-3 px-3">
                                 <a>{this.state.combatInfo}</a>
                             </div>
