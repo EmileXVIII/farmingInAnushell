@@ -22,7 +22,8 @@ import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
 import Boss3 from "./characters/Boss3.js";
-import { inventoryEquipementSaver, idPerso } from '../App.js'
+import { inventoryEquipementSaver, idPerso, serveur } from '../App.js'
+import axios from "axios";
 
 let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
@@ -136,74 +137,75 @@ class GamePage extends Component {
 
     loadInventory = () => {
         axios.get(`http://${serveur}/lienequip/false/${idPerso[0]}`)
-        .then(response => {
-            const result = response.data.data
-            for (let i = 0; i < result.length; i++) {
-                resultIndex = result[i]
-                let name = resultIndex.name
-                let iconAdresse = resultIndex.urlIcon
-                let type = resultIndex.type
-                let atk = resultIndex.att
-                let def = resultIndex.def
-                let crit = resultIndex.crit
-                let dodge = resultIndex.dodg
-                let description = resultIndex.description
-                let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge, description)
-                inventoryEquipementSaver.addOnFreePlace(equip)
-            }
-        })
-        .catch(error => console.log(error))
+            .then(response => {
+                const result = response.data.data
+                for (let i = 0; i < result.length; i++) {
+                    let resultIndex = result[i]
+                    let name = resultIndex.name
+                    let iconAdresse = resultIndex.urlIcon
+                    let type = resultIndex.type
+                    let atk = resultIndex.att
+                    let def = resultIndex.def
+                    let crit = resultIndex.crit
+                    let dodge = resultIndex.dodg
+                    let description = resultIndex.description
+                    let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge, description)
+                    inventoryEquipementSaver.addOnFreePlace(equip)
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     loadEquiped = () => {
         axios.get(`http://${serveur}/lienequip/true/${idPerso[0]}`)
-        .then(response => {
-            const result = response.data.data
-            let arrayEquiped = []
-            let finalArray = [null, null, null, null, null, null]
-            for (let i = 0; i < result.length; i++) {
-                resultIndex = result[i]
-                let name = resultIndex.name
-                let iconAdresse = resultIndex.urlIcon
-                let type = resultIndex.type
-                let atk = resultIndex.att
-                let def = resultIndex.def
-                let crit = resultIndex.crit
-                let dodge = resultIndex.dodg
-                let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge)
-                arrayEquiped.push(equip)
-            }
-
-            for (itemEquiped of arrayEquiped) {
-                switch (itemEquiped.type) {
-                    case 'Leggings': finalArray[0] = itemEquiped; break;
-                    case 'Helmet': finalArray[1] = itemEquiped; break;
-                    case 'Breastplate': finalArray[2] = itemEquiped; break;
-                    case 'Shield': finalArray[3] = itemEquiped; break;
-                    case 'Shoes': finalArray[4] = itemEquiped; break;
-                    case 'Weapon': finalArray[5] = itemEquiped; break;
+            .then(response => {
+                const result = response.data.data
+                let arrayEquiped = []
+                let finalArray = [null, null, null, null, null, null]
+                for (let i = 0; i < result.length; i++) {
+                    let resultIndex = result[i]
+                    let name = resultIndex.name
+                    let iconAdresse = resultIndex.urlIcon
+                    let type = resultIndex.type
+                    let atk = resultIndex.att
+                    let def = resultIndex.def
+                    let crit = resultIndex.crit
+                    let dodge = resultIndex.dodg
+                    let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge)
+                    arrayEquiped.push(equip)
                 }
-            }
-            itemsEquips.listObj = finalArray
-        })
-        .catch(error => console.log(error))
+
+                for (let itemEquiped of arrayEquiped) {
+                    switch (itemEquiped.type) {
+                        case 'Leggings': finalArray[0] = itemEquiped; break;
+                        case 'Helmet': finalArray[1] = itemEquiped; break;
+                        case 'Breastplate': finalArray[2] = itemEquiped; break;
+                        case 'Shield': finalArray[3] = itemEquiped; break;
+                        case 'Shoes': finalArray[4] = itemEquiped; break;
+                        case 'Weapon': finalArray[5] = itemEquiped; break;
+                        default: break;
+                    }
+                }
+                itemsEquips.listObj = finalArray
+            })
+            .catch(error => console.log(error))
     }
 
     loadStats = () => {
         axios.get(`http://${serveur}/perso/lvl/gold/${idPerso[0]}`)
-        .then(response => {
-            const result = response.data.data
-            let golds = result.golds
-            let xp = result.xp
-            let worldMax = result.worldMax
-            let level = result.level
-            
-            this.setState({gold: golds, xpPlayer: xp, levelPlayer: level})
-            for (let i = 1; i < worldMax; i++) {
-                this.state.worldLevelMax.push(i + 1)
-            }
-        })
-        .catch(error => console.log(error))
+            .then(response => {
+                const result = response.data.data
+                let golds = result.golds
+                let xp = result.xp
+                let worldMax = result.worldMax
+                let level = result.level
+
+                this.setState({ gold: golds, xpPlayer: xp, levelPlayer: level })
+                for (let i = 1; i < worldMax; i++) {
+                    this.state.worldLevelMax.push(i + 1)
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     putMessage(message) {
