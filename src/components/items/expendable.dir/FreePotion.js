@@ -8,7 +8,7 @@ class FreePotion {
     constructor() {
         this.img = undefined;
         this.keyToPress = undefined;
-        this.answer = promesseFreePotion.call(this);
+        this.answer ; 
         this.value = 0;
         this.time = 0;
         this.timeAfterPreviousInput = 0;
@@ -17,10 +17,11 @@ class FreePotion {
         this.len = this.possibilities.length;
         this.status = undefined;
         this.process = this.process.bind(this);
-        setTime.call(this, 'time');
-        setTime.call(this, 'timeAfterPreviousInput');
     }
     async process() {
+        this.answer=promesseFreePotion.call(this);
+        setTime.call(this, 'time');
+        setTime.call(this, 'timeAfterPreviousInput');
         while (true) {
             console.log('In process');
             try {
@@ -55,7 +56,6 @@ class FreePotion {
             this.keyToPress=this.possibilities[ind];
             gestionnaireEvents.emit('newFreePotionImg', this.img);
             this.answer = promesseFreePotion.call(this);
-
         }
 
     }
