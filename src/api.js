@@ -1,15 +1,17 @@
-const mysql = require('mysql')
-const app = require('express')()
+const mysql = require('mysql');
+const app = require('express')();
 const cors = require('cors');
-const PORT = process.env.PORT || 8080
-let dbConn = ""
+const PORT = process.env.PORT || 8080;
+let dbConn = "";
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 // Connection bdd local
 app.use(function (req, res, next) {
     dbConn = mysql.createConnection({
         host: 'localhost',
         user: 'debian-sys-maint',
-        password: 'phrHtsSP5Hoq6EYl',
+        password: 'U8XkMMSTUVx2VgXu',
         database: 'farmingInAnutshell'
     });
     dbConn.connect();
@@ -19,7 +21,7 @@ app.use(function (req, res, next) {
 // Connection bdd Serveur FarmingNutshell
 // app.use(function (req, res, next) {
 //     dbConn = mysql.createConnection({
-//         host: 'localhost',
+//         host: '10.33.15.53',
 //         user: 'padmin',
 //         password: 'D3b14nr0oT',
 //         database: 'farmingInAnutshell'
@@ -48,6 +50,68 @@ app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
     });
 
 });
+app.post('/inventoryEquip', (req, res, next) => {
+    //IdPerso à stocker lors de la connection
+    const IdPerso = req.body.shift();
+    let listEquip = req.body;
+    //expected : req.body = [IdPerso,...{id_equip,rarity}]
+    dbConn.query('DELETE * FROM LienEquip WHERE id_perso=?;', IdPerso);
+    let listId = getFreeIds('IdLienEquip', 'LienEquip', listEquip.length)
+    for (let equip of listEquip) {
+        dbConn.query('INSERT INTO LienEquip (IdLienEquip,id_equip,id_perso,rarity) VALUES (?, ?, ?, ?);', listId.shift(), equip.id_equip, IdPerso, equip.rarity).catch((err) => next(err))
+    }
+    res.status = 200;
+    res.send()
+})
+
+app.post('/inventoryExpend', (req, res, next) => {
+    const expectedValues = ['healValue', 'attValue', 'defValue', 'critValue', 'dodgeValue', 'rarity']
+    //IdPerso à stocker lors de la connection
+    const IdPerso = req.body.shift();
+    let listEquip = req.body;
+    //expected : req.body = [IdPerso,...{healValue,attValue,defValue,critValue,dodgeValue,rarity}]
+    dbConn.query('DELETE * FROM Expendable WHERE id_perso=?;', IdPerso);
+    let listId = getFreeIds('IdExpendable', 'Expendable', listEquip.length)
+    for (let equip of listEquip) {
+        dbConn.query('INSERT INTO Expendable (IdExpendable,id_perso,?,?,?,?,?) VALUES (?, ?, ?, ?,?,?,?);', [...expectedValues, listId.shift(), IdPerso, ...expectedValues.map((val) => listEquip[val])],function (error, results, fields, listRes2) {
+            if (error) next(error);
+        })
+    }
+    res.status = 200;
+    res.send()
+})
+
+app.post('/ItemsEquip', (req, res, next) => {
+    //IdPerso à stocker lors de la connection
+    const IdPerso = req.body.shift();
+    let listEquip = req.body;
+    //expected : req.body = [IdPerso,...{id_equip,rarity}]
+    let listId;
+    getFreeIds('IdLienEquip', 'LienEquip', listEquip.length, (err, result) => {err ? next(err) : listId = result;
+    for (let equip of listEquip) {
+        dbConn.query('INSERT INTO LienEquip (IdLienEquip,id_equip,id_perso,rarity,cost,location) VALUES (?, ?, ?, ?,?,"perso");', [listId.shift(), equip.id_equip, IdPerso, equip.rarity,equip.cost],function (error, results, fields, listRes2) {
+            if (error) next(error);
+        })
+    }
+    res.status = 200;
+    res.send()
+})
+})
+
+app.post('/perso', (req, res, next) => {
+    let expectedValues = ['baseLife', 'baseAtt', 'baseDef', 'baseCrit', 'baseDodg', 'level', 'golds', 'status'];
+    //IdPerso à stocker lors de la connection
+    const IdPerso = req.body.shift();
+    let listStats = req.body;
+    //expected : req.body = [IdPerso,...{baseLife,baseAtt,baseDef,baseCrit,baseDodg,level,golds,status}]
+    let vals = expectedValues.join('=?,')+'=?'
+    dbConn.query(`UPDATE Perso SET ${vals} WHERE IdPerso=?`, [...expectedValues.map((val)=>listStats[0][val]), IdPerso], function (error, results, fields, listRes2) {
+        if (error) return next(error);
+        res.status = 200;
+        res.send();
+    })
+})
+
 
 app.use((err, req, res, next) => {
     console.log(err)
@@ -57,3 +121,24 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log('Serveur sur port : ', PORT)
 })
+
+function getFreeIds(idName, table, n, cb) {
+    console.log(idName, table, n)
+    dbConn.query(`SELECT ${idName} FROM ${table} ORDER BY ${idName} ASC`, function (error, results, fields, listRes2) {
+        if (error) return cb(error);
+        listId = results;
+        let id = 1,
+            nb = 0,
+            listRes = [];
+
+        while (nb < n) {
+            if (id === listId.shift()[idName]) id++;
+            else {
+                listRes.push(id);
+                nb++;
+                id++;
+            }
+        }
+        cb(null, listRes)
+    })
+}

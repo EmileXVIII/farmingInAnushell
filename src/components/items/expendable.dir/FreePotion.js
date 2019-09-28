@@ -8,6 +8,7 @@ class FreePotion {
     constructor() {
         this.img = undefined;
         this.keyToPress = undefined;
+        this.answer ; 
         this.value = 0;
         this.time = 0;
         this.timeAfterPreviousInput = 0;
@@ -55,7 +56,6 @@ class FreePotion {
             this.keyToPress = this.possibilities[ind];
             gestionnaireEvents.emit('newFreePotionImg', this.img);
             this.answer = promesseFreePotion.call(this);
-
         }
 
     }

@@ -9,7 +9,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "/home/emile/.nvm/versions/node/v12.9.1/bin/node"
+            "program": "/home/emile/emile.dir/projet_fil_rouge/Farming_in_a_nutshell/src/api.js",
+            "runtimeExecutable": "/home/emile/.nvm/versions/node/v12.9.1/bin/node"
         }
     ]
 }
