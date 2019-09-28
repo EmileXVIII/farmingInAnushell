@@ -104,8 +104,8 @@ app.post('/perso', (req, res, next) => {
     const IdPerso = req.body.shift();
     let listStats = req.body;
     //expected : req.body = [IdPerso,...{baseLife,baseAtt,baseDef,baseCrit,baseDodg,level,golds,status}]
-    let vals = expectedValues.split('=?,')
-    dbConn.query(`UPDATE Perso SET ${vals} WHERE IdPerso=?`, [...expectedValues.map((val)=>listStats[val]), IdPerso], function (error, results, fields, listRes2) {
+    let vals = expectedValues.join('=?,')+'=?'
+    dbConn.query(`UPDATE Perso SET ${vals} WHERE IdPerso=?`, [...expectedValues.map((val)=>listStats[0][val]), IdPerso], function (error, results, fields, listRes2) {
         if (error) return next(error);
         res.status = 200;
         res.send();
