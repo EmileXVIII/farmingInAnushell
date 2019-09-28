@@ -10,6 +10,7 @@ import ShopSaver from "./components/gameplay/Shop/ShopSaver"
 import test from './components/gameplay/inventory.dir/test';
 import Merger from './components/items/expendable.dir/merger';
 import Store from './components/gameplay/Room/Store'
+import Axios from 'axios';
 
 let lenInvExpendable = 8,
   lenInvEquipement = 3 * 8,
@@ -22,10 +23,22 @@ test(inventoryEquipementSaver, inventoryExpendableSaver);
 const serveur = `localhost:8080`
 let idPerso = []
 let userPseudo = []
+let arrayItems = []
 
 class App extends Component {
 
+  getItems() {
+    Axios
+      .get(`http://${serveur}/getItems`)
+      .then(response => {
+        // create an array of contacts only with relevant data
+        const result = response.data.data;
+        arrayItems = result
+      })
+  }
+
   render() {
+    this.getItems()
     return (
       <div className="main-div">
         <Store>
@@ -41,4 +54,4 @@ class App extends Component {
 }
 
 export default App;
-export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur, gestionnaireMergePotion, userPseudo };
+export { lenInvEquipement, lenInvExpendable, inventoryEquipementSaver, inventoryExpendableSaver, shopSaver, idPerso, serveur, gestionnaireMergePotion, userPseudo, arrayItems };

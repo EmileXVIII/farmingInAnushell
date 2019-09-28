@@ -409,7 +409,8 @@ class GamePage extends Component {
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
-                    <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
+                    <Button className="btn btn-logout btn-warning mt-3" >Sauvegarder</Button>
+                    <a className="btn btn-logout btn-danger mt-3" href="/">Logout</a>
                 </div>
 
                 <div className="mt-5 border py-3  mx-3">
