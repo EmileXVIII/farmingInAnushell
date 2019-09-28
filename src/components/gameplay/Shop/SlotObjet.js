@@ -31,7 +31,7 @@ class SlotObjet extends Component {
     generate() {
         const arrayItem = []
         arrayItems.forEach(element => {
-            arrayItem.push(new Equipement(element.name, element.urlIcon, element.type))
+            arrayItem.push(new Equipement(element.name, element.urlIcon, element.type, element.life, element.att, element.def, element.dodg, element.crit, element.description))
         })
         const rand = getRandomIntInclusive(0, arrayItem.length - 1)
         console.log("tototatta")

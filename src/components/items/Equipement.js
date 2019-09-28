@@ -1,13 +1,13 @@
 import Item from './Item'
 
 class Equipement extends Item {
-    constructor(name, iconAdresse, type, life, atk, def, dodge, critical) {
-        super(name, iconAdresse)
-        this.life = life
-        this.atk = atk
-        this.def = def
-        this.dodge = dodge
-        this.critical = critical
+    constructor(name, iconAdresse, type, life, atk, def, dodge, critical, description) {
+        super(name, iconAdresse, description)
+        this.life1 = life
+        this.atk1 = atk
+        this.def1 = def
+        this.dodge1 = dodge
+        this.critical1 = critical
         this.type = type;
     }
 
@@ -18,14 +18,10 @@ class Equipement extends Item {
         return this.factorielle(n, res)
     }
 
-    get life() { return this.life * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
-    get atk() { return this.atk * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
-    get def() { return this.def * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
-    get dodge() { return this.dodge * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
-    get critical() { return this.critical * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) }
-
-    set atk(value) { return this.atk + value }
-
-
+    get life() { return this.life1 * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
+    get atk() { return this.atk1 * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
+    get def() { return this.def1 * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
+    get dodge() { return this.dodge1 * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) };
+    get critical() { return this.critical1 * this.factorielle((this.rarityArray.indexOf(this.infos.rarity) + 1)) }
 }
 export default Equipement

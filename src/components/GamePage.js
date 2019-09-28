@@ -345,7 +345,6 @@ class GamePage extends Component {
             const reward = new Weapon('Dragon sword')
             reward.setRarity('Legendary')
             reward.setDescription('Sword made with dragon tooth')
-            reward.atk = 50
             inventoryEquipementSaver.addOnFreePlace(reward)
             if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
