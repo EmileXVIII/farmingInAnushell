@@ -128,8 +128,9 @@ class SigninForm extends Component {
                         })
                     } else {
                         this.setState({
-                            signinError: res.data
+                            signinError: "Un probleme est apparu lors de la creation du compte"
                         })
+                        console.log(res.data)
                     }
                 }
             }
