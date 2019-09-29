@@ -208,9 +208,9 @@ class GamePage extends Component {
     }
 
     lvlUp = (player) => {
-        player.stats.BaseAtk = player.stats.BaseAtk * 1.1 ** (this.stats.Level -1)
-        player.stats.BaseDef = player.stats.BaseDef * 1.1 ** (this.stats.Level -1)
-        player.stats.BaseLife = player.stats.BaseLife * 1.05 ** (this.stats.Level -1)
+        player.stats.BaseAtk = player.stats.BaseAtk * 1.1 ** (player.stats.Level - 1)
+        player.stats.BaseDef = player.stats.BaseDef * 1.1 ** (player.stats.Level - 1)
+        player.stats.BaseLife = player.stats.BaseLife * 1.05 ** (player.stats.Level - 1)
     }
 
     putMessage(message) {
@@ -450,13 +450,13 @@ class GamePage extends Component {
             if (weaponDrop <= 1 * this.state.currentWorld) {
                 const arrayType = ['Leggings', 'Helmet', 'Breastplate', 'Shield', 'Shoes', 'Weapon']
                 const typeRandom = player.randomInt(5)
-                const reward = new Weapon('Dragon sword', 'img/legendary.png', arrayType[typeRandom], 10, 10, 10, 10, 10, 'You are not gonna sell it')
+                const reward = new Equipement('1/6 of the relic panoply', 'img/legendary.png', arrayType[typeRandom], 10, 10, 10, 10, 10, 'You are not gonna sell it')
                 inventoryEquipementSaver.addOnFreePlace(reward)
                 this.setState({ combatInfo: 'You did it. Congratulation ! You unlocked the next world ! ' + boss.stats.Username + ' left something...', counter: 0 })
             }
             else {
                 this.setState({ combatInfo: 'You did it. Congratulation ! You unlocked the next world !', counter: 0 })
-            }           
+            }
             if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
             }
