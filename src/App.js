@@ -27,7 +27,7 @@ let lenInvExpendable = 8,
   gestionnaireMergePotion = new Merger();
 test(inventoryEquipementSaver, inventoryExpendableSaver);
 
-const serveur = `localhost:8080`
+const serveur = `localhost:8081`
 let idPerso = []
 let userPseudo = []
 
