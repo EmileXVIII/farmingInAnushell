@@ -138,7 +138,6 @@ class SigninForm extends Component {
 
     }
 
-
     render() {
         if (this.state.redirectToLogin) {
             this.renderRedirect()

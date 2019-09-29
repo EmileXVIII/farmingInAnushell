@@ -266,9 +266,9 @@ body {
 #Shop .object {
   background-image: url("/img/Shop-Background-item.png");
   background-repeat: no-repeat;
-  background-size: 130px 130px;
-  height: 130px;
-  width: 130px;
+  background-size: 140px 140px;
+  height: 140px;
+  width: 140px;
   float: left;
 }
 

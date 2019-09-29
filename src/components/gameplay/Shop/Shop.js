@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button } from 'reactstrap';
 import Icon from '@material-ui/core/Icon';
 import ListSlot from "./ListSlot";
-import { shopSaver } from "../../../App.js"
+import { shopSaver, generateShop, arrayShop } from "../../../App.js"
 
 class Shop extends Component {
     constructor() {
@@ -23,7 +23,7 @@ class Shop extends Component {
             this.gen = true
             this.id += 1
             const newlist = [this.id]
-
+            generateShop()
             this.setState({
                 list: newlist
             })
@@ -54,7 +54,7 @@ class Shop extends Component {
 
     render() {
         this.affichageList()
-
+        console.log(arrayShop)
         return (
             <div id="Shop">
                 <header>
