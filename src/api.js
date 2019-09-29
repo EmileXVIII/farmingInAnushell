@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const app = require('express')();
 const cors = require('cors');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 let dbConn = "";
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     dbConn = mysql.createConnection({
         host: 'localhost',
-        user: 'debian-sys-maint',
-        password: 'phrHtsSP5Hoq6EYl',
+        user: 'root',
+        password: 'azerty',
         database: 'farmingInAnutshell'
     });
     dbConn.connect();

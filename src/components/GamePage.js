@@ -333,7 +333,7 @@ class GamePage extends Component {
             } else {
                 const goldLost = Math.round(player.stats.Gold / 10)
                 player.stats.Gold -= goldLost
-                this.setState({ gold: player.stats.Gold, combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
+                this.setState({ gold: player.stats.Gold, combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.', displayPlayer: '/img/monsterdead.gif' })
                 this.setState((prevState) => ({ isFarming: !prevState.isFarming }))
             }
         }
@@ -393,7 +393,7 @@ class GamePage extends Component {
 
     checkPlayerAlive = (player, monster) => {
         if (player.stats.Alive) {
-            this.setState({ displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming })
+            this.setState({ displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming, displayPlayer: "img/player.gif" })
             setTimeout(() => this.testCombat2(player, monster, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
         }
         else {
@@ -405,7 +405,7 @@ class GamePage extends Component {
         if (this.state.counter >= 30) {
             if (player.stats.Alive) {
                 boss.stats.Life = boss.stats.BaseLife
-                this.setState({ combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img })
+                this.setState({ combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img, displayPlayer: "img/player.gif" })
                 setTimeout(() => this.testCombatBoss(player, boss, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
             }
             else {
