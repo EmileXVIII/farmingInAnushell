@@ -11,6 +11,8 @@ import Merger from './components/items/expendable.dir/merger';
 import Store from './components/gameplay/Room/Store'
 import Axios from 'axios';
 import Equipement from './components/items/Equipement';
+import GeneratorEffect from './components/items/expendable.dir/functionsPotion';
+import Expendable from './components/items/Expendable';
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -50,16 +52,17 @@ class App extends Component {
   }
 
   async getItems() {
-    let res = await Axios
+    const arrayItemdb = []
+
+    let resEquip = await Axios
       .get(`http://${serveur}/getItems`)
       .then(response => {
         // create an array of contacts only with relevant data
         const result = response.data.data;
         return result
       })
-    const arrayItem = []
-    res.forEach(element => {
-      arrayItem.push(new Equipement(element.name,
+    resEquip.forEach(element => {
+      arrayItemdb.push(new Equipement(element.name,
         element.urlIcon,
         element.type,
         element.life,
@@ -67,25 +70,54 @@ class App extends Component {
         element.def,
         element.dodg,
         element.crit,
-        element.description))
+        element.description,
+        element.IdEquip,
+      ))
     })
-    arrayItems = arrayItem
+    let resExpendable = await Axios
+      .get(`http://${serveur}/getExpendables`)
+      .then(response => {
+        // create an array of contacts only with relevant data
+        const result = response.data.data;
+        return result
+      })
+
+    resExpendable.forEach(element => {
+      let expDatStat = ['attValue', 'defValue', 'critValue', 'dodgeValue']
+      let gen = new GeneratorEffect()
+      if (element.healValue) gen.heal(element.healValue)
+      let stat = ['BaseAtk', 'BaseDef', 'BaseCritical', 'BaseDodge']
+      for (let i in expDatStat) {
+        gen.improveStat(stat[i], element[i], 5000)
+      }
+      let myExp = new Expendable(element.name, element.urlIcon, gen.curentListEffect)
+      arrayItemdb.push(myExp)
+    })
+
+    arrayItems = arrayItemdb
+
     if (JSON.parse(localStorage.getItem("arrayShopCache")) === null) {
       generateShop()
     } else {
       const arrayShopCache = JSON.parse(localStorage.getItem("arrayShopCache"))
+      console.log("test", JSON.parse(localStorage.getItem("arrayShopCache")))
       arrayShop = []
       arrayShopCache.forEach(element => {
-        arrayShop.push(new Equipement(
-          element.infos.name,
-          element.infos.iconAdresse,
-          element.type,
-          element.life1,
-          element.atk1,
-          element.def1,
-          element.dodge1,
-          element.critical1,
-          element.infos.description))
+        if (element.atk1 !== undefined && element.atk1 !== null) {
+          arrayShop.push(new Equipement(
+            element.infos.name,
+            element.infos.iconAdresse,
+            element.type,
+            element.life1,
+            element.atk1,
+            element.def1,
+            element.dodge1,
+            element.critical1,
+            element.infos.description,
+            element.infos.id,
+          ))
+        } else { arrayShop.push(element) }
+
       })
     }
   }

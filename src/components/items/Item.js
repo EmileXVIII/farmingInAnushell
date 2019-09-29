@@ -1,10 +1,10 @@
 class Item {
-    constructor(name, iconAdresse, description) {
+    constructor(name, iconAdresse, description, id) {
         this.getIndexRarity = this.getIndexRarity.bind(this)
         this.rarityArray = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
 
         this.infos = {
-            id: 0,
+            id: id,
             cost: this.randomInt(100),
             specialAttribute: null,
             name: name,

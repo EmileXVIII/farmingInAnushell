@@ -47,6 +47,13 @@ app.get('/getItems', (req, res, next) => {
     });
 });
 
+app.get('/getExpendables', (req, res, next) => {
+    dbConn.query("SELECT * FROM BuyableExpendable", function (error, results, fields) {
+        if (error) return next(error);
+        return res.send({ error: false, data: results, message: 'inventory stuff' });
+    });
+});
+
 app.get('/perso/lvl/gold/:id', (req, res, next) => {
     const id = req.params.id
     dbConn.query("SELECT level, golds, worldMax, xp FROM Perso WHERE idPerso = ?", id, function (error, results, fields) {
@@ -71,7 +78,6 @@ app.get('/lienequip/false/:id', (req, res, next) => {
         return res.send({ error: false, data: results, message: 'inventory stuff' });
     });
 });
-
 
 app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
     const email = req.params.email
