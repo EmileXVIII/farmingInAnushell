@@ -55,7 +55,6 @@ class GamePage extends Component {
         this.changeImgSKill = this.changeImgSKill.bind(this)
         this.loadSave()
         this.lvlUp(this.state.playerTest)
-        console.log()
         setTimeout(() => this.updateStats(this.state.playerTest), 500)
     }
     componentDidMount() {
@@ -173,7 +172,7 @@ class GamePage extends Component {
                     }
                 })
 
-                // for (let itemEq uiped of arrayEquiped) {
+                // for (let itemEquiped of arrayEquiped) {
                 //     switch (itemEquiped.type) {
                 //         case 'Leggings': finalArray[0] = itemEquiped; break;
                 //         case 'Helmet': finalArray[1] = itemEquiped; break;
@@ -244,7 +243,6 @@ class GamePage extends Component {
         this.setState({ playerHP: this.state.playerTest.stats.Life })
         this.updateStats(this.state.playerTest);
     }
-
     updateStats = (player) => {
         this.getAtk(player)
         this.getDef(player)

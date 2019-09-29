@@ -26,21 +26,22 @@ function saveplease(perso) {
     list[0] = list[0].filter((obj) => !!obj);
 
     console.log("test2", inventoryEpend)
-    list.push(inventoryEpend.map(obj => obj ? ({
-        name: obj.infos.name,
-        healValue: obj.effects.heal ? obj.effects.heal[1] : 0,
-        attValue: obj.effects.BaseAtk ? obj.effects.BaseAtk[1] : 0,
-        defValue: obj.effects.BaseDef ? obj.effects.BaseDef[1] : 0,
-        critValue: obj.effects.BaseCritical ? obj.effects.BaseCritical[1] : 0,
-        dodgeValue: obj.effects.BaseDodge ? obj.effects.BaseDodge[1] : 0,
-        rarity: obj.infos.rarity,
-        urlIcon: obj.infos.iconAdresse
-    }) : undefined));
-    list[1] = list[1].filter((obj) => !!obj);
+    list.push([])
+    // list.push(inventoryEpend.map(obj => obj ? ({
+    //     name: obj.infos.name,
+    //     healValue: obj.effects.heal ? obj.effects.heal[1] : 0,
+    //     attValue: obj.effects.BaseAtk ? obj.effects.BaseAtk[1] : 0,
+    //     defValue: obj.effects.BaseDef ? obj.effects.BaseDef[1] : 0,
+    //     critValue: obj.effects.BaseCritical ? obj.effects.BaseCritical[1] : 0,
+    //     dodgeValue: obj.effects.BaseDodge ? obj.effects.BaseDodge[1] : 0,
+    //     rarity: obj.infos.rarity,
+    //     urlIcon: obj.infos.iconAdresse
+    // }) : undefined));
+    // list[1] = list[1].filter((obj) => !!obj);
     list.push(itemsEquip.map((obj) => obj ? ({ id_equip: obj.infos.id, rarity: obj.infos.rarity }) : undefined));
     list[2] = list[2].filter((obj) => !!obj);
     POST('/inventory', [idPerso].concat(list.shift()));
-    POST('/inventoryExpend', [idPerso].concat(list.shift()));
+    // POST('/inventoryExpend', [idPerso].concat(list.shift()));
     POST('/ItemsEquip', [idPerso].concat(list.shift()));
     POST('/perso', [idPerso]);
 }
