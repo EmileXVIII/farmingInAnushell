@@ -42,8 +42,12 @@ class SelectObject {
             noeudClasses = noeud.className.split(' ');
         while (i < 2 && noeudClasses.indexOf('objet') === -1) {
             i++;
-            noeud = noeud.parentNode;
-            noeudClasses = noeud.className.split(' ');
+            try {
+                noeud = noeud.parentNode;
+                noeudClasses = noeud.className.split(' ');
+            } catch {
+                console.log("erreur noeud class, out of body")
+            }
         }
         if (i === 2) { return false }
         return noeud
