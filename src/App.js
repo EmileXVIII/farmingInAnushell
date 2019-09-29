@@ -66,6 +66,7 @@ class App extends Component {
       generateShop()
     } else {
       arrayShop = JSON.parse(localStorage.getItem("arrayShopCache"))
+      console.log("Bonjour", arrayShop)
     }
   }
 

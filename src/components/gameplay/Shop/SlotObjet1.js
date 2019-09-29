@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
 import { Button } from 'reactstrap';
-import { inventoryEquipementSaver, inventoryExpendableSaver, arrayItems, arrayShop } from "../../../App.js"
-import Equipement from "../../items/Equipement";
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
+import { inventoryEquipementSaver, inventoryExpendableSaver, arrayShop } from "../../../App.js"
 
 class SlotObjet1 extends Component {
     constructor(props) {
@@ -26,11 +18,11 @@ class SlotObjet1 extends Component {
             <div>
                 <h4>{this.state.item.infos.name}</h4>
                 <p>{this.state.item.infos.description}</p>
-                <p>Atk :{this.state.item.atk}</p>
-                <p>Def :{this.state.item.def}</p>
-                <p>Crit :{this.state.item.critical}</p>
-                <p>Dodge :{this.state.item.dodge}</p>
-                <p>Life :{this.state.item.life}</p>
+                <p>Atk :{this.state.item.atk1}</p>
+                <p>Def :{this.state.item.def1}</p>
+                <p>Crit :{this.state.item.critical1}</p>
+                <p>Dodge :{this.state.item.dodge1}</p>
+                <p>Life :{this.state.item.life1}</p>
                 <p>Rarity :{this.state.item.infos.rarity}</p>
             </div>
         )
@@ -75,11 +67,10 @@ class SlotObjet1 extends Component {
             this.element = ""
             ReactDOM.render(this.element, div)
         }
-
-
     }
 
     render() {
+        console.log(this.state.item.atk)
         return (
             <div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                 {this.affichage()}
