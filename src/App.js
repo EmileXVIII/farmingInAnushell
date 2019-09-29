@@ -59,7 +59,15 @@ class App extends Component {
       })
     const arrayItem = []
     res.forEach(element => {
-      arrayItem.push(new Equipement(element.name, element.urlIcon, element.type, element.life, element.att, element.def, element.dodg, element.crit, element.description))
+      arrayItem.push(new Equipement(element.name,
+        element.urlIcon,
+        element.type,
+        element.life,
+        element.att,
+        element.def,
+        element.dodg,
+        element.crit,
+        element.description))
     })
     arrayItems = arrayItem
     if (JSON.parse(localStorage.getItem("arrayShopCache")) === null) {
@@ -68,7 +76,16 @@ class App extends Component {
       const arrayShopCache = JSON.parse(localStorage.getItem("arrayShopCache"))
       arrayShop = []
       arrayShopCache.forEach(element => {
-        arrayShop.push(new Equipement(element.infos.name, element.infos.iconAdresse, element.type, element.life1, element.atk1, element.def1, element.dodge1, element.critical1, element.infos.description))
+        arrayShop.push(new Equipement(
+          element.infos.name,
+          element.infos.iconAdresse,
+          element.type,
+          element.life1,
+          element.atk1,
+          element.def1,
+          element.dodge1,
+          element.critical1,
+          element.infos.description))
       })
     }
   }

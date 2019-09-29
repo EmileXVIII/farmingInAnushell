@@ -9,7 +9,7 @@ class SlotObjet6 extends Component {
         super(props)
         this.element = ""
         this.state = {
-            item: arrayShop[4],
+            item: arrayShop[5],
         }
     }
 
@@ -69,8 +69,7 @@ class SlotObjet6 extends Component {
             this.element = ""
             ReactDOM.render(this.element, div)
         }
-
-
+        arrayShop[5] = ""
     }
 
     render() {
