@@ -29,7 +29,7 @@ class GamePage extends Component {
     constructor() {
         super()
         this.state = {
-            gameplayElement: 'inventary',
+            gameplayElement: 'room',
             combatInfo: 'Waiting...',
             playerTest: new Player('Player'),
             monsterTest: new Monster('Monster'),
@@ -37,7 +37,7 @@ class GamePage extends Component {
             playerHP: null,
             monsterHP: null,
             counter: 30,
-            gold: 5000000,
+            gold: 500,
             levelPlayer: 0,
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
@@ -127,12 +127,16 @@ class GamePage extends Component {
                     let name = resultIndex.name
                     let iconAdresse = resultIndex.urlIcon
                     let type = resultIndex.type
+                    let life = resultIndex.life
                     let atk = resultIndex.att
                     let def = resultIndex.def
                     let crit = resultIndex.crit
                     let dodge = resultIndex.dodg
                     let description = resultIndex.description
-                    let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge, description)
+                    let id = resultIndex.IdEquip
+                    let rarity = resultIndex.rarity
+                    let equip = new Equipement(name, iconAdresse, type, life, atk, def, dodge, crit, description, id, rarity)
+                    console.log(equip)
                     inventoryEquipementSaver.addOnFreePlace(equip)
                 }
             })
@@ -146,6 +150,7 @@ class GamePage extends Component {
                 let arrayEquiped = []
                 let finalArray = [null, null, null, null, null, null]
                 for (let i = 0; i < result.length; i++) {
+                    // console.log(result[i])
                     let resultIndex = result[i]
                     let name = resultIndex.name
                     let iconAdresse = resultIndex.urlIcon
@@ -156,7 +161,9 @@ class GamePage extends Component {
                     let crit = resultIndex.crit
                     let dodge = resultIndex.dodg
                     let description = resultIndex.description
-                    let equip = new Equipement(name, iconAdresse, type, life, atk, def, crit, dodge, description)
+                    let id = resultIndex.IdEquip
+                    let rarity = resultIndex.rarity
+                    let equip = new Equipement(name, iconAdresse, type, life, atk, def, crit, dodge, description, id, rarity)
                     arrayEquiped.push(equip)
                 }
 
@@ -199,7 +206,13 @@ class GamePage extends Component {
                 let xp = result.xp
                 let worldMax = result.worldMax
                 let level = result.level
-                this.setState({ gold: golds, xpPlayer: xp, levelPlayer: level })
+                let life = result.life
+                this.setState({
+                    gold: golds,
+                    xpPlayer: xp,
+                    levelPlayer: level,
+                    playerHP: life
+                })
                 for (let i = 1; i < worldMax; i++) {
                     this.state.worldLevelMax.push(i + 1)
                 }
@@ -501,7 +514,23 @@ class GamePage extends Component {
     }
 
     saveAll() {
-
+        saveplease(this.state.playerTest)
+        fetch(`http://${serveur}/perso`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: idPerso[0],
+                level: this.state.levelPlayer,
+                xp: this.state.xpPlayer,
+                golds: this.state.gold,
+                life: this.state.playerHP,
+                worldMax: this.state.worldLevelMax[this.state.worldLevelMax.length - 1]
+            })
+        }).catch(err => {
+            console.error(err)
+        })
     }
 
     render() {
@@ -518,7 +547,7 @@ class GamePage extends Component {
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
-                    <Button className="btn btn-logout btn-warning mt-3" onClick={() => saveplease(this.state.playerTest).bind(this)} >Save</Button>
+                    <Button className="btn btn-logout btn-warning mt-3" onClick={() => this.saveAll()} >Save</Button>
                     <a className="btn btn-logout btn-danger mt-3" onClick={() => (localStorage.clear())} href="/"  >Logout</a>
                 </div>
                 <div className="mt-5 border py-3  mx-3">

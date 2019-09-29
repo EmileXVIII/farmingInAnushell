@@ -1,8 +1,8 @@
 import Item from './Item'
 
 class Equipement extends Item {
-    constructor(name, iconAdresse, type, life, atk, def, dodge, critical, description, id) {
-        super(name, iconAdresse, description, id)
+    constructor(name, iconAdresse, type, life, atk, def, dodge, critical, description, id, rarity) {
+        super(name, iconAdresse, description, id, rarity)
         this.life1 = life
         this.atk1 = atk
         this.def1 = def

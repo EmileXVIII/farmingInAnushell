@@ -54,14 +54,14 @@ class App extends Component {
   async getItems() {
     const arrayItemdb = []
 
-    let resEquip = await Axios
+    let res = await Axios
       .get(`http://${serveur}/getItems`)
       .then(response => {
         // create an array of contacts only with relevant data
         const result = response.data.data;
         return result
       })
-    resEquip.forEach(element => {
+    res.forEach(element => {
       arrayItemdb.push(new Equipement(element.name,
         element.urlIcon,
         element.type,
@@ -72,6 +72,7 @@ class App extends Component {
         element.crit,
         element.description,
         element.IdEquip,
+        'Common'
       ))
     })
     let resExpendable = await Axios
@@ -115,6 +116,7 @@ class App extends Component {
             element.critical1,
             element.infos.description,
             element.infos.id,
+            element.infos.rarity
           ))
         } else { arrayShop.push(element) }
 

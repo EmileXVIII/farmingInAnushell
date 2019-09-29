@@ -56,7 +56,7 @@ app.get('/getExpendables', (req, res, next) => {
 
 app.get('/perso/lvl/gold/:id', (req, res, next) => {
     const id = req.params.id
-    dbConn.query("SELECT level, golds, worldMax, xp FROM Perso WHERE idPerso = ?", id, function (error, results, fields) {
+    dbConn.query("SELECT * FROM Perso WHERE idPerso = ?", id, function (error, results, fields) {
         if (error) return next(error);
         return res.send({ error: false, data: results, message: 'Lvl and gold' });
     });
@@ -91,23 +91,18 @@ app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
 });
 app.post('/inventory', (req, res, next) => {
     //IdPerso à stocker lors de la connection
-    const IdPerso = req.body.shift();
-    let listEquip = req.body;
+    const IdPerso = req.body.idPerso;
+    let listEquip = req.body.inventory;
     //expected : req.body = [IdPerso,...{id_equip,rarity}]
-    dbConn.query('DELETE FROM LienEquip WHERE id_perso=?', [IdPerso], function (error, results, fields) {
-        if (error) return next(error);
-        let listId;
-        getFreeIds('IdLienEquip', 'LienEquip', listEquip.length, (err, result) => {
-            err ? next(err) : listId = result;
-            for (let equip of listEquip) {
-                dbConn.query('INSERT INTO LienEquip (IdLienEquip,id_equip,id_perso,rarity,cost,location) VALUES (?, ?, ?, ?,?,0);', [listId.shift(), equip.id_equip, IdPerso, equip.rarity, equip.cost], function (error, results, fields, listRes2) {
-                    if (error) return next(error);
-                })
-            }
-            res.status = 200;
-            res.send()
+    dbConn.query('DELETE FROM LienEquip WHERE id_perso=? AND location=0', [IdPerso])
+    console.log(listEquip)
+    listEquip.forEach(equip => {
+        dbConn.query('INSERT INTO LienEquip (id_equip,id_perso,rarity,cost,location) VALUES (?, ?, ?, ?,0);', [equip.infos.id, IdPerso, equip.infos.rarity, equip.infos.cost], function (error, results, fields) {
+            // if (error) return next(error);
         })
-    })
+    });
+    res.status = 200;
+    res.send({ error: false, message: 'insert into user' })
 })
 
 app.post('/inventoryExpend', (req, res, next) => {
@@ -122,7 +117,7 @@ app.post('/inventoryExpend', (req, res, next) => {
         getFreeIds('IdLienEquip', 'LienEquip', listEquip.length, (err, result) => {
             err ? next(err) : listId = result;
             for (let equip of listEquip) {
-                dbConn.query(`INSERT INTO Expendable (IdExpendable,id_perso,${expectedValues.join(',')}) VALUES (?,?,${expectedValues.map(() => '?').join(',')});`, [listId.shift(), IdPerso, ...expectedValues.map((val) => listEquip[0][val])], function (error, results, fields, listRes2) {
+                dbConn.query(`INSERT INTO Expendable (IdExpendable,id_perso,${expectedValues.join(',')}) VALUES (?,?,${expectedValues.map(() => '?').join(',')});`, [listId.shift(), IdPerso, ...expectedValues.map((val) => listEquip[0][val])], function (error, results, fields) {
                     if (error) return next(error);
                 })
             }
@@ -134,34 +129,33 @@ app.post('/inventoryExpend', (req, res, next) => {
 
 app.post('/ItemsEquip', (req, res, next) => {
     //IdPerso à stocker lors de la connection
-    const IdPerso = req.body.shift();
-    let listEquip = req.body;
+    const IdPerso = req.body.idPerso;
+    let listEquip = req.body.equipedList[0];
     //expected : req.body = [IdPerso,...{id_equip,rarity}]
-    let listId;
-    getFreeIds('IdLienEquip', 'LienEquip', listEquip.length, (err, result) => {
-        err ? next(err) : listId = result;
-        for (let equip of listEquip) {
-            dbConn.query('INSERT INTO LienEquip (IdLienEquip,id_equip,id_perso,rarity,cost,location) VALUES (?, ?, ?, ?,?,1);', [listId.shift(), equip.id_equip, IdPerso, equip.rarity, equip.cost], function (error, results, fields, listRes2) {
-                if (error) return next(error);
-            })
-        }
-        res.status = 200;
-        res.send()
-    })
+    dbConn.query('DELETE FROM LienEquip WHERE id_perso=? AND location=1', [IdPerso])
+    // console.log(listEquip)
+    listEquip.forEach(equip => {
+        dbConn.query('INSERT INTO LienEquip (id_equip,id_perso,rarity,cost,location) VALUES (?, ?, ?, ?,1);', [equip.id_equip, IdPerso, equip.rarity, equip.cost], function (error, results, fields) {
+            // if (error) return next(error);
+        })
+    });
+    res.status = 200;
+    res.send({ error: false, message: 'insert into user' })
 })
 
 app.post('/perso', (req, res, next) => {
-    let expectedValues = ['level', 'golds', 'xp', 'worldMax'];
     //IdPerso à stocker lors de la connection
-    const IdPerso = req.body.shift();
-    let listStats = req.body;
+    const IdPerso = req.body.id;
+    let result = req.body;
+    console.log(result)
     //expected : req.body = [IdPerso,...{baseLife,baseAtt,baseDef,baseCrit,baseDodg,level,golds,status}]
-    let vals = expectedValues.join('=?,') + '=?'
-    dbConn.query(`UPDATE Perso SET ${vals} WHERE IdPerso=?`, [...expectedValues.map((val) => listStats[0][val]), IdPerso], function (error, results, fields, listRes2) {
-        if (error) return next(error);
-        res.status = 200;
-        res.send();
-    })
+    dbConn.query(`UPDATE Perso SET level = ?, xp = ?, golds = ?, worldMax = ?, life = ?  WHERE IdPerso=?`,
+        [result.level, result.xp, result.golds, result.worldMax, result.life, IdPerso],
+        function (error, results, fields) {
+            if (error) return next(error);
+            res.status = 200;
+            res.send();
+        })
 })
 
 
@@ -174,9 +168,10 @@ app.listen(PORT, () => {
     console.log('Serveur sur port : ', PORT)
 })
 
+
 function getFreeIds(idName, table, n, cb) {
     console.log(idName, table, n)
-    dbConn.query(`SELECT ${idName} FROM ${table} ORDER BY ${idName} ASC`, function (error, results, fields, listRes2) {
+    dbConn.query(`SELECT ${idName} FROM ${table} ORDER BY ${idName} ASC`, function (error, results, fields) {
         if (error) return cb(error);
         let listId = results,
             id = 1,

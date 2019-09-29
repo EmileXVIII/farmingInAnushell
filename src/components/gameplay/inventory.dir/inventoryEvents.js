@@ -5,7 +5,6 @@ import FreePotion from '../../items/expendable.dir/FreePotion';
 import { idPerso, inventoryEquipementSaver, inventoryExpendableSaver, serveur } from '../../../App';
 import { itemsEquips } from '../../GamePage';
 
-
 let getionnaireSelectionObjet = new SelectObject(),
     gestionnaireEvents = new MyEventListener(),
     gestionnaireFreePotions = new FreePotion();
@@ -17,17 +16,23 @@ gestionnaireFreePotions.process();
 function saveplease(perso) {
     let inventory = inventoryEquipementSaver.objects,
         inventoryEpend = inventoryExpendableSaver.objects,
-        itemsEquip = itemsEquips.listObj,
-        list = [];
-    list.push(inventory.map((obj) => obj ? ({
-        id_equip: obj.infos.id,
-        rarity: obj.infos.rarity
-    }) : undefined));
-    list[0] = list[0].filter((obj) => !!obj);
+        itemsEquip = itemsEquips.listObj;
 
-    console.log("test2", inventoryEpend)
-    list.push([])
-    // list.push(inventoryEpend.map(obj => obj ? ({
+    let inventoryList = []
+    inventory = inventory.filter(element => element !== undefined)
+    console.log("testsave", inventory, itemsEquip)
+    inventoryList.push(inventory.map((obj) => ({
+        id_equip: obj.infos.id,
+        rarity: obj.infos.rarity,
+        cost: obj.infos.cost
+    })));
+    inventoryList = inventoryList.filter((obj) => !!obj);
+
+    let expendablelist = []
+    console.log("test2", itemsEquip)
+
+    expendablelist.push([])
+    // expendablelist.push(inventoryEpend.map(obj => obj ? ({
     //     name: obj.infos.name,
     //     healValue: obj.effects.heal ? obj.effects.heal[1] : 0,
     //     attValue: obj.effects.BaseAtk ? obj.effects.BaseAtk[1] : 0,
@@ -37,13 +42,23 @@ function saveplease(perso) {
     //     rarity: obj.infos.rarity,
     //     urlIcon: obj.infos.iconAdresse
     // }) : undefined));
-    // list[1] = list[1].filter((obj) => !!obj);
-    list.push(itemsEquip.map((obj) => obj ? ({ id_equip: obj.infos.id, rarity: obj.infos.rarity }) : undefined));
-    list[2] = list[2].filter((obj) => !!obj);
-    POST('/inventory', [idPerso].concat(list.shift()));
-    // POST('/inventoryExpend', [idPerso].concat(list.shift()));
-    POST('/ItemsEquip', [idPerso].concat(list.shift()));
-    POST('/perso', [idPerso]);
+    // expendablelist = expendablelist.filter((obj) => !!obj);
+
+    let equipedList = []
+    equipedList.push(itemsEquip.map((obj) => ({
+        id_equip: obj.infos.id,
+        rarity: obj.infos.rarity,
+        cost: obj.infos.cost
+    })));
+    equipedList = equipedList.filter((obj) => !!obj);
+
+    console.log(JSON.stringify({ idPerso, inventoryList }))
+    console.log(JSON.stringify({ idPerso, equipedList }))
+
+    POST('/inventory', { idPerso, inventory });
+    // POST('/inventoryExpend', [idPerso].concat(expendablelist.shift()));
+    POST('/ItemsEquip', { idPerso, equipedList });
+    // POST('/perso', [idPerso].concat());
 }
 
 export { getionnaireSelectionObjet, gestionnaireEvents, gestionnaireFreePotions, saveplease };
