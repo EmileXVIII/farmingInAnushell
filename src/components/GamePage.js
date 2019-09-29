@@ -54,6 +54,7 @@ class GamePage extends Component {
         this.putMessage = this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
         this.loadSave()
+        this.lvlUp(this.state.playerTest)
         setTimeout(() => this.updateStats(this.state.playerTest), 500)
     }
     componentDidMount() {
@@ -206,6 +207,12 @@ class GamePage extends Component {
             .catch(error => console.log(error))
     }
 
+    lvlUp = (player) => {
+        player.stats.BaseAtk = player.stats.BaseAtk * 1.1 ** (this.stats.Level -1)
+        player.stats.BaseDef = player.stats.BaseDef * 1.1 ** (this.stats.Level -1)
+        player.stats.BaseLife = player.stats.BaseLife * 1.05 ** (this.stats.Level -1)
+    }
+
     putMessage(message) {
         this.setState({ combatInfo: message })
     }
@@ -346,10 +353,10 @@ class GamePage extends Component {
         else {
             this.setState({ displayMonster: "/img/monster.gif" })
             monster.stats.Life = 80 * this.state.currentWorld
-            monster.stats.Atk = monster.stats.BaseAtk + 20 * this.state.currentWorld
-            monster.stats.Def = monster.stats.BaseDef + 10 * this.state.currentWorld
-            monster.stats.Dodge = 50 * (this.state.currentWorld * 0.8)
-            monster.stats.Critical = 50 * (this.state.currentWorld * 0.8)
+            monster.stats.Atk = (monster.stats.BaseAtk * this.state.currentWorld) + (10 * player.stats.Level)
+            monster.stats.Def = (monster.stats.BaseDef * this.state.currentWorld) + (10 * player.stats.Level)
+            monster.stats.Dodge = (50 * this.state.currentWorld) + (10 * player.stats.Level)
+            monster.stats.Critical = (50 * this.state.currentWorld) + (10 * player.stats.Level)
             this.setState({ monsterHP: monster.stats.Life, combatInfo: 'Another monster is coming !' })
             setTimeout(() => callback(player.Attack(monster)), 1000)
         }
@@ -439,14 +446,20 @@ class GamePage extends Component {
             setTimeout(() => callback(boss.Attack(player)), 1000)
         }
         else {
-            const reward = new Weapon('Dragon sword')
-            reward.setRarity('Legendary')
-            reward.setDescription('Sword made with dragon tooth')
-            inventoryEquipementSaver.addOnFreePlace(reward)
+            const weaponDrop = player.randomInt(100)
+            if (weaponDrop <= 1 * this.state.currentWorld) {
+                const arrayType = ['Leggings', 'Helmet', 'Breastplate', 'Shield', 'Shoes', 'Weapon']
+                const typeRandom = player.randomInt(5)
+                const reward = new Weapon('Dragon sword', 'img/legendary.png', arrayType[typeRandom], 10, 10, 10, 10, 10, 'You are not gonna sell it')
+                inventoryEquipementSaver.addOnFreePlace(reward)
+                this.setState({ combatInfo: 'You did it. Congratulation ! You unlocked the next world ! ' + boss.stats.Username + ' left something...', counter: 0 })
+            }
+            else {
+                this.setState({ combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0 })
+            }           
             if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
             }
-            this.setState({ combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0 })
         }
     }
 
