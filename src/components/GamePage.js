@@ -455,7 +455,7 @@ class GamePage extends Component {
                 this.setState({ combatInfo: 'You did it. Congratulation ! You unlocked the next world ! ' + boss.stats.Username + ' left something...', counter: 0 })
             }
             else {
-                this.setState({ combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0 })
+                this.setState({ combatInfo: 'You did it. Congratulation ! You unlocked the next world !', counter: 0 })
             }           
             if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
