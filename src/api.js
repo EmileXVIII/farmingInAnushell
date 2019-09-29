@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     dbConn = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: 'azerty',
+        user: 'debian-sys-maint',
+        password: 'phrHtsSP5Hoq6EYl',
         database: 'farmingInAnutshell'
     });
     dbConn.connect();
