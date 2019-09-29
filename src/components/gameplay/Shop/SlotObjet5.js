@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import ReactDOM from 'react-dom'
 import { Button } from 'reactstrap';
 import { inventoryEquipementSaver, inventoryExpendableSaver, arrayItems, arrayShop } from "../../../App.js"
-import Equipement from "../../items/Equipement";
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 
 class SlotObjet5 extends Component {
@@ -76,8 +69,7 @@ class SlotObjet5 extends Component {
             this.element = ""
             ReactDOM.render(this.element, div)
         }
-
-
+        arrayShop[4] = ""
     }
 
     render() {

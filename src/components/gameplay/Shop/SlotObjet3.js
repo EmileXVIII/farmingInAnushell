@@ -75,8 +75,7 @@ class SlotObjet3 extends Component {
             this.element = ""
             ReactDOM.render(this.element, div)
         }
-
-
+        arrayShop[2] = ""
     }
 
     render() {
