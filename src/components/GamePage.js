@@ -173,7 +173,7 @@ class GamePage extends Component {
                     }
                 })
 
-                // for (let itemEquiped of arrayEquiped) {
+                // for (let itemEq uiped of arrayEquiped) {
                 //     switch (itemEquiped.type) {
                 //         case 'Leggings': finalArray[0] = itemEquiped; break;
                 //         case 'Helmet': finalArray[1] = itemEquiped; break;
