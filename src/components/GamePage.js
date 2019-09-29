@@ -18,7 +18,7 @@ import Shield from "./items/equipement.dir/Shield.js";
 import Shoes from "./items/equipement.dir/Shoes.js";
 import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
-import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
+import { gestionnaireEvents, saveplease } from "./gameplay/inventory.dir/inventoryEvents.js";
 import Boss3 from "./characters/Boss3.js";
 import { inventoryEquipementSaver, idPerso, serveur } from '../App.js'
 import axios from "axios";
@@ -55,6 +55,7 @@ class GamePage extends Component {
         this.changeImgSKill = this.changeImgSKill.bind(this)
         this.loadSave()
         this.lvlUp(this.state.playerTest)
+        console.log()
         setTimeout(() => this.updateStats(this.state.playerTest), 500)
     }
     componentDidMount() {
@@ -243,6 +244,7 @@ class GamePage extends Component {
         this.setState({ playerHP: this.state.playerTest.stats.Life })
         this.updateStats(this.state.playerTest);
     }
+
     updateStats = (player) => {
         this.getAtk(player)
         this.getDef(player)
@@ -518,10 +520,9 @@ class GamePage extends Component {
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
-                    <Button className="btn btn-logout btn-warning mt-3" >Save</Button>
+                    <Button className="btn btn-logout btn-warning mt-3" onClick={() => saveplease(this.state.playerTest).bind(this)} >Save</Button>
                     <a className="btn btn-logout btn-danger mt-3" onClick={() => (localStorage.clear())} href="/"  >Logout</a>
                 </div>
-
                 <div className="mt-5 border py-3  mx-3">
                     <Grid className="d-flex text-white">
                         {/*Game scene*/}
