@@ -18,11 +18,11 @@ class SlotObjet1 extends Component {
             <div>
                 <h4>{this.state.item.infos.name}</h4>
                 <p>{this.state.item.infos.description}</p>
-                <p>Atk :{this.state.item.atk1}</p>
-                <p>Def :{this.state.item.def1}</p>
-                <p>Crit :{this.state.item.critical1}</p>
-                <p>Dodge :{this.state.item.dodge1}</p>
-                <p>Life :{this.state.item.life1}</p>
+                <p>Atk :{this.state.item.atk}</p>
+                <p>Def :{this.state.item.def}</p>
+                <p>Crit :{this.state.item.critical}</p>
+                <p>Dodge :{this.state.item.dodge}</p>
+                <p>Life :{this.state.item.life}</p>
                 <p>Rarity :{this.state.item.infos.rarity}</p>
             </div>
         )

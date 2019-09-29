@@ -505,7 +505,7 @@ class GamePage extends Component {
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
-                    <Button className="btn btn-logout btn-warning mt-3" >Sauvegarder</Button>
+                    <Button className="btn btn-logout btn-warning mt-3" >Save</Button>
                     <a className="btn btn-logout btn-danger mt-3" onClick={() => (localStorage.clear())} href="/"  >Logout</a>
                 </div>
 

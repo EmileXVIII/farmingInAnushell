@@ -65,8 +65,11 @@ class App extends Component {
     if (JSON.parse(localStorage.getItem("arrayShopCache")) === null) {
       generateShop()
     } else {
-      arrayShop = JSON.parse(localStorage.getItem("arrayShopCache"))
-      console.log("Bonjour", arrayShop)
+      const arrayShopCache = JSON.parse(localStorage.getItem("arrayShopCache"))
+      arrayShop = []
+      arrayShopCache.forEach(element => {
+        arrayShop.push(new Equipement(element.infos.name, element.infos.iconAdresse, element.type, element.life1, element.atk1, element.def1, element.dodge1, element.critical1, element.infos.description))
+      })
     }
   }
 
