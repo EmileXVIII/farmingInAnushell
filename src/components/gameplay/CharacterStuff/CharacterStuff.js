@@ -30,9 +30,9 @@ class CharacterStuff extends Component {
 
     render() {
         return (
-            <div id="Character">
+            <div id="CharacterStuffDiv">
                 <h3 className="text-center">Character</h3>
-                <div class="character">
+                <div className="character">
                     <div className="row">
                         {/* map arrayItem in GamePage*/}
                         {this.props.items.map((item) =>
@@ -51,7 +51,7 @@ class CharacterStuff extends Component {
                         )}
                     </div>
                     <div className="row d-flex justify-content-around">
-                        <div className="border focus-item-character mt-3 text-center">
+                        <div className="focus-item-character mt-3 text-center">
                             <div className="container text-center">
                                 {(() => {
                                     if (isEmpty(this.state.item)) {
@@ -69,7 +69,7 @@ class CharacterStuff extends Component {
                                             <div>
                                                 <div className="row">
                                                     <div className="col-4">
-                                                        <img style={style} className="rounded border" width="120" src={item.infos.iconAdresse} />
+                                                        <img style={style} className="rounded" width="120" src={item.infos.iconAdresse} alt="Item character" />
                                                     </div>
                                                     <div className="col-8">
                                                         <b>{item.infos.name}</b>
@@ -89,7 +89,7 @@ class CharacterStuff extends Component {
                                 })()}
                             </div>
                         </div>
-                        <div className="element-character border">
+                        <div className="element-character">
                             {/* Image */}
                         </div>
                     </div>
@@ -101,10 +101,10 @@ class CharacterStuff extends Component {
                                 <li>Atk : {this.props.player.stats.Atk}</li>
                                 <li>Def : {this.props.player.stats.Def}</li>
                                 <li>Dodge : {this.props.player.stats.Dodge / 100}%</li>
-                                <li>Critical : {this.props.player.stats.Critical / 100}%</li><br/>
+                                <li>Critical : {this.props.player.stats.Critical / 100}%</li><br />
                                 <li>Xp : {this.props.player.stats.Xp} / {300 * this.props.player.stats.Level}</li>
                                 <li>Level : {this.props.player.stats.Level} </li>
-                            </ul>       
+                            </ul>
                         </div>
                         <div className="col">
                             <p>Skills</p>

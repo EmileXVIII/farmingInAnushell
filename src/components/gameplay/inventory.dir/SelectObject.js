@@ -87,6 +87,7 @@ class SelectObject {
                     return this.usePotion();
                 case 'm':
                     return this.addToMerger();
+                default: return false;
             }
         }
         return false;

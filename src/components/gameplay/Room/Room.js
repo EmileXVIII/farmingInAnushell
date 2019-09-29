@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Input, Label } from 'reactstrap'
+import { Button, Label } from 'reactstrap'
+import Dashboard from './Dashboard'
 
 class Room extends Component {
     state = {
@@ -35,16 +36,25 @@ class Room extends Component {
                 </header>
                 <div id="list-pseudo">
                     <h4>Joueur</h4>
-                    <ul>
-                        <li>Joueur 1</li>
-                        <li>Joueur 2</li>
-                        <li>Joueur 3</li>
-                        <li>Joueur 4</li>
-                    </ul>
-                    <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button> <br/><br/><br/>
-                    <Button onClick={this.props.startGame}>Farm</Button> <br/><br/><br/>
-                    <Button onClick={this.props.startBoss}>Fight boss</Button> <br/><br/><br/>
-                    <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
+                    <Dashboard />
+                    <div className=" row h-30">
+                        <div className="col w-100">
+                            <Button id="ready-button" color={this.state.rdyBtnColor} onClick={this.onClickReady} >Ready</Button>
+                        </div>
+                        <div className="col w-100">
+                            <Button onClick={this.props.startGame}>Farm</Button>
+                        </div>
+                        <div className="col w-100">
+                            <Button onClick={this.props.startBoss}>Fight boss</Button>
+                        </div>
+                        <div className="col w-100">
+                            <Button color="success" onClick={this.props.selfHealing}>Free potion</Button>
+                        </div>
+                    </div>
+
+
+
+
                 </div>
             </div >
         )

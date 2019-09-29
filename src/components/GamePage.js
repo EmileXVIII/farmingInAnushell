@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Cell } from 'react-mdl'
-import { Col, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import CharacterStuff from "./gameplay/CharacterStuff/CharacterStuff.js";
 import Wrought from "./gameplay/Wrought";
 import Shop from "./gameplay/Shop/Shop";
@@ -10,8 +10,6 @@ import Monster from "./characters/Monster"
 import Boss1 from "./characters/Boss1"
 import Boss2 from "./characters/Boss2"
 import InventoryModule from "./gameplay/InventoryModule";
-import soundfile from "../music/blackeyedpeas.mp3"
-import Sound from "react-sound"
 import Equipement from "./items/Equipement"
 import Leggings from "./items/equipement.dir/Leggings.js";
 import Helmet from "./items/equipement.dir/Helmet.js";
@@ -22,7 +20,8 @@ import Weapon from "./items/equipement.dir/Weapon.js";
 import SaverItemEquip from "./gameplay/CharacterStuff/SaverItemsEquip.js";
 import { gestionnaireEvents } from "./gameplay/inventory.dir/inventoryEvents.js";
 import Boss3 from "./characters/Boss3.js";
-import { inventoryEquipementSaver, idPerso } from '../App.js'
+import { inventoryEquipementSaver, idPerso, serveur } from '../App.js'
+import axios from "axios";
 
 let itemsEquips = new SaverItemEquip(new Leggings('Leggings'), new Helmet('Helmet'), new Breastplate('Breastplate'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'))
 
@@ -42,35 +41,35 @@ class GamePage extends Component {
             levelPlayer: 0,
             xpPlayer: 0,
             arrayItem: itemsEquips.listObj,
+            displayPlayer: "img/player.gif",
             displayMonster: "/img/monster.gif",
             displaySkill: '',
             worldLevelMax: [1],
             keyPad: "/img/monster.gif",
             currentWorld: 1,
-            isFarming : false
+            isFarming: false
         }
-        console.log('User :',this.state.playerTest.Username)
-        itemsEquips.username=this.state.playerTest.Username;
-        console.log('Usename :',itemsEquips.username)
+        itemsEquips.username = this.state.playerTest.Username;
         this.lostGold = this.lostGold.bind(this)
         this.putMessage = this.putMessage.bind(this)
         this.changeImgSKill = this.changeImgSKill.bind(this)
-        this.updateStats(this.state.playerTest)
+        this.loadSave()
+        setTimeout(() => this.updateStats(this.state.playerTest), 500)
     }
     componentDidMount() {
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
-        gestionnaireEvents.on('sellItem',this.lostGold);
-        gestionnaireEvents.on('newCombatInfo',this.putMessage);
-        gestionnaireEvents.on('updateStateGamePage',this.updateState);
-        gestionnaireEvents.on('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
-        itemsEquips.username=this.state.playerTest.Username
+        gestionnaireEvents.on('sellItem', this.lostGold);
+        gestionnaireEvents.on('newCombatInfo', this.putMessage);
+        gestionnaireEvents.on('updateStateGamePage', this.updateState);
+        gestionnaireEvents.on('newFreePotionImg', (keyPadUrlImg) => this.setState({ keyPad: keyPadUrlImg }))
+        itemsEquips.username = this.state.playerTest.Username
     }
     componentWillUnmount() {
         gestionnaireEvents.off('sellItem', this.lostGold)
         gestionnaireEvents.off('newCombatInfo', this.putMessage)
         gestionnaireEvents.off('displaySkill', this.changeImgSKill)
-        gestionnaireEvents.off('updateStateGamePage',this.updateState)
-        gestionnaireEvents.off('newFreePotionImg',(keyPadUrlImg)=>this.setState({keyPad : keyPadUrlImg}))
+        gestionnaireEvents.off('updateStateGamePage', this.updateState)
+        gestionnaireEvents.off('newFreePotionImg', (keyPadUrlImg) => this.setState({ keyPad: keyPadUrlImg }))
     }
 
     changeImgSKill(img) {
@@ -106,18 +105,114 @@ class GamePage extends Component {
             case 'room':
                 return (
                     <div>
-                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} startBoss={() => this.checkPlayerAliveBoss(this.state.playerTest, this.state.bossTest[this.state.currentWorld - 1])} selfHealing={() => this.healMySelf(this.state.playerTest)} worldLevelMax={this.state.worldLevelMax} lowerCurrentWorld={() => this.lowerCurrentWorld()} upCurrentWorld={() => this.upCurrentWorld()}/>
+                        <Room startGame={() => this.checkPlayerAlive(this.state.playerTest, this.state.monsterTest)} startBoss={() => this.checkPlayerAliveBoss(this.state.playerTest, this.state.bossTest[this.state.currentWorld - 1])} selfHealing={() => this.healMySelf(this.state.playerTest)} worldLevelMax={this.state.worldLevelMax} lowerCurrentWorld={() => this.lowerCurrentWorld()} upCurrentWorld={() => this.upCurrentWorld()} />
                     </div>
                 )
         }
     }
+
+    loadSave = () => {
+        this.loadInventory()
+        this.loadEquiped()
+        this.loadStats()
+    }
+
+    loadInventory = () => {
+        axios.get(`http://${serveur}/lienequip/false/${idPerso[0]}`)
+            .then(response => {
+                const result = response.data.data
+                for (let i = 0; i < result.length; i++) {
+                    let resultIndex = result[i]
+                    let name = resultIndex.name
+                    let iconAdresse = resultIndex.urlIcon
+                    let type = resultIndex.type
+                    let atk = resultIndex.att
+                    let def = resultIndex.def
+                    let crit = resultIndex.crit
+                    let dodge = resultIndex.dodg
+                    let description = resultIndex.description
+                    let equip = new Equipement(name, iconAdresse, type, atk, def, crit, dodge, description)
+                    inventoryEquipementSaver.addOnFreePlace(equip)
+                }
+            })
+            .catch(error => console.log(error))
+    }
+
+    loadEquiped = () => {
+        axios.get(`http://${serveur}/lienequip/true/${idPerso[0]}`)
+            .then(response => {
+                const result = response.data.data
+                let arrayEquiped = []
+                let finalArray = [null, null, null, null, null, null]
+                for (let i = 0; i < result.length; i++) {
+                    let resultIndex = result[i]
+                    let name = resultIndex.name
+                    let iconAdresse = resultIndex.urlIcon
+                    let type = resultIndex.type
+                    let life = resultIndex.life
+                    let atk = resultIndex.att
+                    let def = resultIndex.def
+                    let crit = resultIndex.crit
+                    let dodge = resultIndex.dodg
+                    let description = resultIndex.description
+                    let equip = new Equipement(name, iconAdresse, type, life, atk, def, crit, dodge, description)
+                    arrayEquiped.push(equip)
+                }
+
+                arrayEquiped.forEach((itemEquiped) => {
+                    switch (itemEquiped.type) {
+                        case 'Leggings': finalArray[0] = itemEquiped; break;
+                        case 'Helmet': finalArray[1] = itemEquiped; break;
+                        case 'Breastplate': finalArray[2] = itemEquiped; break;
+                        case 'Shield': finalArray[3] = itemEquiped; break;
+                        case 'Shoes': finalArray[4] = itemEquiped; break;
+                        case 'Weapon': finalArray[5] = itemEquiped; break;
+                        default: break;
+                    }
+                })
+
+                // for (let itemEquiped of arrayEquiped) {
+                //     switch (itemEquiped.type) {
+                //         case 'Leggings': finalArray[0] = itemEquiped; break;
+                //         case 'Helmet': finalArray[1] = itemEquiped; break;
+                //         case 'Breastplate': finalArray[2] = itemEquiped; break;
+                //         case 'Shield': finalArray[3] = itemEquiped; break;
+                //         case 'Shoes': finalArray[4] = itemEquiped; break;
+                //         case 'Weapon': finalArray[5] = itemEquiped; break;
+                //         default: break;
+                //     }
+                // }
+                itemsEquips.listObj = finalArray
+                this.setState({
+                    arrayItem: itemsEquips.listObj
+                })
+            })
+            .catch(error => console.log(error))
+    }
+
+    loadStats = () => {
+        axios.get(`http://${serveur}/perso/lvl/gold/${idPerso[0]}`)
+            .then(response => {
+                const result = response.data.data[0]
+                let golds = result.golds
+                let xp = result.xp
+                let worldMax = result.worldMax
+                let level = result.level
+                this.setState({ gold: golds, xpPlayer: xp, levelPlayer: level })
+                for (let i = 1; i < worldMax; i++) {
+                    this.state.worldLevelMax.push(i + 1)
+                }
+            })
+            .catch(error => console.log(error))
+    }
+
     putMessage(message) {
         this.setState({ combatInfo: message })
     }
 
     lowerCurrentWorld = () => {
-        if (this.state.currentWorld == 1) {
-            this.setState({combatInfo: 'Cant go lower'})
+        if (this.state.currentWorld === 1) {
+            this.setState({ combatInfo: 'Cant go lower' })
         }
         else {
             this.setState(prevState => ({
@@ -127,17 +222,17 @@ class GamePage extends Component {
     }
 
     upCurrentWorld = () => {
-        if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
-            this.setState({combatInfo: 'You need to kill the boss to go to the next world'})
+        if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
+            this.setState({ combatInfo: 'You need to kill the boss to go to the next world' })
         }
         else {
             this.setState(prevState => ({
                 currentWorld: prevState.currentWorld + 1, combatInfo: 'Going to the next world'
-              }));
+            }));
         }
     }
 
-    updateState = ()=>{
+    updateState = () => {
         this.setState({ playerHP: this.state.playerTest.stats.Life })
         this.updateStats(this.state.playerTest);
     }
@@ -147,6 +242,9 @@ class GamePage extends Component {
         this.getDodge(player)
         this.getCritical(player)
         this.getLife(player)
+        player.stats.Level = this.state.levelPlayer
+        player.stats.Xp = this.state.xpPlayer
+        player.stats.Gold = this.state.gold
     }
     getAtk(player) {
         var resultAtk = Math.round(player.stats.BaseAtk)
@@ -215,7 +313,7 @@ class GamePage extends Component {
     }
 
     createCombat = (player, monster, callback) => {
-        if (this.state.isFarming == true) {
+        if (this.state.isFarming === true) {
             this.setState({ playerHP: player.stats.Life })
             this.setState({ monsterHP: monster.stats.Life })
 
@@ -229,11 +327,11 @@ class GamePage extends Component {
                 const goldLost = Math.round(player.stats.Gold / 10)
                 player.stats.Gold -= goldLost
                 this.setState({ gold: player.stats.Gold, combatInfo: 'You are dead. Heal yourself before going back. You killed ' + this.state.counter + ' monster. You lost ' + goldLost + ' gold.' })
-                this.setState((prevState) => ({isFarming: !prevState.isFarming}))
+                this.setState((prevState) => ({ isFarming: !prevState.isFarming }))
             }
         }
         else {
-            this.setState({combatInfo: 'Farm interrupted...'})
+            this.setState({ combatInfo: 'Farm interrupted...' })
         }
     }
 
@@ -246,7 +344,7 @@ class GamePage extends Component {
             setTimeout(() => callback(player.Attack(monster)), 1000)
         }
         else {
-            this.setState({displayMonster: "/img/monster.gif"})
+            this.setState({ displayMonster: "/img/monster.gif" })
             monster.stats.Life = 80 * this.state.currentWorld
             monster.stats.Atk = monster.stats.BaseAtk + 20 * this.state.currentWorld
             monster.stats.Def = monster.stats.BaseDef + 10 * this.state.currentWorld
@@ -270,25 +368,25 @@ class GamePage extends Component {
             player.stats.Xp = this.state.xpPlayer
             if (player.stats.Xp >= 300 * player.stats.Level) {
                 player.stats.Level += 1
-                this.setState({ xpPlayer: 0 })
+                this.setState({ xpPlayer: 0, levelPlayer: player.stats.Level })
                 player.stats.Xp = this.state.xpPlayer
                 player.stats.BaseAtk *= 1.1
                 player.stats.BaseDef *= 1.1
                 player.stats.BaseLife *= 1.05
                 this.updateStats(player)
-                this.setState({displayMonster: '/img/monsterdead.gif'})
+                this.setState({ displayMonster: '/img/monsterdead.gif' })
                 setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold. Level up !'), 1000)
             }
             else {
-                this.setState({displayMonster: '/img/monsterdead.gif'})
+                this.setState({ displayMonster: '/img/monsterdead.gif' })
                 setTimeout(() => callback('You killed a monster. You earned ' + goldEarned + ' gold and ' + xpEarned + ' XP.'), 1000)
-            }   
+            }
         }
     }
 
     checkPlayerAlive = (player, monster) => {
         if (player.stats.Alive) {
-            this.setState({displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming})
+            this.setState({ displayMonster: "/img/monster.gif", isFarming: !this.state.isFarming })
             setTimeout(() => this.testCombat2(player, monster, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
         }
         else {
@@ -300,7 +398,7 @@ class GamePage extends Component {
         if (this.state.counter >= 30) {
             if (player.stats.Alive) {
                 boss.stats.Life = boss.stats.BaseLife
-                this.setState({combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img})
+                this.setState({ combatInfo: 'The ultimate battle begin !', displayMonster: boss.stats.Img })
                 setTimeout(() => this.testCombatBoss(player, boss, messageInfo => { this.setState({ combatInfo: messageInfo }) }), 1000)
             }
             else {
@@ -308,24 +406,24 @@ class GamePage extends Component {
             }
         }
         else {
-            this.setState({combatInfo: 'You need to kill 30 monsters to fight the boss'})
+            this.setState({ combatInfo: 'You need to kill 30 monsters to fight the boss' })
         }
-        
+
     }
 
     createCombatBoss = (player, boss, callback) => {
-            this.setState({ playerHP: player.stats.Life })
-            this.setState({ monsterHP: boss.stats.Life })
-            if (player.stats.Alive) {
-                    setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)       
-            } else {
-                player.stats.Gold = this.state.gold
-                const goldLost = Math.round(player.stats.Gold / 10)
-                player.stats.Gold -= goldLost
-                this.setState({ gold: player.stats.Gold, })
-                setTimeout(() => this.setState({ combatInfo: 'You got destroyed. ' + boss.stats.Username + ' stole you ' + goldLost + ' gold.' }), 1000) 
-            }
-        
+        this.setState({ playerHP: player.stats.Life })
+        this.setState({ monsterHP: boss.stats.Life })
+        if (player.stats.Alive) {
+            setTimeout(() => callback('Your hands are shaking but you can\'t go back'), 1000)
+        } else {
+            player.stats.Gold = this.state.gold
+            const goldLost = Math.round(player.stats.Gold / 10)
+            player.stats.Gold -= goldLost
+            this.setState({ gold: player.stats.Gold, })
+            setTimeout(() => this.setState({ combatInfo: 'You got destroyed. ' + boss.stats.Username + ' stole you ' + goldLost + ' gold.' }), 1000)
+        }
+
     }
 
     bossAlive = (player, boss, callback) => {
@@ -344,12 +442,11 @@ class GamePage extends Component {
             const reward = new Weapon('Dragon sword')
             reward.setRarity('Legendary')
             reward.setDescription('Sword made with dragon tooth')
-            reward.atk = 50
             inventoryEquipementSaver.addOnFreePlace(reward)
-            if (this.state.currentWorld == this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
+            if (this.state.currentWorld === this.state.worldLevelMax[this.state.worldLevelMax.length - 1]) {
                 this.state.worldLevelMax.push(this.state.worldLevelMax[this.state.worldLevelMax - 1] + 1)
             }
-            this.setState({combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0})
+            this.setState({ combatInfo: 'You did it. Congratulation ! You got the Legendary Dragon sword. You unlocked the next world !', counter: 0 })
         }
     }
 
@@ -390,11 +487,11 @@ class GamePage extends Component {
         })
     }
 
+    saveAll() {
 
+    }
 
     render() {
-        this.updateStats(this.state.playerTest)
-        console.log(idPerso)
         return (
             <div>
                 {/* <Sound
@@ -408,7 +505,8 @@ class GamePage extends Component {
                     <h1 className="my-3 text-white text-center">Farming in a Nutshell</h1>
                     <p className="my-3 text-white text-center"> Current world : {this.state.currentWorld}</p>
                     <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
-                    <a className="btn btn-logout btn-warning mt-3" href="/">Logout</a>
+                    <Button className="btn btn-logout btn-warning mt-3" >Sauvegarder</Button>
+                    <a className="btn btn-logout btn-danger mt-3" onClick={() => (localStorage.clear())} href="/"  >Logout</a>
                 </div>
 
                 <div className="mt-5 border py-3  mx-3">
@@ -416,35 +514,37 @@ class GamePage extends Component {
                         {/*Game scene*/}
                         <div className="border col-6">
                             <div className=" row h-30">
-                                <div className="col w-100 text-center">
-                                    <img className="displaySkill" src={this.state.displaySkill} />
-                                </div>
                                 <div className="col w-100">
-                                    <img src={this.state.displayMonster} />
+                                    <img className="imgbottom" src={this.state.displayPlayer} alt="Player" />
+                                </div>
+                                <div className="col w-100 text-center">
+                                    <img width="200px" className="displaySkill" src={this.state.displaySkill} alt="" />
+                                </div>
+                                <div className="col w-100 ">
+                                    <img src={this.state.displayMonster} alt="Monster" />
                                 </div>
                             </div>
-                            <img width="700" src="/img/player.png" />
-                            <img src={this.state.keyPad} alt='lol' width={50} height={50}></img>
+                            {/* <img src={this.state.keyPad} alt='lol' width={50} height={50}></img> */}
                             <div className="gameplay-infos border py-3 px-3">
-                                <a>{this.state.combatInfo}</a>
+                                <p>{this.state.combatInfo}</p>
                             </div>
                             <br />
                             <div className="d-flex justify-content-around">
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Player HP : {this.state.playerHP}</a>
+                                    <p>Player HP : {this.state.playerHP}</p>
                                 </div>
                                 <br />
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Monster HP : {this.state.monsterHP}</a>
+                                    <p>Monster HP : {this.state.monsterHP}</p>
                                 </div>
                             </div>
                             <br />
                             <div className="d-flex justify-content-around">
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Gold : {Math.round(this.state.gold)}</a>
+                                    <p>Gold : {Math.round(this.state.gold)}</p>
                                 </div>
                                 <div className="gameplay-infos border py-3 px-3 col">
-                                    <a>Monster killed : {this.state.counter}</a>
+                                    <p>Monster killed : {this.state.counter}</p>
                                 </div>
                             </div>
                         </div>

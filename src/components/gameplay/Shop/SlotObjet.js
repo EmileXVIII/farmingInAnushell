@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
-import Helmet from '../../items/equipement.dir/Helmet'
-import Leggings from '../../items/equipement.dir/Leggings'
-import Breastplate from '../../items/equipement.dir/Breastplate'
-import Shield from '../../items/equipement.dir/Shield'
-import Shoes from '../../items/equipement.dir/Shoes'
-import Weapon from '../../items/equipement.dir/Weapon'
 import { Button } from 'reactstrap';
-import { inventoryEquipementSaver, inventoryExpendableSaver } from "../../../App.js"
-import { newbaseHealPotion, newbaseAttPotion, newbaseCritPotion, newbaseDefPotion, newbaseDodgPotion } from "../../items/expendable.dir/functionsPotion";
+import { inventoryEquipementSaver, inventoryExpendableSaver, arrayItems } from "../../../App.js"
+import Equipement from "../../items/Equipement";
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -27,10 +21,14 @@ class SlotObjet extends Component {
     }
 
     generate() {
-        const arrayItem = [new Leggings('Legs'), new Helmet('Helmet'), new Breastplate('Breast'), new Shield('Shield'), new Shoes('Shoes'), new Weapon('Weapon'),newbaseHealPotion(),newbaseAttPotion(),newbaseCritPotion(),newbaseDefPotion(),newbaseDodgPotion()]
-        const rand = getRandomIntInclusive(0, arrayItem.length-1)
+        const arrayItem = []
+        arrayItems.forEach(element => {
+            arrayItem.push(new Equipement(element.name, element.urlIcon, element.type, element.life, element.att, element.def, element.dodg, element.crit, element.description))
+        })
+        const rand = getRandomIntInclusive(0, arrayItem.length - 1)
         return arrayItem[rand]
     }
+
 
     Desc = () => {
         const div = document.getElementById("Shop-Description")
@@ -66,8 +64,8 @@ class SlotObjet extends Component {
             return (
                 <Button onClick={() => this.buyItem()} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                     <h6>{this.state.item.infos.name}</h6>
-                    <img width='30px' src={this.state.item.infos.iconAdresse}/>
-                    <br/><br/><br/>
+                    <img width='30px' src={this.state.item.infos.iconAdresse} alt="Random Item" />
+                    <br /><br /><br />
                     <p className="cost" >{this.state.item.infos.cost} <img src="img/CoinIcon.png" alt="Coin Icon" width="20" height="20" /></p>
                 </Button>
             )
@@ -87,8 +85,8 @@ class SlotObjet extends Component {
             this.element = ""
             ReactDOM.render(this.element, div)
         }
-        
-        
+
+
     }
 
     render() {

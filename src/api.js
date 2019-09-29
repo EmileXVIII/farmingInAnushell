@@ -11,7 +11,7 @@ app.use(function (req, res, next) {
     dbConn = mysql.createConnection({
         host: 'localhost',
         user: 'debian-sys-maint',
-        password: 'U8XkMMSTUVx2VgXu',
+        password: 'U8XkMMSTUVx2VgXu',//'phrHtsSP5Hoq6EYl',
         database: 'farmingInAnutshell'
     });
     dbConn.connect();
@@ -34,11 +34,44 @@ app.use(cors())
 
 app.get('/user/:email/pwd', (req, res, next) => {
     const email = req.params.email
-    dbConn.query("SELECT Perso.IdPerso, User.mdp FROM User inner join Perso on IdUser=id_user WHERE User.email = ?", email, function (error, results, fields) {
+    dbConn.query("SELECT Perso.IdPerso, User.mdp, User.pseudo FROM User inner join Perso on IdUser=id_user WHERE User.email = ?", email, function (error, results, fields) {
         if (error) return next(error);
         return res.send({ error: false, data: results, message: 'user pwd' });
     });
 });
+
+app.get('/getItems', (req, res, next) => {
+    dbConn.query("SELECT * from Equipement", function (error, results, fields) {
+        if (error) return next(error);
+        return res.send({ error: false, data: results, message: 'Equipement' });
+    });
+});
+
+app.get('/perso/lvl/gold/:id', (req, res, next) => {
+    const id = req.params.id
+    dbConn.query("SELECT level, golds, worldMax, xp FROM Perso WHERE idPerso = ?", id, function (error, results, fields) {
+        if (error) return next(error);
+        return res.send({ error: false, data: results, message: 'Lvl and gold' });
+    });
+});
+
+
+app.get('/lienequip/true/:id', (req, res, next) => {
+    const id = req.params.id
+    dbConn.query("SELECT * FROM LienEquip INNER JOIN Equipement ON Equipement.IdEquip = id_equip WHERE location = 1 AND id_perso = ? ", id, function (error, results, fields) {
+        if (error) return next(error);
+        return res.send({ error: false, data: results, message: 'stuff equiped' });
+    });
+});
+
+app.get('/lienequip/false/:id', (req, res, next) => {
+    const id = req.params.id
+    dbConn.query("SELECT * FROM LienEquip INNER JOIN Equipement ON Equipement.IdEquip = id_equip WHERE location = 0 AND id_perso = ?", id, function (error, results, fields) {
+        if (error) return next(error);
+        return res.send({ error: false, data: results, message: 'inventory stuff' });
+    });
+});
+
 
 app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
     const email = req.params.email
@@ -46,7 +79,7 @@ app.post('/userpost/:email/:username/:mdp', (req, res, next) => {
     const mdp = req.params.mdp
     dbConn.query("insert into User (email, pseudo, mdp) values (?, ?, ?)", [email, username, mdp], function (error, results, fields) {
         if (error) return next(error);
-        res.send({ error: false, data: results, message: 'users list.' });
+        res.send({ error: false, data: results, message: 'insert into user' });
     });
 
 });

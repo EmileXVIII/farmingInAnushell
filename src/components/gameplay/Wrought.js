@@ -1,15 +1,7 @@
 import React, { Component } from "react";
-import Item from "../items/Item";
-import Leggings from "../items/equipement.dir/Leggings";
-import Helmet from "../items/equipement.dir/Helmet";
-import Breastplate from "../items/equipement.dir/Breastplate";
-import Shield from "../items/equipement.dir/Shield";
-import Shoes from "../items/equipement.dir/Shoes";
-import Weapon from "../items/equipement.dir/Weapon";
-
 
 let style = {
-    backgroundColor : ''
+    backgroundColor: ''
 }
 
 let colorStyle = {
@@ -26,11 +18,11 @@ let cost = 150
 
 // Get rarety/color association
 let RARITY = {
-    'Common' : 'white', 
-    'Uncommon' : 'green',
-    'Rare' : 'blue', 
-    'Epic' : 'purple', 
-    'Legendary' : 'goldenrod'
+    'Common': 'white',
+    'Uncommon': 'green',
+    'Rare': 'blue',
+    'Epic': 'purple',
+    'Legendary': 'goldenrod'
 }
 
 
@@ -48,7 +40,7 @@ class Wrought extends Component {
     constructor() {
         super()
         this.state = {
-            item : {}
+            item: {}
         }
     }
 
@@ -68,25 +60,25 @@ class Wrought extends Component {
 
             //Props -> check Gamepage
             this.props.upgradeItem(item.infos.name)
-        }       
+        }
     }
 
     render() {
-        return(
-            <div className="wrought-content border">
+        return (
+            <div className="wrought-content">
                 <h3 className="text-center mb-3">Wrought</h3>
-                <div class="text-center  border">
+                <div className="text-center">
                     {(() => {
-                        if(isEmpty(this.state.item)) {
-                            return(
+                        if (isEmpty(this.state.item)) {
+                            return (
                                 <div>
-                                    <div className="mb-3 div-center carre border"></div>
+                                    <div className="mb-3 div-center carre"></div>
                                 </div>
                             )
                         } else {
                             let item = this.state.item
                             let futurRarity = this.getNextRarity(this.state.item)
-                            futurCost = cost*futurRarity**futurRarity
+                            futurCost = cost * futurRarity ** futurRarity
 
                             if (futurRarity > 4) {
                                 document.getElementById("upgrade-button").disabled = true;
@@ -95,29 +87,29 @@ class Wrought extends Component {
                             } else {
                                 document.getElementById("upgrade-button").disabled = false;
                                 futurRarity = this.state.item.getRarityArray()[futurRarity]
-                                
+
                             }
 
                             style = {
-                                backgroundColor : RARITY[item.infos.rarity]
+                                backgroundColor: RARITY[item.infos.rarity]
                             }
                             colorStyle = {
-                                color : RARITY[item.infos.rarity]
+                                color: RARITY[item.infos.rarity]
                             }
                             nextColorStyle = {
-                                color : RARITY[futurRarity] 
+                                color: RARITY[futurRarity]
                             }
 
-                            return(
-                                <div>        
+                            return (
+                                <div>
                                     <div className="forge">
-                                        <img style={style} className="rounded" width="100" src={item.infos.iconAdresse}/>
+                                        <img style={style} className="rounded" width="100" src={item.infos.iconAdresse} alt="item in the forge" />
                                     </div>
-                                    <div class="medium-div-center mt-3  border">
+                                    <div className="medium-div-center mt-3  border">
                                         <p>Current rarity : <span style={colorStyle}>{item.infos.rarity}</span></p>
                                         <p>Next level : <span style={nextColorStyle}>{futurRarity}</span></p>
-                                        <p>Cost <span>{futurCost}</span> 
-                                            <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40"/>
+                                        <p>Cost <span>{futurCost}</span>
+                                            <img src="https://cdn0.iconfinder.com/data/icons/cash-card-starters-colored/48/JD-02-512.png" width="40" alt="coins" />
                                         </p>
                                     </div>
                                 </div>
@@ -125,27 +117,27 @@ class Wrought extends Component {
                         }
                     })()}
                 </div>
-            
+
                 <form>
                     <div className="text-center border center-div">
                         {/* map arrayItem in GamePage*/}
-                            {this.props.items.map((item) => 
-                                <img 
-                                onClick={() => this.setState({ item : item})} 
-                                title={item.infos.name} 
-                                data-toggle="tooltip" 
-                                data-placement="top" 
-                                className="onHover mx-3 my-3 border" 
-                                width="75" 
+                        {this.props.items.map((item) =>
+                            <img
+                                onClick={() => this.setState({ item: item })}
+                                title={item.infos.name}
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                className="onHover mx-3 my-3 border"
+                                width="75"
                                 alt="item-icon"
-                                src={item.infos.iconAdresse} 
+                                src={item.infos.iconAdresse}
                                 key={item.infos.id}
                             />
-                            )}
+                        )}
                     </div>
-                    </form>
+                </form>
                 <div className="forge-buttton text-center mt-3 pb-5 d-flex justify-content-around">
-                    <button onClick={() => {this.upgradeItem(this.state.item, futurCost); this.props.updateStats()}} type="button" id="upgrade-button" className="btn btn-outline-info"> Upgrade </button>
+                    <button onClick={() => { this.upgradeItem(this.state.item, futurCost); this.props.updateStats() }} type="button" id="upgrade-button" className="btn btn-outline-info"> Upgrade </button>
                 </div>
             </div>
         )
