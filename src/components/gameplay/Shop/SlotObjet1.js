@@ -71,7 +71,6 @@ class SlotObjet1 extends Component {
     }
 
     render() {
-        console.log(this.state.item.atk)
         return (
             <div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleClear} className="object">
                 {this.affichage()}

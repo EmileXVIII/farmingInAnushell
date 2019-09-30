@@ -42,7 +42,6 @@ function generateShop() {
     arrayShop[i] = arrayItems[rand]
   }
   localStorage.setItem("arrayShopCache", JSON.stringify(arrayShop))
-  console.log("oui", JSON.parse(localStorage.getItem("arrayShopCache")))
 }
 
 class App extends Component {
@@ -101,7 +100,6 @@ class App extends Component {
       generateShop()
     } else {
       const arrayShopCache = JSON.parse(localStorage.getItem("arrayShopCache"))
-      console.log("test", JSON.parse(localStorage.getItem("arrayShopCache")))
       arrayShop = []
       arrayShopCache.forEach(element => {
         if (element.atk1 !== undefined && element.atk1 !== null) {

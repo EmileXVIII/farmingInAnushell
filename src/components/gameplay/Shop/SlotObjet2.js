@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
 import { Button } from 'reactstrap';
-import { inventoryEquipementSaver, inventoryExpendableSaver, arrayItems, arrayShop } from "../../../App.js"
+import { inventoryEquipementSaver, inventoryExpendableSaver, arrayShop } from "../../../App.js"
 
 class SlotObjet2 extends Component {
     constructor(props) {

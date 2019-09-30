@@ -20,7 +20,6 @@ function saveplease(perso) {
 
     let inventoryList = []
     inventory = inventory.filter(element => element !== undefined)
-    console.log("testsave", inventory, itemsEquip)
     inventoryList.push(inventory.map((obj) => ({
         id_equip: obj.infos.id,
         rarity: obj.infos.rarity,
@@ -29,7 +28,6 @@ function saveplease(perso) {
     inventoryList = inventoryList.filter((obj) => !!obj);
 
     let expendablelist = []
-    console.log("test2", itemsEquip)
 
     expendablelist.push([])
     // expendablelist.push(inventoryEpend.map(obj => obj ? ({
@@ -52,13 +50,9 @@ function saveplease(perso) {
     })));
     equipedList = equipedList.filter((obj) => !!obj);
 
-    console.log(JSON.stringify({ idPerso, inventoryList }))
-    console.log(JSON.stringify({ idPerso, equipedList }))
-
     POST('/inventory', { idPerso, inventory });
     // POST('/inventoryExpend', [idPerso].concat(expendablelist.shift()));
     POST('/ItemsEquip', { idPerso, equipedList });
-    // POST('/perso', [idPerso].concat());
 }
 
 export { getionnaireSelectionObjet, gestionnaireEvents, gestionnaireFreePotions, saveplease };

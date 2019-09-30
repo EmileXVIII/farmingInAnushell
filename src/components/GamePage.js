@@ -136,7 +136,6 @@ class GamePage extends Component {
                     let id = resultIndex.IdEquip
                     let rarity = resultIndex.rarity
                     let equip = new Equipement(name, iconAdresse, type, life, atk, def, dodge, crit, description, id, rarity)
-                    console.log(equip)
                     inventoryEquipementSaver.addOnFreePlace(equip)
                 }
             })

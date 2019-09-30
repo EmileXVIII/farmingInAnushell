@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom'
 import { Button } from 'reactstrap';
-import { inventoryEquipementSaver, inventoryExpendableSaver, arrayItems, arrayShop } from "../../../App.js"
-import Equipement from "../../items/Equipement";
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
+import { inventoryEquipementSaver, inventoryExpendableSaver, arrayShop } from "../../../App.js"
 
 class SlotObjet4 extends Component {
     constructor(props) {

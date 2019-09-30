@@ -15,7 +15,6 @@ class Saver {
             let monObjet = gestionnaireEvents.emit(`${this.conteneurName}-${i}-getObject`);
             this.objects.push(monObjet);
         }
-        console.log(this.objects)
     }
     addOnFreePlace(object) {
         let i = 0;

@@ -23,7 +23,7 @@ class Room extends Component {
     render() {
         return (
             <div id="Room">
-                <header class="container">
+                <header className="container">
                     <Label for="exampleSelect">Selection du monde</Label>
                     <div className="row">
                         <div className="col">
