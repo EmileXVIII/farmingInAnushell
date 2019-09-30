@@ -264,6 +264,7 @@ class GamePage extends Component {
         player.stats.Level = this.state.levelPlayer
         player.stats.Xp = this.state.xpPlayer
         player.stats.Gold = this.state.gold
+        player.stats.Life = this.state.playerHP
     }
     getAtk(player) {
         var resultAtk = Math.round(player.stats.BaseAtk)
@@ -462,7 +463,7 @@ class GamePage extends Component {
             if (weaponDrop <= 1 * this.state.currentWorld) {
                 const arrayType = ['Leggings', 'Helmet', 'Breastplate', 'Shield', 'Shoes', 'Weapon']
                 const typeRandom = player.randomInt(5)
-                const reward = new Equipement('1/6 of the relic panoply', 'img/legendary.png', arrayType[typeRandom], 10, 10, 10, 10, 10, 'You are not gonna sell it')
+                const reward = new Equipement('1/6 of the relic panoply', 'img/legendary.png', arrayType[typeRandom], 10, 10, 10, 10, 10, 'You are not gonna sell it', 50, 'Legendary')
                 inventoryEquipementSaver.addOnFreePlace(reward)
                 this.setState({ combatInfo: 'You did it. Congratulation ! You unlocked the next world ! ' + boss.stats.Username + ' left something...', counter: 0 })
             }
@@ -514,6 +515,7 @@ class GamePage extends Component {
 
     saveAll() {
         saveplease(this.state.playerTest)
+        this.setState({combatInfo: 'Game successfully saved'})
         fetch(`http://${serveur}/perso`, {
             method: 'POST',
             headers: {

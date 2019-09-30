@@ -67,7 +67,7 @@ class LoginForm extends Component {
         this.getbdpwd()
         setTimeout(() => this.login(), 3000)
         this.setState({
-            loginError: 'Conection processing, please wait.',
+            loginError: 'Connection processing, please wait.',
         })
     }
 
@@ -124,7 +124,6 @@ class LoginForm extends Component {
                                 type="email"
                                 name="email"
                                 id="exampleEmail"
-                                placeholder="myemail@email.com"
                                 value={this.state.email}
                                 onChange={evt => this.handleChange(evt)}
                             />
@@ -137,7 +136,6 @@ class LoginForm extends Component {
                                 type="password"
                                 name="password"
                                 id="examplePassword"
-                                placeholder="********"
                                 value={this.state.password}
                                 onChange={evt => this.handleChange(evt)}
                             />

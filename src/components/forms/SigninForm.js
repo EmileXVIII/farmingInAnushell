@@ -154,7 +154,6 @@ class SigninForm extends Component {
                                 type="email"
                                 name="email"
                                 id="exampleEmail"
-                                placeholder="myemail@email.com"
                             />
                         </FormGroup>
                     </Col>
@@ -166,7 +165,6 @@ class SigninForm extends Component {
                                 type="text"
                                 name="username"
                                 id="username"
-                                placeholder="mon pseudo deter"
                             />
                         </FormGroup>
                     </Col>
@@ -178,7 +176,6 @@ class SigninForm extends Component {
                                 type="password"
                                 name="password"
                                 id="examplePassword"
-                                placeholder="********"
                             />
                         </FormGroup>
                     </Col>
@@ -190,7 +187,6 @@ class SigninForm extends Component {
                                 type="password"
                                 name="confirmPassword"
                                 id="examplePassword2"
-                                placeholder="********"
                             />
                         </FormGroup>
                     </Col>
