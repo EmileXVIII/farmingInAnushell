@@ -36,7 +36,7 @@ class GamePage extends Component {
             bossTest: [new Boss1('Drakôn'), new Boss2('Death boi'), new Boss3('Jeremy')],
             playerHP: null,
             monsterHP: null,
-            counter: 30,
+            counter: 0,
             gold: 500,
             levelPlayer: 0,
             xpPlayer: 0,

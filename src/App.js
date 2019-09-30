@@ -88,7 +88,7 @@ class App extends Component {
       if (element.healValue) gen.heal(element.healValue)
       let stat = ['BaseAtk', 'BaseDef', 'BaseCritical', 'BaseDodge']
       for (let i in expDatStat) {
-        gen.improveStat(stat[i], element[i], 5000)
+        gen.improveStat(stat[i], element[expDatStat[i]], 5000)
       }
       let myExp = new Expendable(element.name, element.urlIcon, gen.curentListEffect)
       arrayItemdb.push(myExp)
