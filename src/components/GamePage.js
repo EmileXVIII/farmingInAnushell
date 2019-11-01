@@ -34,7 +34,7 @@ class GamePage extends Component {
             playerTest: new Player('Player'),
             monsterTest: new Monster('Monster'),
             bossTest: [new Boss1('Drakôn'), new Boss2('Death boi'), new Boss3('Jeremy')],
-            playerHP: null,
+            playerHP: 0,
             monsterHP: null,
             counter: 0,
             gold: 500,
@@ -58,6 +58,7 @@ class GamePage extends Component {
         setTimeout(() => this.updateStats(this.state.playerTest), 500)
     }
     componentDidMount() {
+        gestionnaireEvents.on('updateStats', this.updateStats)
         gestionnaireEvents.on('displaySkill', this.changeImgSKill)
         gestionnaireEvents.on('sellItem', this.lostGold);
         gestionnaireEvents.on('newCombatInfo', this.putMessage);
@@ -66,6 +67,7 @@ class GamePage extends Component {
         itemsEquips.username = this.state.playerTest.Username
     }
     componentWillUnmount() {
+        gestionnaireEvents.off('updateStats', this.updateStats)
         gestionnaireEvents.off('sellItem', this.lostGold)
         gestionnaireEvents.off('newCombatInfo', this.putMessage)
         gestionnaireEvents.off('displaySkill', this.changeImgSKill)
@@ -205,7 +207,7 @@ class GamePage extends Component {
                 let xp = result.xp
                 let worldMax = result.worldMax
                 let level = result.level
-                let life = result.life
+                let life = result.life===undefined?0:result.life
                 this.setState({
                     gold: golds,
                     xpPlayer: xp,
@@ -255,7 +257,7 @@ class GamePage extends Component {
         this.setState({ playerHP: this.state.playerTest.stats.Life })
         this.updateStats(this.state.playerTest);
     }
-    updateStats = (player) => {
+    updateStats = (player=this.state.playerTest) => {
         this.getAtk(player)
         this.getDef(player)
         this.getDodge(player)

@@ -117,6 +117,7 @@ class SelectObject {
         let newObject = itemsEquips.equip(object)
         gestionnaireEvents.emit(`${parentName}-${keyObjs}-changeObject`, newObject);
         gestionnaireEvents.emit('newCombatInfo', 'Item successfully equiped')
+        gestionnaireEvents.emit('updateStats')
         return true;
 
     }

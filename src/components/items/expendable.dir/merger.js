@@ -24,10 +24,18 @@ class Merger {
             }
             gestionnaireEvents.emit(`${oldParentName}-${oldKey}-deleateObject`);
             gestionnaireEvents.emit(`${newParentName}-${newKey}-deleateObject`);
+            this.unSelectMerge(this.selected)
+            this.unSelectMerge(this.oldSelected)
             this.selected = undefined;
             this.oldSelected = undefined;
             gestionnaireEvents.emit(`${oldParentName}-${oldKey}-changeObject`, new Expendable('Crafted Potion', '/img/mergepotion.png', effects))
         }
+    }
+    selectMerge(noeud) {
+        noeud.getElementsByClassName('filter')[0].classList.add('filter_merging')
+    }
+    unSelectMerge(noeud) {
+        noeud.getElementsByClassName('filter')[0].classList.remove('filter_merging');
     }
 }
 export default Merger;

@@ -92,9 +92,7 @@ class App extends Component {
       }
       let myExp = new Expendable(element.name, element.urlIcon, gen.curentListEffect)
       arrayItemdb.push(myExp)
-    })
-
-    arrayItems = arrayItemdb
+      arrayItems = arrayItemdb})
 
     if (JSON.parse(localStorage.getItem("arrayShopCache")) === null) {
       generateShop()
