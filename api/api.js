@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const app = require('express')();
 const cors = require('cors');
+app.use(cors());
 const PORT = process.env.PORT || 8082;
 let dbConn = "";
 const bodyParser = require('body-parser');

@@ -29,7 +29,8 @@ let lenInvExpendable = 8,
   gestionnaireMergePotion = new Merger();
 test(inventoryEquipementSaver, inventoryExpendableSaver);
 
-const serveur = process.env.API_HOST ||`localhost:8082`
+const serveur = document.location.href.replace(/.*\/\/(.*):.*/,'$1:8082');
+//const serveur = process.env.API_HOST ||`localhost:8082`
 console.log('serveur:',serveur,process.env.API_HOST)
 let idPerso = []
 let userPseudo = []
