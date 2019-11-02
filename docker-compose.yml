@@ -3,11 +3,57 @@ services:
   mysql:
     image: mariadb:10
     ports:
-      - 3306:3306
+      - 3306
     environment:
       MYSQL_ROOT_PASSWORD: 'azerty'
     volumes:
       - ./bdd/backups:/backups
       - ./bdd/mysql:/var/lib/mysql
       - ./bdd/scripts:/scripts
+    networks:
+      - internal
+
+  front1:
+    image: fian_front:latest
+    ports:
+      - 3000:3000
+    networks:
+      - front
+    environment:
+      API_HOST: 'api:8082'
+      SERVER_HOST: 'serveur:8060'
+
+  front2:
+    image: fian_front:latest
+    ports:
+      - 3001:3000
+    networks:
+      - front
+    environment:
+      API_HOST: 'api:8082'
+      SERVER_HOST: 'serveur:8060'
+      
+  serveur:
+    image: fian_server:latest
+    ports:
+      - 8060:8060
+    networks:
+      - front
+    environment:
+      PORT: '8060'
   
+  api:
+    image: fian_api:latest
+    ports:
+      - 8082:8082
+    networks:
+      - internal
+      - front
+    environment:
+      PORT: '8082'
+      HOST: 'mysql'
+      PASSWORD: 'azerty'
+      
+networks:
+  internal:
+  front:
