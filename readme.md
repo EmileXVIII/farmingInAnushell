@@ -1,3 +1,12 @@
+This app is an idle game.
+The principe is to fight ennemies and win monney to upgrate.
+This app is a Docker app compose of:
+  - A chat Server
+  - A BDD to save progression
+  - A React.js front
+
+Enjoy
+
 To install the application:
     clone the repo
 execute in the repo:
@@ -10,7 +19,7 @@ To launch the app:
 
 To init the bdd:
     docker-compose exec mysql bash -c "mysql -uroot -pazerty < /scripts/bdd.sql"
-    docker-compose exec mysql bash -c "mysql -uroot -pazerty < /scripts insertIntoTestDatabaseFarmingInAnutshell.sql"
+    docker-compose exec mysql bash -c "mysql -uroot -pazerty < /scripts/insertIntoTestDatabaseFarmingInAnutshell.sql"
 
 To add client:
     add in docker-compose.yml after remplacement of [num] a and [port_num]
